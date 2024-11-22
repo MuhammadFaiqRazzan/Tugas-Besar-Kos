@@ -11,4 +11,5 @@ Muhammad Charits Athaya Ramadhan(I0324086)
 
 
 # Flow Chart
+![flowchartpemesanankos drawio](https://github.com/user-attachments/assets/32c506fc-9dd4-4f1c-a637-649d14f77f16)
 

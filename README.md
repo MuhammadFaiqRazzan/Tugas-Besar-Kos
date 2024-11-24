@@ -22,6 +22,8 @@ Terdapat pilihan yang dapat dipilih oleh user yaitu
 
 - Memesan kos : User dapat memilih kos uang tersedia dan dapat memilih cara untuk membayar
 
+- Menampilkan kos yang sudah dipesan : User dapat melihat data kos yang duah di pesan
+
 # Flow Chart
 ![flowchartpemesanankos drawio](https://github.com/user-attachments/assets/32c506fc-9dd4-4f1c-a637-649d14f77f16)
 

@@ -1,0 +1,13 @@
+{
+    "kos": [
+        {
+            "id": 1,
+            "nama_kos": "kos ryan",
+            "alamat": "uns",
+            "harga": 500000,
+            "fasilitas": "ac, kamar mandi dalam",
+            "status": "Tersedia"
+        }
+    ],
+    "pemesanan": []
+}

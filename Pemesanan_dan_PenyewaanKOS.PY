@@ -230,50 +230,57 @@ class sistem_kos:
         tk.Button(pesan_frame, text="Kembali", command=self.main_menu, width=20, height=2).grid(row=8, column=0, columnspan=2, pady=5)
 
     def show_list_pemesanan(self):
-        # Membersihkan antarmuka
+    # Membersihkan antarmuka
         for widget in self.root.winfo_children():
             widget.destroy()
-            
-        try : 
+
+        try:
+        # Memastikan gambar dapat diload
             image = Image.open("Bg_all.png")
             bg_image = ImageTk.PhotoImage(image)
         except FileNotFoundError:
-            messagebox.showerror("ERROR", "Gambar Tidak ditemukan")
+            messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
             return
-        
+
+    # Terapkan gambar latar belakang
         bg_label = tk.Label(self.root, image=bg_image)
-        bg_label.image = bg_label
+        bg_label.image = bg_image  # Simpan referensi gambar agar tidak dibuang oleh garbage collector
         bg_label.place(relwidth=1, relheight=1)
 
+    # Membuat frame untuk daftar pemesanan
         list_frame = tk.Frame(self.root, bg="white", bd=5)
         list_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.8, relheight=0.7)
 
+    # Judul daftar pemesanan
         tk.Label(list_frame, text="Daftar Pemesanan", font=('Arial', 14, 'bold')).pack(pady=10)
 
-        # Tabel untuk menampilkan daftar pemesanan
+    # Tabel untuk menampilkan daftar pemesanan
         columns = ('ID', 'Nama Pemesan', 'No. Telepon', 'Kos ID', 'Tanggal Masuk', 'Durasi', 'Metode Pembayaran')
         tree = ttk.Treeview(list_frame, columns=columns, show='headings')
         tree.pack(fill=tk.BOTH, expand=True, pady=10)
-        
+
         for col in columns:
             tree.heading(col, text=col)
             tree.column(col, width=150)
-        tree.pack(fill=tk.BOTH, expand=True, pady=10)
 
-        # Mengisi data ke dalam tabel
-        for pemesanan in self.data['pemesanan']:
-            tree.insert('', tk.END, values=(
-                pemesanan['id'],
-                pemesanan['nama_pemesan'],
-                pemesanan['telepon'],
-                pemesanan['kos_id'],
-                pemesanan['tanggal_masuk'],
-                pemesanan['durasi'],
-                pemesanan['metode_pembayaran']
-            ))
+    # Mengisi data ke dalam tabel
+        if 'pemesanan' in self.data and self.data['pemesanan']:
+            for pemesanan in self.data['pemesanan']:
+                tree.insert('', tk.END, values=(
+                    pemesanan['id'],
+                    pemesanan['nama_pemesan'],
+                    pemesanan['telepon'],
+                    pemesanan['kos_id'],
+                    pemesanan['tanggal_masuk'],
+                    pemesanan['durasi'],
+                    pemesanan['metode_pembayaran']
+                ))
+        else:
+            messagebox.showinfo("Info", "Tidak ada data pemesanan yang tersedia.")
 
-        # Tombol kembali
-        back_button = tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial",12,"bold"))
+    # Tombol kembali
+        back_button = tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 12, "bold"))
         back_button.place(relx=0.5, rely=0.9, anchor='center')
+
 
 

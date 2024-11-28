@@ -69,7 +69,7 @@ class sistem_kos:
 
         try:
         # Memuat gambar latar belakang
-            bg_image = Image.open("Bg_main_menu.png")
+            bg_image = Image.open("Bbg_kosinnew.png")
             bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")

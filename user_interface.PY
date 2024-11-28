@@ -19,19 +19,29 @@ class sistem_kos:
     def menu_utama(self):
         for widget in self.root.winfo_children():
             widget.destroy()
-        
-        self.canvas = Canvas(self.root, width=800, height=600)
-        self.canvas.pack(fill="both", expand=True)
-        bg_image = Image.open("BackGround.png")
-        self.bg_image = ImageTk.PhotoImage(bg_image)
-        self.canvas.create_image(0, 0, image = self.bg_image, anchor="nw",)
-        bg_image._expand=True
-        
-       
-        # Tambahkan tombol di atas latar belakang
-        self.canvas.create_window(268, 400, window=Button(self.root, font=("Arial",12,"bold"),bg="white", width=20, height=3, text="PENYEWA", command=self.halaman_login))
-        self.canvas.create_window(685, 400, window=Button(self.root, font=("Arial",12,"bold"),bg="white", width=20, height=3, text="PEMESAN", command=self.main_menu))
-        
+
+        try:
+        # Memuat gambar latar belakang
+            bg_image = Image.open("bg_kosinnew.png")
+            bg_image = ImageTk.PhotoImage(bg_image)
+        except FileNotFoundError:
+            messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
+            return
+
+    # Terapkan gambar latar belakang
+        bg_label = tk.Label(self.root, image=bg_image)
+        bg_label.image = bg_image
+        bg_label.place(relwidth=1, relheight=1)
+
+    # Membuat frame tombol di atas latar belakang
+        menu_frame = tk.Frame(self.root, bg="white", bd=5)
+        menu_frame.place(relx=0.5, rely=0.5, anchor='center')
+
+        tk.Button(menu_frame, text="Lihat Data Kos", command=self.list_kos, width=20, height=2).pack(pady=10)
+        tk.Button(menu_frame, text="Pesan Kos", command=self.pesan_kos, width=20, height=2).pack(pady=10)
+        tk.Button(menu_frame, text="Lihat Pemesanan", command=self.show_list_pemesanan, width=20, height=2).pack(pady=10)
+        tk.Button(menu_frame, text="Kembali", command=self.menu_utama, width=20, height=2).pack(pady=10)
+
     def halaman_login(self):
         for widget in self.root.winfo_children():
             widget.destroy()

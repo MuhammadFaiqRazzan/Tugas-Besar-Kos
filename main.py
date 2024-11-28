@@ -1,4 +1,4 @@
-from User_interface import sistem_kos
+from user_interface import sistem_kos
 import tkinter as tk
 
 if __name__ == "__main__":

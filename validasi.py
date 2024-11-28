@@ -15,3 +15,18 @@ def buat_pesanan(data, data_pesanan):
         return data, "Pesanan Berhasil"
     else:
         return data, "Kos tidak Tersedia!"
+    
+def validasi_pembayaran(nominal, rekening_input, kos_data):
+    try:
+        nominal = int(nominal)
+    except ValueError:
+        return False, "Nominal harus berupa angka!"
+    
+    if rekening_input != kos_data['rekening']:
+        return False, "Rekening tujuan tidak sesuai!"
+    
+    total_harga = int(kos_data['harga'])
+    if nominal < total_harga:
+        return False, f"Nominal pembayaran kurang! Harus sebesar {total_harga}."
+    
+    return True, ""

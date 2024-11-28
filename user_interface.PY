@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, Canvas, Button
 from PIL import Image, ImageTk
 from data import load_data, save_data
-from validasi import validasi_input, tambah_kos, buat_pesanan
+from validasi import validasi_input, tambah_kos, buat_pesanan, validasi_pembayaran
 
 class sistem_kos:
     def __init__(self, root):
@@ -11,8 +11,6 @@ class sistem_kos:
         self.root.geometry("960x540")
         self.root.resizable(False,False)
         self.data_file = 'Kos_data.json'
-        
-        
         self.data = load_data(self.data_file)
         self.menu_utama()
         
@@ -91,26 +89,11 @@ class sistem_kos:
 
         
     def input_kos(self):
-   
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        try:
-        # Memuat gambar latar belakang
-            bg_image = Image.open("bg_kosinnew.png")
-            bg_image = ImageTk.PhotoImage(bg_image)
-        except FileNotFoundError:
-            messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
-            return
-
-    # Terapkan gambar latar belakang
-        bg_label = tk.Label(self.root, image=bg_image)
-        bg_label.image = bg_image
-        bg_label.place(relwidth=1, relheight=1)
-
-    # Membuat frame untuk input kos
-        input_frame = tk.Frame(self.root, bg="white", bd=5)
-        input_frame.place(relx=0.5, rely=0.5, anchor='center')
+        input_frame = tk.Frame(self.root)
+        input_frame.pack(padx=20, pady=20)
 
         tk.Label(input_frame, text="Input Data Kos", font=('Arial', 14, 'bold')).grid(row=0, column=0, columnspan=2, pady=10)
 
@@ -130,6 +113,10 @@ class sistem_kos:
         fasilitas = tk.Entry(input_frame, width=40)
         fasilitas.grid(row=4, column=1, pady=5)
 
+        tk.Label(input_frame, text="Nomor Rekening:").grid(row=5, column=0, sticky='w', pady=5)
+        rekening = tk.Entry(input_frame, width=40)
+        rekening.grid(row=5, column=1, pady=5)
+
         def simpan_data_kos():
             kos_data = {
                 'id': len(self.data['kos']) + 1,
@@ -137,6 +124,7 @@ class sistem_kos:
                 'alamat': alamat.get(),
                 'harga': harga.get(),
                 'fasilitas': fasilitas.get(),
+                'rekening': rekening.get(),
                 'status': 'Tersedia'
             }
             is_valid, message = validasi_input(kos_data)
@@ -149,9 +137,10 @@ class sistem_kos:
             messagebox.showinfo("Sukses", "Data kos berhasil disimpan!")
             self.input_kos()
 
-        tk.Button(input_frame, text="Simpan", command=simpan_data_kos).grid(row=5, column=0, columnspan=2, pady=10)
-        tk.Button(input_frame, text="Kembali", command=self.main_menu).grid(row=6, column=0, columnspan=2, pady=5)
+        tk.Button(input_frame, text="Simpan", command=simpan_data_kos).grid(row=6, column=0, columnspan=2, pady=10)
+        tk.Button(input_frame, text="Kembali", command=self.menu_utama).grid(row=7, column=0, columnspan=2, pady=5)
 
+      
     def list_kos(self):
         for widget in self.root.winfo_children():
             widget.destroy()
@@ -200,64 +189,45 @@ class sistem_kos:
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        try:
-        # Memuat gambar latar belakang
-            bg_image = Image.open("Bg_pesan_kos.png")
-            bg_image = ImageTk.PhotoImage(bg_image)
-        except FileNotFoundError:
-            messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
-            return
-
-    # Terapkan gambar latar belakang
-        bg_label = tk.Label(self.root, image=bg_image)
-        bg_label.image = bg_image
-        bg_label.place(relwidth=1, relheight=1)
-
-    # Membuat frame untuk pemesanan kos
-        pesan_frame = tk.Frame(self.root, bg="white", bd=5)
-        pesan_frame.place(relx=0.5, rely=0.5, anchor='center')
+        pesan_frame = tk.Frame(self.root)
+        pesan_frame.pack(padx=20, pady=20)
 
         tk.Label(pesan_frame, text="Pemesanan Kos", font=('Arial', 14, 'bold')).grid(row=0, column=0, columnspan=2, pady=10)
 
-        tk.Label(pesan_frame, text="Pilih Kos:").grid(row=1, column=0, sticky='w', pady=5)
         available_kos = [k for k in self.data['kos'] if k['status'] == 'Tersedia']
         kos_options = {k['nama_kos']: k['id'] for k in available_kos}
         kos_var = tk.StringVar(pesan_frame)
         ttk.Combobox(pesan_frame, textvariable=kos_var, values=list(kos_options.keys())).grid(row=1, column=1, pady=5)
 
-        tk.Label(pesan_frame, text="Nama Pemesan:").grid(row=2, column=0, sticky='w', pady=5)
-        nama_pemesan = tk.Entry(pesan_frame, width=40)
-        nama_pemesan.grid(row=2, column=1, pady=5)
+        tk.Label(pesan_frame, text="Nominal Transfer:").grid(row=2, column=0, sticky='w', pady=5)
+        nominal = tk.Entry(pesan_frame, width=40)
+        nominal.grid(row=2, column=1, pady=5)
 
-        tk.Label(pesan_frame, text="No. Telepon:").grid(row=3, column=0, sticky='w', pady=5)
-        telepon = tk.Entry(pesan_frame, width=40)
-        telepon.grid(row=3, column=1, pady=5)
+        tk.Label(pesan_frame, text="Rekening Tujuan:").grid(row=3, column=0, sticky='w', pady=5)
+        rekening = tk.Entry(pesan_frame, width=40)
+        rekening.grid(row=3, column=1, pady=5)
 
-        tk.Label(pesan_frame, text="Tanggal Masuk (YYYY-MM-DD):").grid(row=4, column=0, sticky='w', pady=5)
-        tanggal = tk.Entry(pesan_frame, width=40)
-        tanggal.grid(row=4, column=1, pady=5)
-
-        tk.Label(pesan_frame, text="Durasi (bulan):").grid(row=5, column=0, sticky='w', pady=5)
-        durasi = tk.Entry(pesan_frame, width=40)
-        durasi.grid(row=5, column=1, pady=5)
-
-        tk.Label(pesan_frame, text="Metode Pembayaran:").grid(row=6, column=0, sticky='w', pady=5)
-        metode_var = tk.StringVar(pesan_frame)
-        ttk.Combobox(pesan_frame, textvariable=metode_var, values=["Transfer", "Tunai"]).grid(row=6, column=1, pady=5)
-
-        def save_kos():
+        def validasi_dan_pesan():
             if not kos_var.get():
                 messagebox.showwarning("Peringatan", "Pilih kos yang ingin dipesan!")
                 return
-            pemesanan_data = {
-                'nama_pemesan': nama_pemesan.get(),
-                'telepon': telepon.get(),
-                'kos_id': kos_options[kos_var.get()],
-                'tanggal_masuk': tanggal.get(),
-                'durasi': durasi.get(),
-                'metode_pembayaran': metode_var.get()
+            kos_id = kos_options[kos_var.get()]
+            kos_data = next((k for k in available_kos if k['id'] == kos_id), None)
+            if not kos_data:
+                messagebox.showerror("Error", "Kos tidak ditemukan!")
+                return
+
+            is_valid, message = validasi_pembayaran(nominal.get(), rekening.get(), kos_data)
+            if not is_valid:
+                messagebox.showwarning("Peringatan", message)
+                return
+
+            data_pesanan = {
+                'kos_id': kos_id,
+                'nominal': nominal.get(),
+                'rekening': rekening.get()
             }
-            self.data, message = buat_pesanan(self.data, pemesanan_data)
+            self.data, message = buat_pesanan(self.data, data_pesanan)
             if message == "Pemesanan berhasil!":
                 save_data(self.data_file, self.data)
                 messagebox.showinfo("Sukses", message)
@@ -265,9 +235,8 @@ class sistem_kos:
             else:
                 messagebox.showerror("Error", message)
 
-        tk.Button(pesan_frame, text="Pesan", command=save_kos, width=20, height=2).grid(row=7, column=0, columnspan=2, pady=10)
-        tk.Button(pesan_frame, text="Kembali", command=self.main_menu, width=20, height=2).grid(row=8, column=0, columnspan=2, pady=5)
-
+        tk.Button(pesan_frame, text="Pesan", command=validasi_dan_pesan).grid(row=4, column=0, columnspan=2, pady=10)
+        tk.Button(pesan_frame, text="Kembali", command=self.menu_utama).grid(row=5, column=0, columnspan=2, pady=5)
     def show_list_pemesanan(self):
     # Membersihkan antarmuka
         for widget in self.root.winfo_children():

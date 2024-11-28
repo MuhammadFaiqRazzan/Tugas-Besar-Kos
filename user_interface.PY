@@ -63,23 +63,54 @@ class sistem_kos:
 
         
     def main_menu(self):
+        
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        menu_frame = tk.Frame(self.root)
-        menu_frame.pack(expand=True)
+        try:
+        # Memuat gambar latar belakang
+            bg_image = Image.open("bg_kosinnew.png")
+            bg_image = ImageTk.PhotoImage(bg_image)
+        except FileNotFoundError:
+            messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
+            return
+
+    # Terapkan gambar latar belakang
+        bg_label = tk.Label(self.root, image=bg_image)
+        bg_label.image = bg_image
+        bg_label.place(relwidth=1, relheight=1)
+
+    # Membuat frame tombol di atas latar belakang
+        menu_frame = tk.Frame(self.root, bg="white", bd=5)
+        menu_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         tk.Button(menu_frame, text="Lihat Data Kos", command=self.list_kos, width=20, height=2).pack(pady=10)
         tk.Button(menu_frame, text="Pesan Kos", command=self.pesan_kos, width=20, height=2).pack(pady=10)
         tk.Button(menu_frame, text="Lihat Pemesanan", command=self.show_list_pemesanan, width=20, height=2).pack(pady=10)
         tk.Button(menu_frame, text="Kembali", command=self.menu_utama, width=20, height=2).pack(pady=10)
+
         
     def input_kos(self):
+   
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        input_frame = tk.Frame(self.root)
-        input_frame.pack(padx=20, pady=20)
+        try:
+        # Memuat gambar latar belakang
+            bg_image = Image.open("bg_kossinnew.png")
+            bg_image = ImageTk.PhotoImage(bg_image)
+        except FileNotFoundError:
+            messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
+            return
+
+    # Terapkan gambar latar belakang
+        bg_label = tk.Label(self.root, image=bg_image)
+        bg_label.image = bg_image
+        bg_label.place(relwidth=1, relheight=1)
+
+    # Membuat frame untuk input kos
+        input_frame = tk.Frame(self.root, bg="white", bd=5)
+        input_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         tk.Label(input_frame, text="Input Data Kos", font=('Arial', 14, 'bold')).grid(row=0, column=0, columnspan=2, pady=10)
 
@@ -98,7 +129,7 @@ class sistem_kos:
         tk.Label(input_frame, text="Fasilitas:").grid(row=4, column=0, sticky='w', pady=5)
         fasilitas = tk.Entry(input_frame, width=40)
         fasilitas.grid(row=4, column=1, pady=5)
-        
+
         def simpan_data_kos():
             kos_data = {
                 'id': len(self.data['kos']) + 1,
@@ -119,14 +150,14 @@ class sistem_kos:
             self.input_kos()
 
         tk.Button(input_frame, text="Simpan", command=simpan_data_kos).grid(row=5, column=0, columnspan=2, pady=10)
-        tk.Button(input_frame, text="Kembali", command=self.menu_utama).grid(row=6, column=0, columnspan=2, pady=5)
-        
+        tk.Button(input_frame, text="Kembali", command=self.main_menu).grid(row=6, column=0, columnspan=2, pady=5)
+
     def list_kos(self):
         for widget in self.root.winfo_children():
             widget.destroy()
 
         try:
-            image = Image.open("Bg_all.png")
+            image = Image.open("bg_kosinz.png")
             bg_image = ImageTk.PhotoImage(image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar Back Ground Tidak ditemukan ")

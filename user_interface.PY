@@ -93,7 +93,7 @@ class sistem_kos:
     def input_kos(self):
    
         for widget in self.root.winfo_children():
-        widget.destroy()
+            widget.destroy()
 
         try:
         # Memuat gambar latar belakang

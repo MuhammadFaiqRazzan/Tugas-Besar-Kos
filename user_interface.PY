@@ -126,7 +126,7 @@ class sistem_kos:
             widget.destroy()
 
         try:
-            image = Image.open("Bg_all.png")
+            image = Image.open("bg_kosinz.png")
             bg_image = ImageTk.PhotoImage(image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar Back Ground Tidak ditemukan ")

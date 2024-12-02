@@ -66,7 +66,7 @@ class sistem_kos:
             else:
                 messagebox.showerror("Error", message)
 
-        tk.Button(login_frame, text="Login", command=check_credentials, font=("Arial", 12, "bold")).pack(pady=15)
+        tk.Button(login_frame, text="Login",bg= 'Green', fg='White', relief='flat', command=check_credentials, font=("Arial", 12, "bold")).pack(pady=15)
         tk.Button(login_frame, text="Register Admin", command=self.halaman_register, font=("Arial", 12, "bold")).pack(pady=10)
         tk.Button(login_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12, "bold")).pack(pady=10)
         

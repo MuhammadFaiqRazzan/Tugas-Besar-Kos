@@ -78,6 +78,17 @@
             "rekening": "12345678910",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
             "status": "Tidak Tersedia"
+        },
+        {
+            "id": 9,
+            "nama_kos": "kos 4",
+            "alamat": "uns",
+            "harga": "350000",
+            "fasilitas": "ac",
+            "nomor_kamar": "67",
+            "rekening": "1234567891",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tersedia"
         }
     ],
     "pemesanan": [

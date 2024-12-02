@@ -430,31 +430,26 @@ class sistem_kos:
             tree.heading(col, text=col)
             tree.column(col, anchor='center', width=120)
 
-    # Ambil data pemesanan
-        if 'pemesanan' in self.data and self.data['pemesanan']:
+    # Validasi dan pengisian data
+        if 'pemesanan' in self.data and isinstance(self.data['pemesanan'], list):
             for pemesanan in self.data['pemesanan']:
-            # Cari data kos berdasarkan ID
-                kos = next((k for k in self.data['kos'] if k['id'] == pemesanan['kos_id']), None)
-                if kos:
-                    tree.insert('', tk.END, values=(
-                        pemesanan['id'],            # ID pemesanan
-                        kos['nama_kos'],           # Nama kos
-                        pemesanan['durasi'],       # Durasi sewa
-                        pemesanan['total_harga'],  # Total harga
-                        pemesanan['nominal'],      # Nominal pembayaran
-                        pemesanan['rekening'],     # Nomor rekening
-                        kos['status']              # Status kos
-                    ))
-                else:
-                    tree.insert('', tk.END, values=(
-                        pemesanan['id'],
-                        "Kos tidak ditemukan",
-                        pemesanan['durasi'],
-                        pemesanan['total_harga'],
-                        pemesanan['nominal'],
-                        pemesanan['rekening'],
-                        "Tidak Diketahui"
-                    ))
+            # Validasi setiap data pemesanan
+                if not isinstance(pemesanan, dict):
+                    continue  # Lewati data yang tidak valid
+
+                kos = next((k for k in self.data['kos'] if k['id'] == pemesanan.get('kos_id')), None)
+                kos_name = kos['nama_kos'] if kos else "Kos tidak ditemukan"
+                status = kos['status'] if kos else "Tidak Diketahui"
+
+                tree.insert('', tk.END, values=(
+                    pemesanan.get('id', "Tidak Ada ID"),
+                    kos_name,
+                    pemesanan.get('durasi', "Tidak Ada Durasi"),
+                    pemesanan.get('total_harga', "Tidak Ada Harga"),
+                    pemesanan.get('nominal', "Tidak Ada Nominal"),
+                    pemesanan.get('rekening', "Tidak Ada Rekening"),
+                    status
+                ))
         else:
             messagebox.showinfo("Info", "Tidak ada data pemesanan yang tersedia.")
 

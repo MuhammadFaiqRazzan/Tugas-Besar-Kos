@@ -1,8 +1,9 @@
 import tkinter as tk
+import bcrypt
 from tkinter import ttk, messagebox, Canvas, Button
 from PIL import Image, ImageTk
 from data import load_data, save_data
-from validasi import validasi_input, tambah_kos, buat_pesanan, validasi_pembayaran
+from validasi import validasi_input, tambah_kos, buat_pesanan, validasi_login,simpan_admin, validasi_pembayaran
 
 class sistem_kos:
     def __init__(self, root):
@@ -17,7 +18,6 @@ class sistem_kos:
     def menu_utama(self):
         for widget in self.root.winfo_children():
             widget.destroy()
-        
         self.canvas = Canvas(self.root, width=800, height=600)
         self.canvas.pack(fill="both", expand=True)
         bg_image = Image.open("BackGround.png")
@@ -33,32 +33,83 @@ class sistem_kos:
     def halaman_login(self):
         for widget in self.root.winfo_children():
             widget.destroy()
-            
-        image = Image.open("Bg_login.png") 
-        bg_image = ImageTk.PhotoImage(image)
-        bg_label = tk.Label(self.root, image=bg_image)
-        bg_label.image = bg_image 
-        bg_label.place(relwidth=1, relheight=1) 
+
+    # Memuat gambar latar belakang
+        try:
+            bg_image = Image.open("Bg_login.png")
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="lightgrey")
+            bg_label.place(relwidth=1, relheight=1)
+            messagebox.showwarning("Peringatan", "Gambar latar belakang tidak ditemukan!")
 
         login_frame = tk.Frame(self.root, bg="white", bd=10)
         login_frame.place(relx=0.5, rely=0.5, anchor='center')
 
-        tk.Label(login_frame, text="Masukkan Password:", bg="white", font=("Norwester", 12, "bold")).pack(pady=10)
+        tk.Label(login_frame, text="Username:", bg="white", font=("Norwester", 12, "bold")).pack(pady=5)
+        username_entry = tk.Entry(login_frame, font=("Arial", 12))
+        username_entry.pack(pady=5)
+
+        tk.Label(login_frame, text="Password:", bg="white", font=("Norwester", 12, "bold")).pack(pady=5)
         password_entry = tk.Entry(login_frame, show='*', font=("Arial", 12))
         password_entry.pack(pady=5)
 
-        def check_password():
-            if password_entry.get() == "admin123":
-                self.input_kos()
+        def check_credentials():
+            username = username_entry.get()
+            password = password_entry.get()
+            success, message = validasi_login(username, password)
+            if success:
+                messagebox.showinfo("Success", message)
+                self.input_kos()  
             else:
-                messagebox.showerror("Error", "Password salah!")
+                messagebox.showerror("Error", message)
 
-        submit_button = tk.Button(login_frame, text="Submit", command=check_password, font=("Arial", 12, "bold"))
-        submit_button.pack(pady=15)
+        tk.Button(login_frame, text="Login", command=check_credentials, font=("Arial", 12, "bold")).pack(pady=15)
+        tk.Button(login_frame, text="Register Admin", command=self.halaman_register, font=("Arial", 12, "bold")).pack(pady=10)
+        tk.Button(login_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12, "bold")).pack(pady=10)
         
-        back_button = tk.Button(login_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12, "bold"))
-        back_button.pack(pady=10)
+    def halaman_register(self):
+       for widget in self.root.winfo_children():
+        widget.destroy()
 
+    # Memuat gambar latar belakang
+        try:
+            bg_image = Image.open("Bg_register.png")
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="lightgrey")
+            bg_label.place(relwidth=1, relheight=1)
+            messagebox.showwarning("Peringatan", "Gambar latar belakang tidak ditemukan!")
+
+        reg_frame = tk.Frame(self.root, bg="white", bd=10)
+        reg_frame.place(relx=0.5, rely=0.5, anchor='center')
+
+        tk.Label(reg_frame, text="Register Admin", bg="white", font=("Norwester", 14, "bold")).pack(pady=10)
+
+        tk.Label(reg_frame, text="Username:", bg="white", font=("Arial", 12)).pack(pady=5)
+        username_entry = tk.Entry(reg_frame, font=("Arial", 12))
+        username_entry.pack(pady=5)
+
+        tk.Label(reg_frame, text="Password:", bg="white", font=("Arial", 12)).pack(pady=5)
+        password_entry = tk.Entry(reg_frame, show='*', font=("Arial", 12))
+        password_entry.pack(pady=5)
+
+        def save_new_admin():
+            username = username_entry.get()
+            password = password_entry.get()
+            success, message = simpan_admin(username, password)
+            if success:
+                messagebox.showinfo("Success", message)
+                self.halaman_login()  # Kembali ke halaman login
+            else:
+                messagebox.showerror("Error", message)
+
+        tk.Button(reg_frame, text="Register", command=save_new_admin, font=("Arial", 12, "bold")).pack(pady=15)
+        tk.Button(reg_frame, text="Kembali", command=self.halaman_login, font=("Arial", 12, "bold")).pack(pady=10)
         
     def main_menu(self):
         
@@ -87,35 +138,58 @@ class sistem_kos:
         tk.Button(menu_frame, text="Lihat Pemesanan", command=self.show_list_pemesanan, width=20, height=2).pack(pady=10)
         tk.Button(menu_frame, text="Kembali", command=self.menu_utama, width=20, height=2).pack(pady=10)
 
-        
     def input_kos(self):
+        
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        input_frame = tk.Frame(self.root)
-        input_frame.pack(padx=20, pady=20)
+    # Memuat gambar latar belakang
+        try:
+            bg_image = Image.open("Bg_input_kos.png")
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="lightgrey")
+            bg_label.place(relwidth=1, relheight=1)
+            messagebox.showwarning("Peringatan", "Gambar latar belakang tidak ditemukan!")
 
-        tk.Label(input_frame, text="Input Data Kos", font=('Arial', 14, 'bold')).grid(row=0, column=0, columnspan=2, pady=10)
+        input_frame = tk.Frame(self.root, bg="white", bd=10)
+        input_frame.place(relx=0.5, rely=0.5, anchor='center')
 
-        tk.Label(input_frame, text="Nama Kos:").grid(row=1, column=0, sticky='w', pady=5)
+        tk.Label(input_frame, text="Input Data Kos", bg="white", font=('Arial', 14, 'bold')).grid(row=0, column=0, columnspan=2, pady=10)
+
+        tk.Label(input_frame, text="Nama Kos:", bg="white").grid(row=1, column=0, sticky='w', pady=5)
         nama_kos = tk.Entry(input_frame, width=40)
         nama_kos.grid(row=1, column=1, pady=5)
 
-        tk.Label(input_frame, text="Alamat:").grid(row=2, column=0, sticky='w', pady=5)
+        tk.Label(input_frame, text="Alamat:", bg="white").grid(row=2, column=0, sticky='w', pady=5)
         alamat = tk.Entry(input_frame, width=40)
         alamat.grid(row=2, column=1, pady=5)
 
-        tk.Label(input_frame, text="Harga per Bulan:").grid(row=3, column=0, sticky='w', pady=5)
+        tk.Label(input_frame, text="Harga per Bulan:", bg="white").grid(row=3, column=0, sticky='w', pady=5)
         harga = tk.Entry(input_frame, width=40)
         harga.grid(row=3, column=1, pady=5)
 
-        tk.Label(input_frame, text="Fasilitas:").grid(row=4, column=0, sticky='w', pady=5)
+        tk.Label(input_frame, text="Fasilitas:", bg="white").grid(row=4, column=0, sticky='w', pady=5)
         fasilitas = tk.Entry(input_frame, width=40)
         fasilitas.grid(row=4, column=1, pady=5)
 
-        tk.Label(input_frame, text="Nomor Rekening:").grid(row=5, column=0, sticky='w', pady=5)
+        tk.Label(input_frame, text="Nomor Rekening:", bg="white").grid(row=5, column=0, sticky='w', pady=5)
         rekening = tk.Entry(input_frame, width=40)
         rekening.grid(row=5, column=1, pady=5)
+
+        tk.Label(input_frame, text="Ukuran Kos:", bg="white").grid(row=6, column=0, sticky='w', pady=5)
+        ukuran_kos = tk.Entry(input_frame, width=40)
+        ukuran_kos.grid(row=6, column=1, pady=5)
+
+        tk.Label(input_frame, text="Nomor Kos:", bg="white").grid(row=7, column=0, sticky='w', pady=5)
+        nomor_kos = tk.Entry(input_frame, width=40)
+        nomor_kos.grid(row=7, column=1, pady=5)
+
+        tk.Label(input_frame, text="Catatan Tambahan:", bg="white").grid(row=8, column=0, sticky='w', pady=5)
+        catatan_tambahan = tk.Entry(input_frame, width=40)
+        catatan_tambahan.grid(row=8, column=1, pady=5)
 
         def simpan_data_kos():
             try:
@@ -134,6 +208,9 @@ class sistem_kos:
                 'harga': harga.get(),
                 'fasilitas': fasilitas.get(),
                 'rekening': rekening.get(),
+                'ukuran_kos': ukuran_kos.get(),
+                'nomor_kos': nomor_kos.get(),
+                'catatan': catatan_tambahan.get(),
                 'status': 'Tersedia'
             }
 
@@ -141,22 +218,22 @@ class sistem_kos:
             if not is_valid:
                 messagebox.showwarning("Peringatan", message)
                 return
-
+        
             self.data = tambah_kos(self.data, kos_data)
             save_data(self.data_file, self.data)
             messagebox.showinfo("Sukses", "Data kos berhasil disimpan!")
             self.input_kos()
 
-        tk.Button(input_frame, text="Simpan", command=simpan_data_kos).grid(row=6, column=0, columnspan=2, pady=10)
-        tk.Button(input_frame, text="Kembali", command=self.menu_utama).grid(row=7, column=0, columnspan=2, pady=5)
+        tk.Button(input_frame, text="Simpan", command=simpan_data_kos, font=("Arial", 12)).grid(row=9, column=0, columnspan=2, pady=10)
+        tk.Button(input_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12)).grid(row=10, column=0, columnspan=2, pady=5)
 
-      
+        
     def list_kos(self):
         for widget in self.root.winfo_children():
             widget.destroy()
 
         try:
-            image = Image.open("bg_kosinz (1).png")
+            image = Image.open("BackGround.png")
             bg_image = ImageTk.PhotoImage(image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar Back Ground Tidak ditemukan ")
@@ -171,7 +248,7 @@ class sistem_kos:
 
         tk.Label(list_frame, text="Daftar Kos", font=('Arial', 14, 'bold')).pack(pady=10)
        
-        columns = ('ID', 'Nama Kos', 'Alamat', 'Harga', 'Fasilitas','rekening', 'Status')
+        columns = ('ID', 'Nama Kos', 'Alamat', 'Harga', 'Fasilitas', 'Status')
         tree = ttk.Treeview(list_frame, columns=columns, show='headings')
         tree.pack(fill=tk.BOTH, expand=True, pady=10  )
         
@@ -188,7 +265,6 @@ class sistem_kos:
                 kos['alamat'],
                 kos['harga'],
                 kos['fasilitas'],
-                kos['rekening'],
                 kos['status']
             ))
         
@@ -283,14 +359,14 @@ class sistem_kos:
                 messagebox.showerror("Error", message)
 
         tk.Button(pesan_frame, text="Pesan", command=validasi_dan_pesan).grid(row=4, column=0, columnspan=2, pady=10)
-        tk.Button(pesan_frame, text="Kembali", command=self.menu_utama).grid(row=5, column=0, columnspan=2, pady=5)
+        tk.Button(pesan_frame, text="Kembali", command=self.main_menu).grid(row=5, column=0, columnspan=2, pady=5)
 
     def show_list_pemesanan(self):
         for widget in self.root.winfo_children():
             widget.destroy()
 
         try:
-            image = Image.open("Bg_all.png")
+            image = Image.open("BackGround.png")
             bg_image = ImageTk.PhotoImage(image)
         except FileNotFoundError:
             bg_image = None

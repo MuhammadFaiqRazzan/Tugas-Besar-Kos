@@ -1,5 +1,27 @@
 import json
 import os
+import bcrypt
+
+def load_admins(file_path='admins.json'):
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, 'r') as f:
+                return [json.loads(line) for line in f]
+        except json.JSONDecodeError:
+            return []
+    return []
+
+def save_admin(username, password, file_path='admins.json'):
+    hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+    new_admin = {'username': username, 'password': hashed_password.decode()}
+
+    try:
+        with open(file_path, 'a') as f:
+            json.dump(new_admin, f)
+            f.write('\n')
+        return True
+    except Exception as e:
+        return False, f"Gagal menyimpan admin: {e}"
 
 def load_data(file_path):
     if os.path.exists(file_path):

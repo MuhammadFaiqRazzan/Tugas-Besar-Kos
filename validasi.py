@@ -1,3 +1,30 @@
+import bcrypt
+import json
+
+def validasi_login(username, password):
+    try:
+        with open('admins.json', 'r') as admin_file:
+            admins = [json.loads(line) for line in admin_file]
+            for admin in admins:
+                if admin['username'] == username and bcrypt.checkpw(password.encode(), admin['password'].encode()):
+                    return True, "Login berhasil!"
+        return False, "Username atau password salah!"
+    except FileNotFoundError:
+        return False, "Belum ada akun yang terdaftar!"
+
+def simpan_admin(username, password):
+    if not username or not password:
+        return False, "Username dan password harus diisi!"
+
+    try:
+        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        with open('admins.json', 'a') as admin_file:
+            json.dump({'username': username, 'password': hashed_password.decode()}, admin_file)
+            admin_file.write('\n')
+        return True, "Admin berhasil didaftarkan!"
+    except Exception as e:
+        return False, f"Terjadi kesalahan: {e}"
+
 def validasi_input(data):
     if not all(data.values()):
         return False, "Harap isi semua data!"

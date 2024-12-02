@@ -278,9 +278,20 @@ class sistem_kos:
         tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 12)).place(relx=0.5, rely=0.9, anchor='center')
 
     def pesan_kos(self):
-       
+
         for widget in self.root.winfo_children():
             widget.destroy()
+
+    # Tambahkan latar belakang
+        try:
+            bg_image = Image.open("Pesan_Kos_BG.png")
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="lightgrey")
+            bg_label.place(relwidth=1, relheight=1)
+            messagebox.showwarning("Peringatan", "Gambar latar belakang tidak ditemukan!")
 
         pesan_frame = tk.Frame(self.root, bg="white", bd=10)
         pesan_frame.place(relx=0.5, rely=0.5, anchor='center')
@@ -300,23 +311,31 @@ class sistem_kos:
         kos_combobox = ttk.Combobox(pesan_frame, textvariable=kos_var, values=list(kos_options.keys()), width=40)
         kos_combobox.pack(pady=5)
 
+    # Nomor rekening
         tk.Label(pesan_frame, text="Nomor Rekening Tujuan:", bg="white").pack(pady=5)
         rekening_var = tk.StringVar(pesan_frame)
         rekening_label = tk.Label(pesan_frame, textvariable=rekening_var, bg="lightgrey", width=30)
         rekening_label.pack(pady=5)
 
+        def update_rekening(*args):
+            selected_kos = kos_var.get()
+            if selected_kos in kos_options:
+                rekening_var.set(kos_options[selected_kos]['rekening'])
+            else:
+                rekening_var.set("")
+
+            kos_var.trace("w", update_rekening)
+
+    # Input durasi
         tk.Label(pesan_frame, text="Durasi Sewa (bulan):", bg="white").pack(pady=5)
         durasi_entry = tk.Entry(pesan_frame, width=30)
         durasi_entry.pack(pady=5)
 
+    # Total harga
         tk.Label(pesan_frame, text="Total Harga:", bg="white").pack(pady=5)
         total_harga_var = tk.StringVar(pesan_frame)
         total_harga_label = tk.Label(pesan_frame, textvariable=total_harga_var, bg="lightgrey", width=30)
         total_harga_label.pack(pady=5)
-
-        tk.Label(pesan_frame, text="Nominal Pembayaran:", bg="white").pack(pady=5)
-        nominal_entry = tk.Entry(pesan_frame, width=30)
-        nominal_entry.pack(pady=5)
 
         def update_total_harga(*args):
             selected_kos = kos_var.get()
@@ -334,6 +353,11 @@ class sistem_kos:
 
         durasi_entry.bind("<KeyRelease>", update_total_harga)
         kos_var.trace("w", update_total_harga)
+
+    # Nominal pembayaran
+        tk.Label(pesan_frame, text="Nominal Pembayaran:", bg="white").pack(pady=5)
+        nominal_entry = tk.Entry(pesan_frame, width=30)
+        nominal_entry.pack(pady=5)
 
         def proses_pesan():
             selected_kos = kos_var.get()
@@ -354,15 +378,17 @@ class sistem_kos:
                 messagebox.showwarning("Peringatan", f"Nominal pembayaran harus sama dengan total harga yaitu {total_harga}!")
                 return
 
-        # Tandai kos sebagai tidak tersedia
+        # Tandai kos sebagai tidak tersedia dan tambahkan pemesanan
             kos_data['status'] = 'Tidak Tersedia'
-            self.data['pemesanan'].append({
+            pemesanan_data = {
+                'id': len(self.data['pemesanan']) + 1,
                 'kos_id': kos_data['id'],
                 'durasi': durasi,
                 'total_harga': total_harga,
                 'nominal': nominal,
                 'rekening': kos_data['rekening']
-            })
+            }
+            self.data['pemesanan'].append(pemesanan_data)
             save_data(self.data_file, self.data)
             messagebox.showinfo("Sukses", f"Kos '{kos_data['nama_kos']}' berhasil dipesan!")
             self.menu_utama()
@@ -372,50 +398,65 @@ class sistem_kos:
 
 
     def show_list_pemesanan(self):
+    # Bersihkan widget sebelumnya
         for widget in self.root.winfo_children():
             widget.destroy()
 
+    # Tambahkan latar belakang
         try:
             image = Image.open("BackGround.png")
             bg_image = ImageTk.PhotoImage(image)
-        except FileNotFoundError:
-            bg_image = None
-            self.root.configure(bg="lightgrey")
-            messagebox.showwarning("Peringatan", "Gambar tidak ditemukan. Menggunakan latar belakang default.")
-
-        if bg_image:
             bg_label = tk.Label(self.root, image=bg_image)
             bg_label.image = bg_image
             bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="lightgrey")
+            bg_label.place(relwidth=1, relheight=1)
+            messagebox.showwarning("Peringatan", "Gambar tidak ditemukan! Menggunakan latar belakang default.")
 
+    # Frame untuk daftar pemesanan
         list_frame = tk.Frame(self.root, bg="white", bd=5)
-        list_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.8, relheight=0.7)
+        list_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.9, relheight=0.8)
 
-        tk.Label(list_frame, text="Daftar Pemesanan", font=('Arial', 14, 'bold')).pack(pady=10)
+        tk.Label(list_frame, text="Daftar Pemesanan", font=('Arial', 14, 'bold'), bg="white").pack(pady=10)
 
-        columns = ('ID', 'Nama Kos', 'Nominal', 'Rekening', 'Status')
+    # Definisikan kolom untuk Treeview
+        columns = ('ID', 'Nama Kos', 'Durasi (bulan)', 'Total Harga', 'Nominal', 'Rekening', 'Status')
         tree = ttk.Treeview(list_frame, columns=columns, show='headings')
         tree.pack(fill=tk.BOTH, expand=True, pady=10)
 
+    # Set nama kolom
         for col in columns:
             tree.heading(col, text=col)
-            tree.column(col, width=150)
+            tree.column(col, anchor='center', width=120)
 
+    # Ambil data pemesanan
         if 'pemesanan' in self.data and self.data['pemesanan']:
             for pemesanan in self.data['pemesanan']:
+            # Cari data kos berdasarkan ID
                 kos = next((k for k in self.data['kos'] if k['id'] == pemesanan['kos_id']), None)
-                kos_name = kos['nama_kos'] if kos else "Tidak Ditemukan"
-                tree.insert('', tk.END, values=(
-                    pemesanan['id'],
-                    kos_name,
-                    pemesanan['nominal'],
-                    pemesanan['rekening'],
-                    kos['status'] if kos else "Tidak Diketahui"
-                ))
+                if kos:
+                    tree.insert('', tk.END, values=(
+                        pemesanan['id'],            # ID pemesanan
+                        kos['nama_kos'],           # Nama kos
+                        pemesanan['durasi'],       # Durasi sewa
+                        pemesanan['total_harga'],  # Total harga
+                        pemesanan['nominal'],      # Nominal pembayaran
+                        pemesanan['rekening'],     # Nomor rekening
+                        kos['status']              # Status kos
+                    ))
+                else:
+                    tree.insert('', tk.END, values=(
+                        pemesanan['id'],
+                        "Kos tidak ditemukan",
+                        pemesanan['durasi'],
+                        pemesanan['total_harga'],
+                        pemesanan['nominal'],
+                        pemesanan['rekening'],
+                        "Tidak Diketahui"
+                    ))
         else:
             messagebox.showinfo("Info", "Tidak ada data pemesanan yang tersedia.")
 
+    # Tombol kembali
         tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 12, "bold")).place(relx=0.5, rely=0.9, anchor='center')
-
-
-

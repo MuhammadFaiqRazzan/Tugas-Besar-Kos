@@ -45,6 +45,39 @@
             "rekening": "12345678910",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
             "status": "Tidak Tersedia"
+        },
+        {
+            "id": 6,
+            "nama_kos": "kos baru 2",
+            "alamat": "uns",
+            "harga": "700000",
+            "fasilitas": "ac, tv ",
+            "nomor_kamar": "14",
+            "rekening": "10987654321",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tersedia"
+        },
+        {
+            "id": 7,
+            "nama_kos": "kos 3",
+            "alamat": "uns",
+            "harga": "200000",
+            "fasilitas": "ac",
+            "nomor_kamar": "13",
+            "rekening": "12345678910",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tidak Tersedia"
+        },
+        {
+            "id": 8,
+            "nama_kos": "kos 1",
+            "alamat": "uns",
+            "harga": "300000",
+            "fasilitas": "ac,tv",
+            "nomor_kamar": "34",
+            "rekening": "12345678910",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tidak Tersedia"
         }
     ],
     "pemesanan": [
@@ -59,6 +92,21 @@
             "durasi": 5,
             "total_harga": 2500000,
             "nominal": 2500000,
+            "rekening": "12345678910"
+        },
+        {
+            "kos_id": 7,
+            "durasi": 4,
+            "total_harga": 800000,
+            "nominal": 10000000,
+            "rekening": "12345678910"
+        },
+        {
+            "id": 4,
+            "kos_id": 8,
+            "durasi": 2,
+            "total_harga": 600000,
+            "nominal": 600000,
             "rekening": "12345678910"
         }
     ]

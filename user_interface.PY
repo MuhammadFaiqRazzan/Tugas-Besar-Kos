@@ -36,7 +36,7 @@ class sistem_kos:
 
     # Memuat gambar latar belakang
         try:
-            bg_image = Image.open("Bg_login.png")
+            bg_image = Image.open("up desktop.png")
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -45,7 +45,7 @@ class sistem_kos:
             bg_label.place(relwidth=1, relheight=1)
             messagebox.showwarning("Peringatan", "Gambar latar belakang tidak ditemukan!")
 
-        login_frame = tk.Frame(self.root, bg="white", bd=10)
+        login_frame = tk.Frame(self.root, bg="white", bd=40)
         login_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         tk.Label(login_frame, text="Username:", bg="white", font=("Norwester", 12, "bold")).pack(pady=5)
@@ -66,9 +66,9 @@ class sistem_kos:
             else:
                 messagebox.showerror("Error", message)
 
-        tk.Button(login_frame, text="Login", command=check_credentials, font=("Arial", 12, "bold")).pack(pady=15)
-        tk.Button(login_frame, text="Register Admin", command=self.halaman_register, font=("Arial", 12, "bold")).pack(pady=10)
-        tk.Button(login_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12, "bold")).pack(pady=10)
+        tk.Button(login_frame, text="Login",width=12, height= 1,bg= '#51d451', fg='White', relief='flat', command=check_credentials, font=("Arial", 14, "bold")).pack(pady=15)
+        tk.Button(login_frame, text="Register Admin", width=12, height=1,bg='#187bcd',fg='White' ,relief= 'flat', command=self.halaman_register, font=("Arial", 14, "bold")).pack(pady=10)
+        tk.Button(login_frame, text="Kembali", command=self.menu_utama,bg='#f94449',fg='White',relief='flat', font=("Arial", 12, "bold")).pack(pady=10)
         
     def halaman_register(self):
        for widget in self.root.winfo_children():
@@ -85,7 +85,7 @@ class sistem_kos:
             bg_label.place(relwidth=1, relheight=1)
             messagebox.showwarning("Peringatan", "Gambar latar belakang tidak ditemukan!")
 
-        reg_frame = tk.Frame(self.root, bg="white", bd=10)
+        reg_frame = tk.Frame(self.root, bg="white", bd=30)
         reg_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         tk.Label(reg_frame, text="Register Admin", bg="white", font=("Norwester", 14, "bold")).pack(pady=10)
@@ -108,8 +108,8 @@ class sistem_kos:
             else:
                 messagebox.showerror("Error", message)
 
-        tk.Button(reg_frame, text="Register", command=save_new_admin, font=("Arial", 12, "bold")).pack(pady=15)
-        tk.Button(reg_frame, text="Kembali", command=self.halaman_login, font=("Arial", 12, "bold")).pack(pady=10)
+        tk.Button(reg_frame, text="Register", command=save_new_admin,width=12, height= 1,bg= '#51d451', fg='White', relief='flat', font=("Norwester", 12, "bold")).pack(pady=15)
+        tk.Button(reg_frame, text="Kembali", command=self.halaman_login,width=12, height= 1,bg= '#f94449', fg='White', relief='flat', font=("Norwester", 12, "bold")).pack(pady=10)
         
     def main_menu(self):
         

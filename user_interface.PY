@@ -97,7 +97,7 @@ class sistem_kos:
 
         try:
         # Memuat gambar latar belakang
-            bg_image = Image.open("bg_kossinnew.png")
+            bg_image = Image.open("bg_kosinnew.png")
             bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
@@ -200,19 +200,31 @@ class sistem_kos:
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        pesan_frame = tk.Frame(self.root)
-        pesan_frame.pack(padx=20, pady=20)
+        try:
+        # Memuat gambar latar belakang
+            bg_image = Image.open("Bg_pesan_kos.png")
+            bg_image = ImageTk.PhotoImage(bg_image)
+        except FileNotFoundError:
+            messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
+            return
+
+    # Terapkan gambar latar belakang
+        bg_label = tk.Label(self.root, image=bg_image)
+        bg_label.image = bg_image
+        bg_label.place(relwidth=1, relheight=1)
+
+    # Membuat frame untuk pemesanan kos
+        pesan_frame = tk.Frame(self.root, bg="white", bd=5)
+        pesan_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         tk.Label(pesan_frame, text="Pemesanan Kos", font=('Arial', 14, 'bold')).grid(row=0, column=0, columnspan=2, pady=10)
 
-        # Dropdown untuk memilih kos yang tersedia
         tk.Label(pesan_frame, text="Pilih Kos:").grid(row=1, column=0, sticky='w', pady=5)
         available_kos = [k for k in self.data['kos'] if k['status'] == 'Tersedia']
         kos_options = {k['nama_kos']: k['id'] for k in available_kos}
         kos_var = tk.StringVar(pesan_frame)
         ttk.Combobox(pesan_frame, textvariable=kos_var, values=list(kos_options.keys())).grid(row=1, column=1, pady=5)
 
-        # Form input pemesanan
         tk.Label(pesan_frame, text="Nama Pemesan:").grid(row=2, column=0, sticky='w', pady=5)
         nama_pemesan = tk.Entry(pesan_frame, width=40)
         nama_pemesan.grid(row=2, column=1, pady=5)
@@ -232,7 +244,7 @@ class sistem_kos:
         tk.Label(pesan_frame, text="Metode Pembayaran:").grid(row=6, column=0, sticky='w', pady=5)
         metode_var = tk.StringVar(pesan_frame)
         ttk.Combobox(pesan_frame, textvariable=metode_var, values=["Transfer", "Tunai"]).grid(row=6, column=1, pady=5)
-    
+
         def save_kos():
             if not kos_var.get():
                 messagebox.showwarning("Peringatan", "Pilih kos yang ingin dipesan!")
@@ -245,9 +257,6 @@ class sistem_kos:
                 'durasi': durasi.get(),
                 'metode_pembayaran': metode_var.get()
             }
-        # Log debugging untuk pemesanan data
-            print("Mencoba membuat pesanan dengan data:", pemesanan_data)
-
             self.data, message = buat_pesanan(self.data, pemesanan_data)
             if message == "Pemesanan berhasil!":
                 save_data(self.data_file, self.data)
@@ -255,7 +264,6 @@ class sistem_kos:
                 self.pesan_kos()
             else:
                 messagebox.showerror("Error", message)
-                print("Pesan error:", message)
 
         tk.Button(pesan_frame, text="Pesan", command=save_kos, width=20, height=2).grid(row=7, column=0, columnspan=2, pady=10)
         tk.Button(pesan_frame, text="Kembali", command=self.main_menu, width=20, height=2).grid(row=8, column=0, columnspan=2, pady=5)

@@ -66,8 +66,8 @@ class sistem_kos:
             else:
                 messagebox.showerror("Error", message)
 
-        tk.Button(login_frame, text="Login",bg= 'Green', fg='White', relief='flat', command=check_credentials, font=("Arial", 12, "bold")).pack(pady=15)
-        tk.Button(login_frame, text="Register Admin", command=self.halaman_register, font=("Arial", 12, "bold")).pack(pady=10)
+        tk.Button(login_frame, text="Login",width=15, height= 1,bg= '#51d451', fg='White', relief='flat', command=check_credentials, font=("Arial", 14, "bold")).pack(pady=15)
+        tk.Button(login_frame, text="Register Admin", width=15, height=1, relief= 'flat', command=self.halaman_register, font=("Arial", 12, "bold")).pack(pady=10)
         tk.Button(login_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12, "bold")).pack(pady=10)
         
     def halaman_register(self):

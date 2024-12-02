@@ -141,6 +141,8 @@ class sistem_kos:
     def input_kos(self):
         for widget in self.root.winfo_children():
             widget.destroy()
+
+    # Latar belakang gambar
         try:
             bg_image = Image.open("Bg_input_kos.png")
             self.bg_image = ImageTk.PhotoImage(bg_image)
@@ -168,20 +170,29 @@ class sistem_kos:
         harga = tk.Entry(input_frame, width=40)
         harga.grid(row=3, column=1, pady=5)
 
-        tk.Label(input_frame, text="Gambar Kos:", bg="white").grid(row=4, column=0, sticky='w', pady=5)
-        gambar_label = tk.Label(input_frame, text="Belum ada gambar", bg="lightgrey", width=30)
-        gambar_label.grid(row=4, column=1, pady=5)
+        tk.Label(input_frame, text="Fasilitas:", bg="white").grid(row=4, column=0, sticky='w', pady=5)
+        fasilitas = tk.Entry(input_frame, width=40)
+        fasilitas.grid(row=4, column=1, pady=5)
+
+        tk.Label(input_frame, text="Nomor Kamar:", bg="white").grid(row=5, column=0, sticky='w', pady=5)
+        nomor_kamar = tk.Entry(input_frame, width=40)
+        nomor_kamar.grid(row=5, column=1, pady=5)
+
+        tk.Label(input_frame, text="Nomor Rekening:", bg="white").grid(row=6, column=0, sticky='w', pady=5)
+        rekening = tk.Entry(input_frame, width=40)
+        rekening.grid(row=6, column=1, pady=5)
+
+    # Input untuk gambar kos
+        tk.Label(input_frame, text="Gambar Kos:", bg="white").grid(row=7, column=0, sticky='w', pady=5)
+        gambar_label = tk.Label(input_frame, text="Belum ada gambar", bg="lightgrey", relief="sunken", width=30)
+        gambar_label.grid(row=7, column=1, pady=5)
 
         def pilih_gambar():
             gambar_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
             if gambar_path:
                 gambar_label.config(text=gambar_path)
 
-        tk.Button(input_frame, text="Pilih Gambar", command=pilih_gambar, font=("Arial", 10)).grid(row=5, column=1, sticky='w', pady=5)
-
-        tk.Label(input_frame, text="Nomor Rekening:", bg="white").grid(row=6, column=0, sticky='w', pady=5)
-        rekening = tk.Entry(input_frame, width=40)
-        rekening.grid(row=6, column=1, pady=5)
+        tk.Button(input_frame, text="Pilih Gambar", command=pilih_gambar, font=("Arial", 10)).grid(row=8, column=1, sticky='w', pady=5)
 
         def simpan_data_kos():
             kos_data = {
@@ -189,24 +200,28 @@ class sistem_kos:
                 'nama_kos': nama_kos.get(),
                 'alamat': alamat.get(),
                 'harga': harga.get(),
-                'gambar': gambar_label.cget("text"),
+                'fasilitas': fasilitas.get(),
+                'nomor_kamar': nomor_kamar.get(),
                 'rekening': rekening.get(),
+                'gambar': gambar_label.cget("text"),
                 'status': 'Tersedia'
             }
 
+        # Validasi data input
             is_valid, message = validasi_input(kos_data)
             if not is_valid:
                 messagebox.showwarning("Peringatan", message)
                 return
 
+        # Tambahkan data kos ke dalam JSON
             self.data = tambah_kos(self.data, kos_data)
             save_data(self.data_file, self.data)
             messagebox.showinfo("Sukses", "Data kos berhasil disimpan!")
             self.input_kos()
 
-        tk.Button(input_frame, text="Simpan", command=simpan_data_kos, font=("Arial", 12)).grid(row=7, column=0, columnspan=2, pady=10)
-        tk.Button(input_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12)).grid(row=8, column=0, columnspan=2, pady=5)
-        
+        tk.Button(input_frame, text="Simpan", command=simpan_data_kos, font=("Arial", 12)).grid(row=9, column=0, columnspan=2, pady=10)
+        tk.Button(input_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12)).grid(row=10, column=0, columnspan=2, pady=5)
+
     def list_kos(self):
         
         for widget in self.root.winfo_children():
@@ -260,9 +275,10 @@ class sistem_kos:
         gambar_label = tk.Label(list_frame, text="Pilih kos untuk melihat gambar", bg="white", relief="sunken")
         gambar_label.pack(pady=10)
 
-        tk.Button(self.root, text="Kembali", command=self.menu_utama, font=("Arial", 12)).place(relx=0.5, rely=0.9, anchor='center')
-   
+        tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 12)).place(relx=0.5, rely=0.9, anchor='center')
+
     def pesan_kos(self):
+       
         for widget in self.root.winfo_children():
             widget.destroy()
 
@@ -289,26 +305,35 @@ class sistem_kos:
         rekening_label = tk.Label(pesan_frame, textvariable=rekening_var, bg="lightgrey", width=30)
         rekening_label.pack(pady=5)
 
-        tk.Label(pesan_frame, text="Nominal yang Harus Dibayar:", bg="white").pack(pady=5)
-        harga_var = tk.StringVar(pesan_frame)
-        harga_label = tk.Label(pesan_frame, textvariable=harga_var, bg="lightgrey", width=30)
-        harga_label.pack(pady=5)
+        tk.Label(pesan_frame, text="Durasi Sewa (bulan):", bg="white").pack(pady=5)
+        durasi_entry = tk.Entry(pesan_frame, width=30)
+        durasi_entry.pack(pady=5)
 
-        def update_kos_info(*args):
-            selected_kos = kos_var.get()
-            if selected_kos in kos_options:
-                kos_data = kos_options[selected_kos]
-                rekening_var.set(kos_data['rekening'])
-                harga_var.set(kos_data['harga'])
-            else:
-                rekening_var.set("")
-                harga_var.set("")
+        tk.Label(pesan_frame, text="Total Harga:", bg="white").pack(pady=5)
+        total_harga_var = tk.StringVar(pesan_frame)
+        total_harga_label = tk.Label(pesan_frame, textvariable=total_harga_var, bg="lightgrey", width=30)
+        total_harga_label.pack(pady=5)
 
-        kos_var.trace("w", update_kos_info)
-
-        tk.Label(pesan_frame, text="Nominal Transfer:", bg="white").pack(pady=5)
+        tk.Label(pesan_frame, text="Nominal Pembayaran:", bg="white").pack(pady=5)
         nominal_entry = tk.Entry(pesan_frame, width=30)
         nominal_entry.pack(pady=5)
+
+        def update_total_harga(*args):
+            selected_kos = kos_var.get()
+            if selected_kos in kos_options:
+                try:
+                    kos_data = kos_options[selected_kos]
+                    durasi = int(durasi_entry.get())
+                    if durasi > 0:
+                        total_harga = int(kos_data['harga']) * durasi
+                        total_harga_var.set(total_harga)
+                    else:
+                        total_harga_var.set("Durasi tidak valid")
+                except ValueError:
+                    total_harga_var.set("Durasi harus angka")
+
+        durasi_entry.bind("<KeyRelease>", update_total_harga)
+        kos_var.trace("w", update_total_harga)
 
         def proses_pesan():
             selected_kos = kos_var.get()
@@ -316,22 +341,25 @@ class sistem_kos:
                 messagebox.showwarning("Peringatan", "Pilih kos yang ingin dipesan!")
                 return
 
-            nominal = nominal_entry.get()
             try:
-                nominal = int(nominal)
+                kos_data = kos_options[selected_kos]
+                durasi = int(durasi_entry.get())
+                total_harga = int(total_harga_var.get())
+                nominal = int(nominal_entry.get())
             except ValueError:
-                messagebox.showwarning("Peringatan", "Nominal harus berupa angka!")
+                messagebox.showwarning("Peringatan", "Durasi, nominal, atau total harga tidak valid!")
                 return
 
-            kos_data = kos_options[selected_kos]
-            if nominal != int(kos_data['harga']):
-                messagebox.showwarning("Peringatan", f"Nominal harus sesuai dengan harga kos yaitu {kos_data['harga']}!")
+            if nominal < total_harga:
+                messagebox.showwarning("Peringatan", f"Nominal pembayaran harus sama dengan total harga yaitu {total_harga}!")
                 return
 
         # Tandai kos sebagai tidak tersedia
             kos_data['status'] = 'Tidak Tersedia'
             self.data['pemesanan'].append({
                 'kos_id': kos_data['id'],
+                'durasi': durasi,
+                'total_harga': total_harga,
                 'nominal': nominal,
                 'rekening': kos_data['rekening']
             })
@@ -341,6 +369,7 @@ class sistem_kos:
 
         tk.Button(pesan_frame, text="Pesan", command=proses_pesan, font=("Arial", 12)).pack(pady=10)
         tk.Button(pesan_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12)).pack(pady=5)
+
 
     def show_list_pemesanan(self):
         for widget in self.root.winfo_children():

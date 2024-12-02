@@ -7,6 +7,24 @@
             "harga": 500000,
             "fasilitas": "ac, kamar mandi dalam",
             "status": "Tersedia"
+        },
+        {
+            "id": 2,
+            "nama_kos": "kos aris",
+            "alamat": "uns",
+            "harga": "500000",
+            "fasilitas": "ac tv",
+            "rekening": "787878",
+            "status": "Tersedia"
+        },
+        {
+            "id": 3,
+            "nama_kos": "kos ",
+            "alamat": "uns",
+            "harga": "400000",
+            "fasilitas": "ac tv",
+            "rekening": "898989",
+            "status": "Tersedia"
         }
     ],
     "pemesanan": []

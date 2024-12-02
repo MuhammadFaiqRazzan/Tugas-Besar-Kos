@@ -1,8 +1,14 @@
 def validasi_input(data):
     if not all(data.values()):
-        return False, "Harap isi semua Data!"
-    return True, ""
-
+        return False, "Harap isi semua data!"
+    
+    if not data['harga'].isdigit() or int(data['harga']) <= 0:
+        return False, "Harga harus berupa angka positif!"
+    
+    if not data['rekening'].isdigit():
+        return False, "Rekening harus berupa angka!"
+    
+    return True, 
 def tambah_kos(data, kos_data):
     data['kos'].append(kos_data)
     return data
@@ -29,4 +35,4 @@ def validasi_pembayaran(nominal, rekening_input, kos_data):
     if nominal < total_harga:
         return False, f"Nominal pembayaran kurang! Harus sebesar {total_harga}."
     
-    return True, ""
+    return True, 

@@ -28,14 +28,17 @@ def simpan_admin(username, password):
 def validasi_input(data):
     if not all(data.values()):
         return False, "Harap isi semua data!"
-    
+
     if not data['harga'].isdigit() or int(data['harga']) <= 0:
         return False, "Harga harus berupa angka positif!"
-    
-    if not data['rekening'].isdigit():
-        return False, "Rekening harus berupa angka!"
-    
-    return True, 
+
+    if not data['rekening'].isdigit() or len(data['rekening']) < 10:
+        return False, "Nomor rekening harus berupa angka dengan minimal 10 digit!"
+
+    if not data['gambar'].lower().endswith(('.png', '.jpg', '.jpeg')):
+        return False, "Format gambar harus PNG, JPG, atau JPEG!"
+
+    return True, "Data valid"
 def tambah_kos(data, kos_data):
     data['kos'].append(kos_data)
     return data

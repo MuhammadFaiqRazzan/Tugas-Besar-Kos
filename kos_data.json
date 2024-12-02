@@ -25,6 +25,15 @@
             "fasilitas": "ac tv",
             "rekening": "898989",
             "status": "Tersedia"
+        },
+        {
+            "id": 4,
+            "nama_kos": "kos baru",
+            "alamat": "uns",
+            "harga": "450000",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "rekening": "12345678910",
+            "status": "Tersedia"
         }
     ],
     "pemesanan": []

@@ -279,7 +279,7 @@ class sistem_kos:
         filter_frame = tk.Frame(self.root, bg="white", bd=10)
         filter_frame.place(relx=0.5, rely=0.1, anchor='center', relwidth=0.8, relheight=0.1)
 
-        tk.Label(filter_frame, text="Rekomendasi Kos Berdasarkan Harga", bg="white", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=4, pady=10)
+        tk.Label(filter_frame, text="Filter Kos Berdasarkan Harga", bg="white", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=4, pady=10)
 
         tk.Label(filter_frame, text="Harga Minimum:", bg="white", font=("Arial", 14)).grid(row=1, column=0, sticky='e', padx=10)
         min_price_entry = tk.Entry(filter_frame, width=20, font=("Arial", 14))
@@ -308,33 +308,27 @@ class sistem_kos:
 
         tk.Button(filter_frame, text="Terapkan Filter", command=filter_kos, bg="#51d451", fg="white", relief="flat", font=("Arial", 14, "bold")).grid(row=2, column=0, columnspan=4, pady=10)
 
-        # Frame untuk daftar kos
-        list_frame = tk.Frame(self.root, bg="white", bd=10)
-        list_frame.place(relx=0.1, rely=0.5, anchor='w', relwidth=0.4, relheight=0.8)
+        # Frame untuk ID Kos (Frame 1)
+        id_frame = tk.Frame(self.root, bg="white", bd=10)
+        id_frame.place(relx=0.1, rely=0.5, anchor='w', relwidth=0.1, relheight=0.7)
+        tk.Label(id_frame, text="ID Kos", bg="white", font=('Arial', 16, 'bold')).pack(pady=10)
 
-        tk.Label(list_frame, text="Daftar Kos", bg="white", font=('Arial', 16, 'bold')).pack(pady=10)
+        id_tree = ttk.Treeview(id_frame, columns=('ID'), show='headings', height=20)
+        id_tree.pack(fill=tk.BOTH, expand=True, pady=10)
+        id_tree.heading('ID', text='ID')
+        id_tree.column('ID', anchor='center', width=100)
 
-        columns = ('ID', 'Nama Kos', 'Harga')
-        tree = ttk.Treeview(list_frame, columns=columns, show='headings', height=20)
-        tree.pack(fill=tk.BOTH, expand=True, pady=10)
-
-        for col in columns:
-            tree.heading(col, text=col)
-            tree.column(col, anchor='center', width=100)
-
-        # Frame untuk detail kos
-        detail_frame = tk.Frame(self.root, bg="white", bd=10, relief='flat')
-        detail_frame.place(relx=0.6, rely=0.5, anchor='center', relwidth=0.3, relheight=0.8)
-
+        # Frame untuk Detail Kos (Frame 2)
+        detail_frame = tk.Frame(self.root, bg="white", bd=10)
+        detail_frame.place(relx=0.4, rely=0.5, anchor='center', relwidth=0.4, relheight=0.7)
         tk.Label(detail_frame, text="Detail Kos", bg="white", font=('Arial', 16, 'bold')).pack(pady=10)
 
         detail_text_label = tk.Label(detail_frame, text="", bg="white", justify="left", anchor="nw", relief="sunken", font=("Arial", 14), width=40, height=15)
         detail_text_label.pack(fill=tk.BOTH, expand=True, pady=10)
 
-        # Frame untuk gambar kos
-        gambar_frame = tk.Frame(self.root, bg="white", bd=10, relief='flat')
-        gambar_frame.place(relx=0.9, rely=0.5, anchor='e', relwidth=0.2, relheight=0.8)
-
+        # Frame untuk Gambar Kos (Frame 3)
+        gambar_frame = tk.Frame(self.root, bg="white", bd=10)
+        gambar_frame.place(relx=0.8, rely=0.5, anchor='e', relwidth=0.5, relheight=0.7)
         tk.Label(gambar_frame, text="Gambar Kos", bg="white", font=('Arial', 16, 'bold')).pack(pady=10)
 
         gambar_label = tk.Label(gambar_frame, bg="lightgrey", relief="sunken", width=30, height=15)
@@ -342,17 +336,17 @@ class sistem_kos:
 
         # Fungsi untuk memperbarui daftar kos
         def update_list(kos_list):
-            for item in tree.get_children():
-                tree.delete(item)
+            for item in id_tree.get_children():
+                id_tree.delete(item)
             for kos in kos_list:
-                tree.insert('', tk.END, values=(kos.get('id', 'N/A'), kos.get('nama_kos', 'N/A'), kos.get('harga', 'N/A')))
+                id_tree.insert('', tk.END, values=(kos.get('id', 'N/A')))
 
-        # Fungsi untuk memperbarui detail dan gambar
+        # Fungsi untuk memperbarui detail dan gambar berdasarkan ID kos
         def update_detail(event):
-            selected_item = tree.selection()
+            selected_item = id_tree.selection()
             if selected_item:
-                selected_id = tree.item(selected_item)['values'][0]
-                kos = next((k for k in self.data['kos'] if kos['id'] == selected_id), None)
+                selected_id = id_tree.item(selected_item)['values'][0]
+                kos = next((k for k in self.data['kos'] if str(k['id']) == str(selected_id)), None)
                 if kos:
                     # Perbarui detail teks
                     detail_text = (
@@ -360,7 +354,7 @@ class sistem_kos:
                         f"Alamat: {kos.get('alamat', 'N/A')}\n"
                         f"Harga: {kos.get('harga', 'N/A')}\n"
                         f"Fasilitas: {kos.get('fasilitas', 'N/A')}\n"
-                        f"Luas Kamar: {kos.get('luas_kamar', 'N/A')} m²\n"
+                        f"Luas Kamar: {kos.get('luas_tempat', 'N/A')} m²\n"
                         f"Status: {kos.get('status', 'N/A')}\n"
                         f"Catatan: {kos.get('catatan', 'Tidak ada catatan')}"
                     )
@@ -379,13 +373,14 @@ class sistem_kos:
                     else:
                         gambar_label.config(image="", text="Tidak ada gambar", compound='none')
 
-        tree.bind('<<TreeviewSelect>>', update_detail)
+        id_tree.bind('<<TreeviewSelect>>', update_detail)
 
-        tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 14, "bold"), bg='#f94449', fg='white', relief='flat').place(relx=0.5, rely=0.9, anchor='center')
-
-        # Tampilkan semua kos pada awalnya
+        # Tambahkan semua data kos pada awalnya
         update_list(self.data['kos'])
-            
+
+        # Tombol kembali
+        tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 14, "bold"), bg='#f94449', fg='white', relief='flat').place(relx=0.5, rely=0.9, anchor='center')
+      
     def pesan_kos(self):
 
         for widget in self.root.winfo_children():

@@ -36,8 +36,8 @@ class sistem_kos:
         button_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.4, relheight=0.3)
 
         # Tombol lebih besar untuk resolusi 1920x1080
-        tk.Button(button_frame, font=("Arial", 18, "bold"), bg="white", width=25, height=3, text="PENYEWA", command=self.halaman_login).pack(pady=20)
-        tk.Button(button_frame, font=("Arial", 18, "bold"), bg="white", width=25, height=3, text="PEMESAN", command=self.main_menu).pack(pady=20)
+        tk.Button(button_frame, font=("Arial", 18, "bold"), bg="white", width=25, height=3, text="SEWAKAN", command=self.halaman_login).pack(pady=20)
+        tk.Button(button_frame, font=("Arial", 18, "bold"), bg="white", width=25, height=3, text="PESAN", command=self.main_menu).pack(pady=20)
 
     def halaman_login(self):
         

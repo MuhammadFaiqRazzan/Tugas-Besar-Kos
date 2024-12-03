@@ -2,123 +2,36 @@
     "kos": [
         {
             "id": 1,
-            "nama_kos": "kos ryan",
-            "alamat": "uns",
-            "harga": 500000,
-            "fasilitas": "ac, kamar mandi dalam",
-            "status": "Tersedia"
-        },
-        {
-            "id": 2,
-            "nama_kos": "kos aris",
-            "alamat": "uns",
-            "harga": "500000",
-            "fasilitas": "ac tv",
-            "rekening": "787878",
-            "status": "Tersedia"
-        },
-        {
-            "id": 3,
-            "nama_kos": "kos ",
-            "alamat": "uns",
-            "harga": "400000",
-            "fasilitas": "ac tv",
-            "rekening": "898989",
-            "status": "Tidak Tersedia"
-        },
-        {
-            "id": 4,
-            "nama_kos": "kos baru",
-            "alamat": "uns",
-            "harga": "450000",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "rekening": "12345678910",
-            "status": "Tersedia"
-        },
-        {
-            "id": 5,
-            "nama_kos": "kos dua",
-            "alamat": "uns",
-            "harga": "500000",
-            "fasilitas": "ac tv",
-            "nomor_kamar": "12",
-            "rekening": "12345678910",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tidak Tersedia"
-        },
-        {
-            "id": 6,
-            "nama_kos": "kos baru 2",
-            "alamat": "uns",
-            "harga": "700000",
-            "fasilitas": "ac, tv ",
-            "nomor_kamar": "14",
-            "rekening": "10987654321",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tersedia"
-        },
-        {
-            "id": 7,
-            "nama_kos": "kos 3",
-            "alamat": "uns",
-            "harga": "200000",
-            "fasilitas": "ac",
-            "nomor_kamar": "13",
-            "rekening": "12345678910",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tidak Tersedia"
-        },
-        {
-            "id": 8,
-            "nama_kos": "kos 1",
+            "nama_kos": "kos new",
             "alamat": "uns",
             "harga": "300000",
             "fasilitas": "ac,tv",
-            "nomor_kamar": "34",
-            "rekening": "12345678910",
+            "nomor_kamar": "2",
+            "rekening": "1234567891",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
             "status": "Tidak Tersedia"
         },
         {
-            "id": 9,
-            "nama_kos": "kos 4",
+            "id": 2,
+            "nama_kos": "kos new3",
             "alamat": "uns",
-            "harga": "350000",
+            "harga": "450000",
             "fasilitas": "ac",
-            "nomor_kamar": "67",
+            "nomor_kamar": "12",
             "rekening": "1234567891",
+            "catatan": "free listrik",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
             "status": "Tersedia"
         }
     ],
     "pemesanan": [
         {
-            "kos_id": 3,
-            "durasi": 3,
-            "total_harga": 1200000,
-            "rekening": "898989"
-        },
-        {
-            "kos_id": 5,
-            "durasi": 5,
-            "total_harga": 2500000,
-            "nominal": 2500000,
-            "rekening": "12345678910"
-        },
-        {
-            "kos_id": 7,
-            "durasi": 4,
-            "total_harga": 800000,
-            "nominal": 10000000,
-            "rekening": "12345678910"
-        },
-        {
-            "id": 4,
-            "kos_id": 8,
+            "id": 1,
+            "kos_id": 1,
             "durasi": 2,
             "total_harga": 600000,
             "nominal": 600000,
-            "rekening": "12345678910"
+            "rekening": "1234567891"
         }
     ]
 }

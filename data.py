@@ -1,6 +1,5 @@
 import json
 import os
-import bcrypt
 
 def load_data(file_path):
     if os.path.exists(file_path):
@@ -17,8 +16,10 @@ def save_data(file_path, data):
         json.dump(data, f, indent=4)
 
 def get_kos_by_id(data, kos_id):
-    """Mencari kos berdasarkan ID."""
     return next((k for k in data['kos'] if k['id'] == kos_id), None)
+
+def get_kos_by_kategori(data, kategori):
+    return [k for k in data['kos'] if k.get('kategori') == kategori]
 
 def tambah_pesanan(data, pesanan_data):
     if 'pemesanan' not in data:
@@ -27,6 +28,13 @@ def tambah_pesanan(data, pesanan_data):
     return data
 
 def tambah_kos(data, kos_data):
-    """Menambahkan data kos baru."""
     data['kos'].append(kos_data)
     return data
+
+def update_kos_status(data, kos_id, status):
+    kos = get_kos_by_id(data, kos_id)
+    if kos:
+        kos['status'] = status
+        return data, "Status kos berhasil diperbarui."
+    return data, "Kos tidak ditemukan."
+

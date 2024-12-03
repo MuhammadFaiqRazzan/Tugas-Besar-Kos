@@ -51,7 +51,7 @@ class sistem_kos:
 
         tk.Label(login_frame, text="Username:", bg="white", font=("Norwester", 12, "bold")).pack(pady=50)
         username_entry = tk.Entry(login_frame, font=("Arial", 12))
-        username_entry.pack(pady=70)
+        username_entry.pack(pady=5)
 
         tk.Label(login_frame, text="Password:", bg="white", font=("Norwester", 12, "bold")).pack(pady=5)
         password_entry = tk.Entry(login_frame, show='*', font=("Arial", 12))

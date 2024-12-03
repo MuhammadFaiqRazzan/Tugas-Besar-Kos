@@ -9,68 +9,77 @@ import os
 class sistem_kos:
     def __init__(self, root):
         self.root = root
-        self.root.title("Sitem KOS")
+        self.root.title("Sistem KOS")
         self.root.geometry("1920x1080")
-        #self.root.resizable(False,False)
         self.data_file = 'Kos_data.json'
         self.data = load_data(self.data_file)
         self.menu_utama()
         
     def menu_utama(self):
-        for widget in self.root.winfo_children():
-            widget.destroy()
-        self.canvas = Canvas(self.root, width=800, height=600)
-        self.canvas.pack(fill="both", expand=True)
-        bg_image = Image.open("Bg_up1.png")
-        self.bg_image = ImageTk.PhotoImage(bg_image)
-        self.canvas.create_image(0, 0, image = self.bg_image, anchor="nw",)
-        bg_image._expand=True
         
-       
-        # Tambahkan tombol di atas latar belakang
-        self.canvas.create_window(268, 400, window=Button(self.root, font=("Arial",12,"bold"),bg="white", width=20, height=3, text="PENYEWA", command=self.halaman_login))
-        self.canvas.create_window(685, 400, window=Button(self.root, font=("Arial",12,"bold"),bg="white", width=20, height=3, text="PEMESAN", command=self.main_menu))
-        
-    def halaman_login(self):
         for widget in self.root.winfo_children():
             widget.destroy()
 
-    # Memuat gambar latar belakang
+        # Canvas untuk gambar latar belakang
+        self.canvas = Canvas(self.root, width=1920, height=1080)
+        self.canvas.pack(fill="both", expand=True)
+
         try:
-            bg_image = Image.open("Bg_up1.png")
+            bg_image = Image.open("Bg_up1.png").resize((1920, 1080))
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            self.canvas.create_image(0, 0, image=self.bg_image, anchor="nw")
+        except FileNotFoundError:
+            messagebox.showerror("Error", "Gambar latar belakang tidak ditemukan!")
+
+        # Frame untuk tombol dengan ukuran proporsional
+        button_frame = tk.Frame(self.root, bg="", bd=0, highlightthickness=0)
+        button_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.4, relheight=0.3)
+
+        # Tombol lebih besar untuk resolusi 1920x1080
+        tk.Button(button_frame, font=("Arial", 18, "bold"), bg="white", width=25, height=3, text="PENYEWA", command=self.halaman_login).pack(pady=20)
+        tk.Button(button_frame, font=("Arial", 18, "bold"), bg="white", width=25, height=3, text="PEMESAN", command=self.main_menu).pack(pady=20)
+
+    def halaman_login(self):
+        
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+        # Gambar latar belakang
+        try:
+            bg_image = Image.open("Bg_up1.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
         except FileNotFoundError:
             bg_label = tk.Label(self.root, bg="lightgrey")
             bg_label.place(relwidth=1, relheight=1)
-            messagebox.showwarning("Peringatan", "Gambar latar belakang tidak ditemukan!")
 
-        login_frame = tk.Frame(self.root, bg="white", bd=100)
-        login_frame.place(relx=0.5, rely=0.5, anchor='center')
+        # Frame untuk login
+        login_frame = tk.Frame(self.root, bg="white", bd=0.5)
+        login_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.4, relheight=0.5)
 
-        tk.Label(login_frame, text="Username:", bg="white", font=("Norwester", 12, "bold")).pack(pady=50)
-        username_entry = tk.Entry(login_frame, font=("Arial", 12))
-        username_entry.pack(pady=5)
+        tk.Label(login_frame, text="Username:", bg="white", font=("Arial", 14, "bold")).pack(pady=20)
+        username_entry = tk.Entry(login_frame, font=("Arial", 14))
+        username_entry.pack(pady=10)
 
-        tk.Label(login_frame, text="Password:", bg="white", font=("Norwester", 12, "bold")).pack(pady=5)
-        password_entry = tk.Entry(login_frame, show='*', font=("Arial", 12))
-        password_entry.pack(pady=5)
+        tk.Label(login_frame, text="Password:", bg="white", font=("Arial", 14, "bold")).pack(pady=10)
+        password_entry = tk.Entry(login_frame, show='*', font=("Arial", 14))
+        password_entry.pack(pady=10)
 
         def check_credentials():
             username = username_entry.get()
             password = password_entry.get()
             success, message = validasi_login(username, password)
             if success:
-                messagebox.showinfo("Success", message)
-                self.input_kos()  
+                messagebox.showinfo("Sukses", message)
+                self.input_kos()
             else:
-                messagebox.showerror("Error", message)
+                messagebox.showerror("Gagal", message)
 
-        tk.Button(login_frame, text="Login",width=12, height= 1,bg= '#51d451', fg='White', relief='flat', command=check_credentials, font=("Arial", 14, "bold")).pack(pady=15)
-        tk.Button(login_frame, text="Register Admin", width=12, height=1,bg='#187bcd',fg='White' ,relief= 'flat', command=self.halaman_register, font=("Arial", 14, "bold")).pack(pady=10)
-        tk.Button(login_frame, text="Kembali", command=self.menu_utama,bg='#f94449',fg='White',relief='flat', font=("Arial", 12, "bold")).pack(pady=25)
-        
+        tk.Button(login_frame, text="Login", bg='#51d451', fg='White', font=("Arial", 14, "bold"), command=check_credentials).pack(pady=15)
+        tk.Button(login_frame, text="Register Admin", bg='#187bcd', fg='White', font=("Arial", 14, "bold"), command=self.halaman_register).pack(pady=15)
+        tk.Button(login_frame, text="Kembali", bg='#f94449', fg='White', font=("Arial", 14, "bold"), command=self.menu_utama).pack(pady=15)
+    
     def halaman_register(self):
        for widget in self.root.winfo_children():
         widget.destroy()

@@ -2,15 +2,16 @@ import tkinter as tk
 import bcrypt
 from tkinter import ttk, messagebox, Canvas, Button, filedialog
 from PIL import Image, ImageTk
-from data import load_data, save_data
-from validasi import validasi_input, tambah_kos, buat_pesanan, validasi_login,simpan_admin, validasi_pembayaran
+from data import load_data, save_data, get_kos_by_id
+from validasi import validasi_input, tambah_kos, buat_pesanan, validasi_login,simpan_admin, validasi_pembayaran, validasi_gambar
+import os
 
 class sistem_kos:
     def __init__(self, root):
         self.root = root
         self.root.title("Sitem KOS")
-        self.root.geometry("960x540")
-        self.root.resizable(False,False)
+        self.root.geometry("1920x1080")
+        #self.root.resizable(False,False)
         self.data_file = 'Kos_data.json'
         self.data = load_data(self.data_file)
         self.menu_utama()
@@ -20,7 +21,7 @@ class sistem_kos:
             widget.destroy()
         self.canvas = Canvas(self.root, width=800, height=600)
         self.canvas.pack(fill="both", expand=True)
-        bg_image = Image.open("BackGround.png")
+        bg_image = Image.open("Bg_up1.png")
         self.bg_image = ImageTk.PhotoImage(bg_image)
         self.canvas.create_image(0, 0, image = self.bg_image, anchor="nw",)
         bg_image._expand=True
@@ -36,7 +37,7 @@ class sistem_kos:
 
     # Memuat gambar latar belakang
         try:
-            bg_image = Image.open("up desktop.png")
+            bg_image = Image.open("KOSIN up design  option.png")
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -45,7 +46,7 @@ class sistem_kos:
             bg_label.place(relwidth=1, relheight=1)
             messagebox.showwarning("Peringatan", "Gambar latar belakang tidak ditemukan!")
 
-        login_frame = tk.Frame(self.root, bg="white", bd=40)
+        login_frame = tk.Frame(self.root, bg="white", bd=50)
         login_frame.place(relx=0.5, rely=0.5, anchor='center')
 
         tk.Label(login_frame, text="Username:", bg="white", font=("Norwester", 12, "bold")).pack(pady=5)
@@ -68,7 +69,7 @@ class sistem_kos:
 
         tk.Button(login_frame, text="Login",width=12, height= 1,bg= '#51d451', fg='White', relief='flat', command=check_credentials, font=("Arial", 14, "bold")).pack(pady=15)
         tk.Button(login_frame, text="Register Admin", width=12, height=1,bg='#187bcd',fg='White' ,relief= 'flat', command=self.halaman_register, font=("Arial", 14, "bold")).pack(pady=10)
-        tk.Button(login_frame, text="Kembali", command=self.menu_utama,bg='#f94449',fg='White',relief='flat', font=("Arial", 12, "bold")).pack(pady=10)
+        tk.Button(login_frame, text="Kembali", command=self.menu_utama,bg='#f94449',fg='White',relief='flat', font=("Arial", 12, "bold")).pack(pady=25)
         
     def halaman_register(self):
        for widget in self.root.winfo_children():
@@ -136,7 +137,7 @@ class sistem_kos:
         tk.Button(menu_frame, text="Lihat Data Kos", command=self.list_kos, width=20, height=2).pack(pady=10)
         tk.Button(menu_frame, text="Pesan Kos", command=self.pesan_kos, width=20, height=2).pack(pady=10)
         tk.Button(menu_frame, text="Lihat Pemesanan", command=self.show_list_pemesanan, width=20, height=2).pack(pady=10)
-        tk.Button(menu_frame, text="Kembali", command=self.menu_utama, width=20, height=2).pack(pady=10)
+        tk.Button(menu_frame, text="Kembali", command=self.menu_utama,relief='flat', width=20, height=2).pack(pady=10)
 
     def input_kos(self):
         for widget in self.root.winfo_children():
@@ -157,7 +158,6 @@ class sistem_kos:
 
         tk.Label(input_frame, text="Input Data Kos", bg="white", font=('Arial', 14, 'bold')).grid(row=0, column=0, columnspan=2, pady=10)
 
-    # Input untuk data kos
         tk.Label(input_frame, text="Nama Kos:", bg="white").grid(row=1, column=0, sticky='w', pady=5)
         nama_kos = tk.Entry(input_frame, width=40)
         nama_kos.grid(row=1, column=1, pady=5)
@@ -181,18 +181,25 @@ class sistem_kos:
         tk.Label(input_frame, text="Nomor Rekening:", bg="white").grid(row=6, column=0, sticky='w', pady=5)
         rekening = tk.Entry(input_frame, width=40)
         rekening.grid(row=6, column=1, pady=5)
+        
+        tk.Label(input_frame, text="Luas Kamar (m²):", bg="white").grid(row=8, column=0, sticky='w', pady=5)
+        luas_kamar = tk.Entry(input_frame, width=40)
+        luas_kamar.grid(row=8, column=1, pady=5)
 
-    # Input untuk gambar kos
-        tk.Label(input_frame, text="Gambar Kos:", bg="white").grid(row=7, column=0, sticky='w', pady=5)
+        tk.Label(input_frame, text="Catatan:", bg="white").grid(row=7, column=0, sticky='w', pady=5)
+        catatan = tk.Entry(input_frame, width=40)
+        catatan.grid(row=7, column=1, pady=5)
+
+        tk.Label(input_frame, text="Gambar Kos:", bg="white").grid(row=8, column=0, sticky='w', pady=5)
         gambar_label = tk.Label(input_frame, text="Belum ada gambar", bg="lightgrey", relief="sunken", width=30)
-        gambar_label.grid(row=7, column=1, pady=5)
+        gambar_label.grid(row=8, column=1, pady=5)
 
         def pilih_gambar():
             gambar_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
             if gambar_path:
                 gambar_label.config(text=gambar_path)
 
-        tk.Button(input_frame, text="Pilih Gambar", command=pilih_gambar, font=("Arial", 10)).grid(row=8, column=1, sticky='w', pady=5)
+        tk.Button(input_frame, text="Pilih Gambar", command=pilih_gambar, font=("Arial", 10)).grid(row=9, column=1, sticky='w', pady=5)
 
         def simpan_data_kos():
             kos_data = {
@@ -203,6 +210,8 @@ class sistem_kos:
                 'fasilitas': fasilitas.get(),
                 'nomor_kamar': nomor_kamar.get(),
                 'rekening': rekening.get(),
+                'catatan': catatan.get(),
+                'luas_kamar': luas_kamar.get(),
                 'gambar': gambar_label.cget("text"),
                 'status': 'Tersedia'
             }
@@ -219,64 +228,92 @@ class sistem_kos:
             messagebox.showinfo("Sukses", "Data kos berhasil disimpan!")
             self.input_kos()
 
-        tk.Button(input_frame, text="Simpan", command=simpan_data_kos, font=("Arial", 12)).grid(row=9, column=0, columnspan=2, pady=10)
-        tk.Button(input_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12)).grid(row=10, column=0, columnspan=2, pady=5)
+        tk.Button(input_frame, text="Simpan", command=simpan_data_kos, font=("Arial", 12)).grid(row=10, column=0, columnspan=2, pady=10)
+        tk.Button(input_frame, text="Kembali", command=self.menu_utama,relief='red',bg='#f94449',fg='white', font=("Arial", 12)).grid(row=11, column=0, columnspan=2, pady=5)
 
     def list_kos(self):
-        
+        # Validasi data awal
+        if not self.data or 'kos' not in self.data or not isinstance(self.data['kos'], list):
+            messagebox.showinfo("Info", "Tidak ada data kos untuk ditampilkan.")
+            return
+
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        try:
-            bg_image = Image.open("bg_kosinz (1).png")
-            self.bg_image = ImageTk.PhotoImage(bg_image)
-            bg_label = tk.Label(self.root, image=self.bg_image)
-            bg_label.place(relwidth=1, relheight=1)
-        except FileNotFoundError:
-            bg_label = tk.Label(self.root, bg="lightgrey")
-            bg_label.place(relwidth=1, relheight=1)
+        # Frame luar
+        outer_frame = tk.Frame(self.root, bg="white", bd=10)
+        outer_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.9, relheight=0.8)
 
-        list_frame = tk.Frame(self.root, bg="white", bd=10)
-        list_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.9, relheight=0.8)
+        # Frame 1: Daftar kos
+        list_frame = tk.Frame( outer_frame, bg="white", bd=10, relief='flat')
+        list_frame.place(relx=0.1, rely=0.5, anchor='w', relwidth=0.3, relheight=1.0)
 
         tk.Label(list_frame, text="Daftar Kos", bg="white", font=('Arial', 14, 'bold')).pack(pady=10)
 
-        columns = ('ID', 'Nama Kos', 'Alamat', 'Harga', 'Status')
+        columns = ('ID', 'Nama Kos')
         tree = ttk.Treeview(list_frame, columns=columns, show='headings')
         tree.pack(fill=tk.BOTH, expand=True, pady=10)
 
         for col in columns:
             tree.heading(col, text=col)
-            tree.column(col, width=100, anchor='center')
+            tree.column(col, anchor='center', width=100)
 
         for kos in self.data['kos']:
-            tree.insert('', tk.END, values=(
-                kos['id'], kos['nama_kos'], kos['alamat'], kos['harga'], kos['status']
-            ))
+            tree.insert('', tk.END, values=(kos.get('id', 'N/A'), kos.get('nama_kos', 'N/A')))
 
-        def preview_gambar(event):
+        # Frame 2: Detail kos
+        detail_frame = tk.Frame( outer_frame, bg="white", bd=10, relief='flat')
+        detail_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.2, relheight=1.0)
+
+        tk.Label(detail_frame, text="Detail Kos", bg="white", font=('Arial', 14, 'bold')).pack(pady=10)
+
+        detail_text_label = tk.Label(detail_frame, text="", bg="white", justify="left", anchor="w", relief="sunken", width=30, height=15)
+        detail_text_label.pack(fill=tk.BOTH, expand=True, pady=10)
+
+        # Frame 3: Gambar kos
+        gambar_frame = tk.Frame(outer_frame, bg="white", bd=10, relief='flat')
+        gambar_frame.place(relx=0.9, rely=0.5, anchor='e', relwidth=0.3, relheight=1.0)
+
+        tk.Label(gambar_frame, text="Gambar Kos", bg="white", font=('Arial', 14, 'bold')).pack(pady=10)
+
+        gambar_label = tk.Label(gambar_frame, bg="lightgrey", relief="sunken", width=30, height=15)
+        gambar_label.pack(fill=tk.BOTH, expand=True, pady=10)
+
+        def update_detail(event):
             selected_item = tree.selection()
-            if not selected_item:
-                return
-            selected_id = tree.item(selected_item)['values'][0]
-            kos = next((k for k in self.data['kos'] if k['id'] == selected_id), None)
-            if kos and kos['gambar']:
-                try:
-                    img = Image.open(kos['gambar'])
-                    img.thumbnail((200, 200))
-                    img_tk = ImageTk.PhotoImage(img)
-                    gambar_label.config(image=img_tk)
-                    gambar_label.image = img_tk
-                except FileNotFoundError:
-                    gambar_label.config(text="Gambar tidak ditemukan")
+            if selected_item:
+                selected_id = tree.item(selected_item)['values'][0]
+                kos = get_kos_by_id(self.data, selected_id)  # Menggunakan fungsi dari data.py
+                if kos:
+                    detail_text = (
+                        f"Nama Kos: {kos.get('nama_kos', 'N/A')}\n"
+                        f"Alamat: {kos.get('alamat', 'N/A')}\n"
+                        f"Harga: {kos.get('harga', 'N/A')}\n"
+                        f"Fasilitas: {kos.get('fasilitas', 'N/A')}\n"
+                        f"Luas Kamar: {kos.get('luas_kamar', 'N/A')} m²\n"
+                        f"Status: {kos.get('status', 'N/A')}\n"
+                        f"Catatan: {kos.get('catatan', 'Tidak ada catatan')}"
+                    )
+                    detail_text_label.config(text=detail_text)
 
-        tree.bind('<<TreeviewSelect>>', preview_gambar)
+                    # Tampilkan gambar kos
+                    if kos.get('gambar'):
+                        try:
+                            img = Image.open(kos['gambar'])
+                            img.thumbnail((200, 200))
+                            img_tk = ImageTk.PhotoImage(img)
+                            gambar_label.config(image=img_tk, text="", compound='top')
+                            gambar_label.image = img_tk
+                        except FileNotFoundError:
+                            gambar_label.config(image="", text="Gambar tidak ditemukan", compound='none')
+                    else:
+                        gambar_label.config(image="", text="Tidak ada gambar", compound='none')
 
-        gambar_label = tk.Label(list_frame, text="Pilih kos untuk melihat gambar", bg="white", relief="sunken")
-        gambar_label.pack(pady=10)
+        tree.bind('<<TreeviewSelect>>', update_detail)
 
-        tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 12)).place(relx=0.5, rely=0.9, anchor='center')
+        tk.Button(self.root, text="Kembali", command=self.main_menu,relief='flat', font=("Arial", 12, "bold")).place(relx=0.5, rely=0.9, anchor='center')
 
+    
     def pesan_kos(self):
 
         for widget in self.root.winfo_children():
@@ -324,7 +361,7 @@ class sistem_kos:
             else:
                 rekening_var.set("")
 
-            kos_var.trace("w", update_rekening)
+        kos_var.trace("w", update_rekening)
 
     # Input durasi
         tk.Label(pesan_frame, text="Durasi Sewa (bulan):", bg="white").pack(pady=5)
@@ -345,14 +382,13 @@ class sistem_kos:
                     durasi = int(durasi_entry.get())
                     if durasi > 0:
                         total_harga = int(kos_data['harga']) * durasi
-                        total_harga_var.set(total_harga)
+                        total_harga_var.set(f"{total_harga:,}")
                     else:
                         total_harga_var.set("Durasi tidak valid")
                 except ValueError:
                     total_harga_var.set("Durasi harus angka")
 
         durasi_entry.bind("<KeyRelease>", update_total_harga)
-        kos_var.trace("w", update_total_harga)
 
     # Nominal pembayaran
         tk.Label(pesan_frame, text="Nominal Pembayaran:", bg="white").pack(pady=5)
@@ -368,7 +404,7 @@ class sistem_kos:
             try:
                 kos_data = kos_options[selected_kos]
                 durasi = int(durasi_entry.get())
-                total_harga = int(total_harga_var.get())
+                total_harga = int(total_harga_var.get().replace(",", ""))
                 nominal = int(nominal_entry.get())
             except ValueError:
                 messagebox.showwarning("Peringatan", "Durasi, nominal, atau total harga tidak valid!")
@@ -378,7 +414,6 @@ class sistem_kos:
                 messagebox.showwarning("Peringatan", f"Nominal pembayaran harus sama dengan total harga yaitu {total_harga}!")
                 return
 
-        # Tandai kos sebagai tidak tersedia dan tambahkan pemesanan
             kos_data['status'] = 'Tidak Tersedia'
             pemesanan_data = {
                 'id': len(self.data['pemesanan']) + 1,
@@ -395,8 +430,7 @@ class sistem_kos:
 
         tk.Button(pesan_frame, text="Pesan", command=proses_pesan, font=("Arial", 12)).pack(pady=10)
         tk.Button(pesan_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12)).pack(pady=5)
-
-
+        
     def show_list_pemesanan(self):
     # Bersihkan widget sebelumnya
         for widget in self.root.winfo_children():

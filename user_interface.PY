@@ -21,7 +21,7 @@ class sistem_kos:
             widget.destroy()
         self.canvas = Canvas(self.root, width=800, height=600)
         self.canvas.pack(fill="both", expand=True)
-        bg_image = Image.open("BackGround.png")
+        bg_image = Image.open("KOSIN up design front.png")
         self.bg_image = ImageTk.PhotoImage(bg_image)
         self.canvas.create_image(0, 0, image = self.bg_image, anchor="nw",)
         bg_image._expand=True
@@ -37,7 +37,7 @@ class sistem_kos:
 
     # Memuat gambar latar belakang
         try:
-            bg_image = Image.open("up desktop.png")
+            bg_image = Image.open("KOSIN up design  option.png")
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -137,7 +137,7 @@ class sistem_kos:
         tk.Button(menu_frame, text="Lihat Data Kos", command=self.list_kos, width=20, height=2).pack(pady=10)
         tk.Button(menu_frame, text="Pesan Kos", command=self.pesan_kos, width=20, height=2).pack(pady=10)
         tk.Button(menu_frame, text="Lihat Pemesanan", command=self.show_list_pemesanan, width=20, height=2).pack(pady=10)
-        tk.Button(menu_frame, text="Kembali", command=self.menu_utama, width=20, height=2).pack(pady=10)
+        tk.Button(menu_frame, text="Kembali", command=self.menu_utama,relief='flat', width=20, height=2).pack(pady=10)
 
     def input_kos(self):
         for widget in self.root.winfo_children():
@@ -229,7 +229,7 @@ class sistem_kos:
             self.input_kos()
 
         tk.Button(input_frame, text="Simpan", command=simpan_data_kos, font=("Arial", 12)).grid(row=10, column=0, columnspan=2, pady=10)
-        tk.Button(input_frame, text="Kembali", command=self.menu_utama, font=("Arial", 12)).grid(row=11, column=0, columnspan=2, pady=5)
+        tk.Button(input_frame, text="Kembali", command=self.menu_utama,relief='red',bg='#f94449',fg='white', font=("Arial", 12)).grid(row=11, column=0, columnspan=2, pady=5)
 
     def list_kos(self):
         # Validasi data awal
@@ -311,7 +311,7 @@ class sistem_kos:
 
         tree.bind('<<TreeviewSelect>>', update_detail)
 
-        tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 12, "bold")).place(relx=0.5, rely=0.9, anchor='center')
+        tk.Button(self.root, text="Kembali", command=self.main_menu,relief='flat', font=("Arial", 12, "bold")).place(relx=0.5, rely=0.9, anchor='center')
 
     
     def pesan_kos(self):

@@ -10,7 +10,7 @@ class sistem_kos:
     def __init__(self, root):
         self.root = root
         self.root.title("Sitem KOS")
-        self.root.geometry("960x540")
+        self.root.geometry("1920x1080")
         #self.root.resizable(False,False)
         self.data_file = 'Kos_data.json'
         self.data = load_data(self.data_file)
@@ -21,7 +21,7 @@ class sistem_kos:
             widget.destroy()
         self.canvas = Canvas(self.root, width=800, height=600)
         self.canvas.pack(fill="both", expand=True)
-        bg_image = Image.open("KOSIN up design front.png")
+        bg_image = Image.open("Bg_up1.png")
         self.bg_image = ImageTk.PhotoImage(bg_image)
         self.canvas.create_image(0, 0, image = self.bg_image, anchor="nw",)
         bg_image._expand=True

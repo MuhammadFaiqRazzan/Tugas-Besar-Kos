@@ -1,0 +1,17 @@
+{
+    "kos": [
+        {
+            "id": 1,
+            "nama_kos": "kos baru",
+            "alamat": "uns",
+            "harga": "250000",
+            "fasilitas": "ac, tv",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "bary",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tersedia"
+        }
+    ],
+    "pemesanan": []
+}

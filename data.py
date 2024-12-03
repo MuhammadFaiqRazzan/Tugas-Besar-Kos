@@ -5,11 +5,17 @@ def load_data(file_path):
     if os.path.exists(file_path):
         try:
             with open(file_path, 'r') as f:
-                return json.load(f)
+                data = json.load(f)
+                # Validasi atribut "harga" di setiap kos
+                for kos in data.get('kos', []):
+                    if 'harga' not in kos or not str(kos['harga']).isdigit():
+                        kos['harga'] = "0"  # Fallback nilai default jika tidak valid
+                return data
         except json.JSONDecodeError:
             return {'kos': [], 'pemesanan': []}
     else:
         return {'kos': [], 'pemesanan': []}
+
 
 def save_data(file_path, data):
     with open(file_path, 'w') as f:

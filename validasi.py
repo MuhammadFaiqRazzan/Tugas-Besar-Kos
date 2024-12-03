@@ -1,5 +1,6 @@
 import bcrypt
 import json
+import os
 
 def validasi_login(username, password):
     try:
@@ -66,3 +67,28 @@ def validasi_pembayaran(nominal, rekening_input, kos_data):
         return False, f"Nominal pembayaran kurang! Harus sebesar {total_harga}."
     
     return True, 
+
+def validasi_gambar(path_gambar):
+    if not os.path.isfile(path_gambar):
+        return False, "Gambar tidak ditemukan di sistem!"
+    if not path_gambar.lower().endswith(('.png', '.jpg', '.jpeg')):
+        return False, "Format gambar harus PNG, JPG, atau JPEG!"
+    return True, "Gambar valid"
+
+def validasi_input(data):
+    if not all(data.values()):
+        return False, "Harap isi semua data!"
+
+    if not data['harga'].isdigit() or int(data['harga']) <= 0:
+        return False, "Harga harus berupa angka positif!"
+
+    if not data['rekening'].isdigit() or len(data['rekening']) < 10:
+        return False, "Nomor rekening harus berupa angka dengan minimal 10 digit!"
+
+    # Validasi gambar menggunakan fungsi validasi_gambar
+    if 'gambar' in data:
+        is_valid, message = validasi_gambar(data['gambar'])
+        if not is_valid:
+            return False, message
+
+    return True, "Data valid"

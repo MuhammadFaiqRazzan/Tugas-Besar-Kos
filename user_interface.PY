@@ -154,48 +154,95 @@ class sistem_kos:
         for widget in self.root.winfo_children():
             widget.destroy()
 
-        # Gambar latar belakang
+        # Tambahkan gambar latar belakang
         try:
             bg_image = Image.open("Bg_input_kos.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
         except FileNotFoundError:
+            messagebox.showerror("Error", "Gambar latar belakang tidak ditemukan!")
             bg_label = tk.Label(self.root, bg="lightgrey")
             bg_label.place(relwidth=1, relheight=1)
 
+        # Frame untuk input kos
         input_frame = tk.Frame(self.root, bg="white", bd=20)
-        input_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.5, relheight=0.7)
+        input_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.6, relheight=0.8)
 
+        # Header
         tk.Label(input_frame, text="Input Data Kos", bg="white", font=('Arial', 18, 'bold')).grid(row=0, column=0, columnspan=2, pady=20)
 
-        fields = [
-            ("Nama Kos:", 1), ("Alamat:", 2), ("Harga per Bulan:", 3),
-            ("Fasilitas:", 4), ("Nomor Kamar:", 5), ("Nomor Rekening:", 6),
-            ("Luas Kamar (m²):", 7), ("Catatan:", 8)
-        ]
-        entries = {}
-        for label, row in fields:
-            tk.Label(input_frame, text=label, bg="white", font=("Arial", 14)).grid(row=row, column=0, sticky='w', pady=10, padx=20)
-            entry = tk.Entry(input_frame, font=("Arial", 14), width=40)
-            entry.grid(row=row, column=1, pady=10, padx=20)
-            entries[label] = entry
+        # Input nama kos
+        tk.Label(input_frame, text="Nama Kos:", bg="white", font=('Arial', 14)).grid(row=1, column=0, sticky='w', pady=10, padx=20)
+        nama_kos = tk.Entry(input_frame, width=40, font=('Arial', 14))
+        nama_kos.grid(row=1, column=1, pady=10, padx=20)
 
-        tk.Label(input_frame, text="Gambar Kos:", bg="white", font=("Arial", 14)).grid(row=9, column=0, sticky='w', pady=10, padx=20)
-        gambar_label = tk.Label(input_frame, text="Belum ada gambar", bg="lightgrey", font=("Arial", 12), relief="sunken", width=40)
-        gambar_label.grid(row=9, column=1, pady=10, padx=20)
+        # Input alamat
+        tk.Label(input_frame, text="Alamat:", bg="white", font=('Arial', 14)).grid(row=2, column=0, sticky='w', pady=10, padx=20)
+        alamat = tk.Entry(input_frame, width=40, font=('Arial', 14))
+        alamat.grid(row=2, column=1, pady=10, padx=20)
+
+        # Input harga per bulan
+        tk.Label(input_frame, text="Harga per Bulan:", bg="white", font=('Arial', 14)).grid(row=3, column=0, sticky='w', pady=10, padx=20)
+        harga = tk.Entry(input_frame, width=40, font=('Arial', 14))
+        harga.grid(row=3, column=1, pady=10, padx=20)
+
+        # Input fasilitas
+        tk.Label(input_frame, text="Fasilitas:", bg="white", font=('Arial', 14)).grid(row=4, column=0, sticky='w', pady=10, padx=20)
+        fasilitas = tk.Entry(input_frame, width=40, font=('Arial', 14))
+        fasilitas.grid(row=4, column=1, pady=10, padx=20)
+
+        # Input nomor rekening
+        tk.Label(input_frame, text="Nomor Rekening:", bg="white", font=('Arial', 14)).grid(row=5, column=0, sticky='w', pady=10, padx=20)
+        rekening = tk.Entry(input_frame, width=40, font=('Arial', 14))
+        rekening.grid(row=5, column=1, pady=10, padx=20)
+
+        # Input luas tempat
+        tk.Label(input_frame, text="Luas Tempat (m²):", bg="white", font=('Arial', 14)).grid(row=6, column=0, sticky='w', pady=10, padx=20)
+        luas_tempat = tk.Entry(input_frame, width=40, font=('Arial', 14))
+        luas_tempat.grid(row=6, column=1, pady=10, padx=20)
+
+        # Input catatan
+        tk.Label(input_frame, text="Catatan:", bg="white", font=('Arial', 14)).grid(row=7, column=0, sticky='w', pady=10, padx=20)
+        catatan = tk.Entry(input_frame, width=40, font=('Arial', 14))
+        catatan.grid(row=7, column=1, pady=10, padx=20)
+
+        # Input gambar kos
+        tk.Label(input_frame, text="Gambar Kos:", bg="white", font=('Arial', 14)).grid(row=8, column=0, sticky='w', pady=10, padx=20)
+        gambar_label = tk.Label(input_frame, text="Belum ada gambar", bg="lightgrey", font=('Arial', 12), relief="sunken", width=40)
+        gambar_label.grid(row=8, column=1, pady=10, padx=20)
 
         def pilih_gambar():
             gambar_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
             if gambar_path:
                 gambar_label.config(text=gambar_path)
 
-        tk.Button(input_frame, text="Pilih Gambar", command=pilih_gambar, font=("Arial", 12)).grid(row=10, column=1, sticky='w', pady=10, padx=20)
+        tk.Button(input_frame, text="Pilih Gambar", command=pilih_gambar, font=('Arial', 12)).grid(row=9, column=1, sticky='w', pady=10, padx=20)
 
+        # Fungsi untuk menyimpan data kos
         def simpan_data_kos():
-            kos_data = {field: entries[field].get() for field, _ in fields}
-            kos_data['gambar'] = gambar_label.cget("text")
-            kos_data['status'] = 'Tersedia'
+            try:
+                harga_value = int(harga.get())
+                luas_value = float(luas_tempat.get())
+                if harga_value <= 0 or luas_value <= 0:
+                    messagebox.showwarning("Peringatan", "Harga dan luas tempat harus angka positif!")
+                    return
+            except ValueError:
+                messagebox.showwarning("Peringatan", "Harga dan luas tempat harus berupa angka!")
+                return
+
+            kos_data = {
+                'id': len(self.data['kos']) + 1,
+                'nama_kos': nama_kos.get(),
+                'alamat': alamat.get(),
+                'harga': harga.get(),
+                'fasilitas': fasilitas.get(),
+                'rekening': rekening.get(),
+                'luas_tempat': luas_tempat.get(),
+                'catatan': catatan.get(),
+                'gambar': gambar_label.cget("text"),
+                'status': 'Tersedia'
+            }
 
             is_valid, message = validasi_input(kos_data)
             if not is_valid:
@@ -205,12 +252,13 @@ class sistem_kos:
             self.data = tambah_kos(self.data, kos_data)
             save_data(self.data_file, self.data)
             messagebox.showinfo("Sukses", "Data kos berhasil disimpan!")
-            self.input_kos()
+            self.input_kos()  # Kembali ke form input
 
-        tk.Button(input_frame, text="Simpan", command=simpan_data_kos, width=15, height=2, bg='#51d451', fg='White', font=("Arial", 14)).grid(row=11, column=0, columnspan=2, pady=15)
-        tk.Button(input_frame, text="Kembali", command=self.menu_utama, width=15, height=2, bg='#f94449', fg='White', font=("Arial", 14)).grid(row=12, column=0, columnspan=2, pady=15)
+        # Tombol Simpan dan Kembali
+        tk.Button(input_frame, text="Simpan", command=simpan_data_kos, font=('Arial', 14), bg='#51d451', fg='white').grid(row=10, column=0, columnspan=2, pady=15)
+        tk.Button(input_frame, text="Kembali", command=self.menu_utama, font=('Arial', 14), bg='#f94449', fg='white').grid(row=11, column=0, columnspan=2, pady=10)
 
-            
+                
     def list_kos(self):
     # Bersihkan widget sebelumnya
         for widget in self.root.winfo_children():

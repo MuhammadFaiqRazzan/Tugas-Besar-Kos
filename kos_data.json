@@ -11,6 +11,30 @@
             "catatan": "bary",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
             "status": "Tersedia"
+        },
+        {
+            "id": 2,
+            "nama_kos": "kos",
+            "alamat": "un",
+            "harga": "500000",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "new",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tersedia"
+        },
+        {
+            "id": 3,
+            "nama_kos": "kos",
+            "alamat": "uns",
+            "harga": "200000",
+            "fasilitas": "AC",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "baru",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tersedia"
         }
     ],
     "pemesanan": []

@@ -260,7 +260,7 @@ class sistem_kos:
 
                 
     def list_kos(self):
-    # Bersihkan widget sebelumnya
+    
         for widget in self.root.winfo_children():
             widget.destroy()
 
@@ -277,28 +277,26 @@ class sistem_kos:
 
         # Frame untuk filter harga
         filter_frame = tk.Frame(self.root, bg="white", bd=10)
-        filter_frame.place(relx=0.5, rely=0.1, anchor='center', relwidth=0.8, relheight=0.1)
+        filter_frame.place(relx=0.5, rely=0.1, anchor='center', relwidth=0.8, relheight=0.15)
 
-        tk.Label(filter_frame, text="Filter Kos Berdasarkan Harga", bg="white", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=4, pady=10)
+        tk.Label(filter_frame, text="Filter Kos Berdasarkan Harga", bg="white", font=("Arial", 16, "bold")).grid(row=0, column=0, columnspan=4, pady=5)
 
-        tk.Label(filter_frame, text="Harga Minimum:", bg="white", font=("Arial", 14)).grid(row=1, column=0, sticky='e', padx=10)
+        tk.Label(filter_frame, text="Harga Minimum:", bg="white", font=("Arial", 14)).grid(row=1, column=0, sticky='e', padx=5)
         min_price_entry = tk.Entry(filter_frame, width=20, font=("Arial", 14))
-        min_price_entry.grid(row=1, column=1, padx=10)
+        min_price_entry.grid(row=1, column=1, padx=5)
 
-        tk.Label(filter_frame, text="Harga Maksimum:", bg="white", font=("Arial", 14)).grid(row=1, column=2, sticky='e', padx=10)
+        tk.Label(filter_frame, text="Harga Maksimum:", bg="white", font=("Arial", 14)).grid(row=1, column=2, sticky='e', padx=5)
         max_price_entry = tk.Entry(filter_frame, width=20, font=("Arial", 14))
-        max_price_entry.grid(row=1, column=3, padx=10)
+        max_price_entry.grid(row=1, column=3, padx=5)
 
         def filter_kos():
             try:
-                # Ambil input harga
                 min_price = int(min_price_entry.get()) if min_price_entry.get().isdigit() else 0
                 max_price = int(max_price_entry.get()) if max_price_entry.get().isdigit() else float('inf')
             except ValueError:
                 messagebox.showerror("Error", "Harga harus berupa angka!")
                 return
 
-            # Filter kos berdasarkan harga
             filtered_kos = [kos for kos in self.data['kos'] if min_price <= int(kos['harga']) <= max_price]
             if not filtered_kos:
                 messagebox.showinfo("Info", "Tidak ada kos yang sesuai dengan rentang harga.")
@@ -306,11 +304,29 @@ class sistem_kos:
 
             update_list(filtered_kos)
 
-        tk.Button(filter_frame, text="Terapkan Filter", command=filter_kos, bg="#51d451", fg="white", relief="flat", font=("Arial", 14, "bold")).grid(row=2, column=0, columnspan=4, pady=10)
+        tk.Button(filter_frame, text="Terapkan Filter", command=filter_kos, bg="#51d451", fg="white", font=("Arial", 14, "bold")).grid(row=2, column=1, columnspan=1, pady=5)
 
-        # Frame untuk ID Kos (Frame 1)
+        # Tambahkan tombol rekomendasi
+        def rekomendasi_kos():
+            try:
+                min_price = int(min_price_entry.get()) if min_price_entry.get().isdigit() else 0
+                max_price = int(max_price_entry.get()) if max_price_entry.get().isdigit() else float('inf')
+            except ValueError:
+                messagebox.showerror("Error", "Harga harus berupa angka!")
+                return
+
+            recommended_kos = [kos for kos in self.data['kos'] if min_price <= int(kos['harga']) <= max_price]
+            if not recommended_kos:
+                messagebox.showinfo("Info", "Tidak ada kos yang sesuai untuk rekomendasi.")
+                return
+
+            update_list(recommended_kos)
+
+        tk.Button(filter_frame, text="Rekomendasi", command=rekomendasi_kos, bg="#187bcd", fg="white", font=("Arial", 14, "bold")).grid(row=2, column=2, columnspan=1, pady=5)
+        
+        # Frame untuk ID Kos
         id_frame = tk.Frame(self.root, bg="white", bd=10)
-        id_frame.place(relx=0.1, rely=0.5, anchor='w', relwidth=0.1, relheight=0.7)
+        id_frame.place(relx=0.1, rely=0.5, anchor='w', relwidth=0.2, relheight=0.6)
         tk.Label(id_frame, text="ID Kos", bg="white", font=('Arial', 16, 'bold')).pack(pady=10)
 
         id_tree = ttk.Treeview(id_frame, columns=('ID'), show='headings', height=20)
@@ -318,37 +334,34 @@ class sistem_kos:
         id_tree.heading('ID', text='ID')
         id_tree.column('ID', anchor='center', width=100)
 
-        # Frame untuk Detail Kos (Frame 2)
+        # Frame untuk Detail Kos
         detail_frame = tk.Frame(self.root, bg="white", bd=10)
-        detail_frame.place(relx=0.4, rely=0.5, anchor='center', relwidth=0.4, relheight=0.7)
+        detail_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.4, relheight=0.6)
         tk.Label(detail_frame, text="Detail Kos", bg="white", font=('Arial', 16, 'bold')).pack(pady=10)
 
         detail_text_label = tk.Label(detail_frame, text="", bg="white", justify="left", anchor="nw", relief="sunken", font=("Arial", 14), width=40, height=15)
         detail_text_label.pack(fill=tk.BOTH, expand=True, pady=10)
 
-        # Frame untuk Gambar Kos (Frame 3)
+        # Frame untuk Gambar Kos
         gambar_frame = tk.Frame(self.root, bg="white", bd=10)
-        gambar_frame.place(relx=0.8, rely=0.5, anchor='e', relwidth=0.5, relheight=0.7)
+        gambar_frame.place(relx=0.9, rely=0.5, anchor='e', relwidth=0.2, relheight=0.6)
         tk.Label(gambar_frame, text="Gambar Kos", bg="white", font=('Arial', 16, 'bold')).pack(pady=10)
 
         gambar_label = tk.Label(gambar_frame, bg="lightgrey", relief="sunken", width=30, height=15)
         gambar_label.pack(fill=tk.BOTH, expand=True, pady=10)
 
-        # Fungsi untuk memperbarui daftar kos
         def update_list(kos_list):
             for item in id_tree.get_children():
                 id_tree.delete(item)
             for kos in kos_list:
                 id_tree.insert('', tk.END, values=(kos.get('id', 'N/A')))
 
-        # Fungsi untuk memperbarui detail dan gambar berdasarkan ID kos
         def update_detail(event):
             selected_item = id_tree.selection()
             if selected_item:
                 selected_id = id_tree.item(selected_item)['values'][0]
                 kos = next((k for k in self.data['kos'] if str(k['id']) == str(selected_id)), None)
                 if kos:
-                    # Perbarui detail teks
                     detail_text = (
                         f"Nama Kos: {kos.get('nama_kos', 'N/A')}\n"
                         f"Alamat: {kos.get('alamat', 'N/A')}\n"
@@ -360,7 +373,6 @@ class sistem_kos:
                     )
                     detail_text_label.config(text=detail_text)
 
-                    # Perbarui gambar
                     if kos.get('gambar'):
                         try:
                             img = Image.open(kos['gambar'])
@@ -375,12 +387,10 @@ class sistem_kos:
 
         id_tree.bind('<<TreeviewSelect>>', update_detail)
 
-        # Tambahkan semua data kos pada awalnya
         update_list(self.data['kos'])
 
-        # Tombol kembali
         tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 14, "bold"), bg='#f94449', fg='white', relief='flat').place(relx=0.5, rely=0.9, anchor='center')
-      
+        
     def pesan_kos(self):
 
         for widget in self.root.winfo_children():

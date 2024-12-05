@@ -35,6 +35,71 @@
             "catatan": "baru",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
             "status": "Tidak Tersedia"
+        },
+        {
+            "id": 4,
+            "nama_kos": "kos",
+            "alamat": "uns",
+            "harga": "120000",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "ac",
+            "gambar": "C:/Users/chari/Downloads/K.png",
+            "status": "Tersedia",
+            "owner": "3"
+        },
+        {
+            "id": 5,
+            "nama_kos": "kos",
+            "alamat": "uns",
+            "harga": "200000",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "23",
+            "catatan": "bebas",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tersedia",
+            "owner": "2"
+        },
+        {
+            "id": 6,
+            "nama_kos": "kos",
+            "alamat": "uns",
+            "harga": "450000",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "bebas",
+            "gambar": "C:/Users/chari/Downloads/K.png",
+            "status": "Tersedia",
+            "owner": "3"
+        },
+        {
+            "id": 7,
+            "nama_kos": "kos 1",
+            "alamat": "uns",
+            "harga": "4500000",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "k",
+            "gambar": "C:/Users/chari/Downloads/K.png",
+            "status": "Tersedia",
+            "owner": "2"
+        },
+        {
+            "id": 8,
+            "nama_kos": "as",
+            "alamat": "ae",
+            "harga": "222",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "ac",
+            "gambar": "C:/Users/chari/Downloads/K.png",
+            "status": "Tersedia",
+            "owner": "3"
         }
     ],
     "pemesanan": [
@@ -47,5 +112,31 @@
             "rekening": "1234567891",
             "bukti_pembayaran": "C:/Users/chari/Downloads/Hitam dan Putih Y2k Minimalis Kelas Logo.png"
         }
-    ]
+    ],
+    "users": {
+        "3": {
+            "kos": [],
+            "data_diri": {
+                "nama": "pak tony",
+                "alamat": "uns",
+                "kontak": "0808080808"
+            }
+        },
+        "2": {
+            "kos": [],
+            "data_diri": {
+                "nama": "pak toni",
+                "alamat": "uns",
+                "kontak": "0898786755"
+            }
+        },
+        "4": {
+            "kos": [],
+            "data_diri": {
+                "nama": "wira",
+                "alamat": "unnes",
+                "kontak": "09"
+            }
+        }
+    }
 }

@@ -16,7 +16,6 @@ def load_data(file_path):
     else:
         return {'kos': [], 'pemesanan': []}
 
-
 def save_data(file_path, data):
     with open(file_path, 'w') as f:
         json.dump(data, f, indent=4)

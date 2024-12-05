@@ -30,16 +30,20 @@ def validasi_input(data):
     if not all(data.values()):
         return False, "Harap isi semua data!"
 
-    if not data['harga'].isdigit() or int(data['harga']) <= 0:
+    if 'harga' not in data or not str(data['harga']).isdigit() or int(data['harga']) <= 0:
         return False, "Harga harus berupa angka positif!"
 
-    if not data['rekening'].isdigit() or len(data['rekening']) < 10:
+    if 'rekening' not in data or not data['rekening'].isdigit() or len(data['rekening']) < 10:
         return False, "Nomor rekening harus berupa angka dengan minimal 10 digit!"
 
-    if not data['gambar'].lower().endswith(('.png', '.jpg', '.jpeg')):
-        return False, "Format gambar harus PNG, JPG, atau JPEG!"
+    # Validasi gambar menggunakan fungsi validasi_gambar
+    if 'gambar' in data:
+        is_valid, message = validasi_gambar(data['gambar'])
+        if not is_valid:
+            return False, message
 
     return True, "Data valid"
+
 def tambah_kos(data, kos_data):
     data['kos'].append(kos_data)
     return data
@@ -76,19 +80,26 @@ def validasi_gambar(path_gambar):
     return True, "Gambar valid"
 
 def validasi_input(data):
-    if not all(data.values()):
+    
+    if not all(data.values()):  # Memastikan semua kolom terisi
         return False, "Harap isi semua data!"
 
-    if not data['harga'].isdigit() or int(data['harga']) <= 0:
-        return False, "Harga harus berupa angka positif!"
-
-    if not data['rekening'].isdigit() or len(data['rekening']) < 10:
+    try:
+        harga = int(data.get('harga', 0))
+        if harga <= 0:  # Harga tidak boleh nol atau negatif
+            return False, "Harga harus lebih besar dari 0!"
+    except ValueError:
+        return False, "Harga harus berupa angka!"
+    
+    # Validasi nomor rekening
+    if not data.get('rekening', '').isdigit() or len(data['rekening']) < 10:
         return False, "Nomor rekening harus berupa angka dengan minimal 10 digit!"
-
-    # Validasi gambar menggunakan fungsi validasi_gambar
+    
+    # Validasi gambar
     if 'gambar' in data:
         is_valid, message = validasi_gambar(data['gambar'])
         if not is_valid:
             return False, message
-
+    
     return True, "Data valid"
+

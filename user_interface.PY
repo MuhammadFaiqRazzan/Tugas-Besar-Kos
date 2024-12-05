@@ -21,19 +21,21 @@ class sistem_kos:
             widget.destroy()
 
         # Canvas untuk gambar latar belakang
-        self.canvas = Canvas(self.root, width=1920, height=1080)
-        self.canvas.pack(fill="both", expand=True)
-
         try:
+            # Memuat gambar latar belakang
             bg_image = Image.open("Bg_up1.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
-            self.canvas.create_image(0, 0, image=self.bg_image, anchor="nw")
         except FileNotFoundError:
-            messagebox.showerror("Error", "Gambar latar belakang tidak ditemukan!")
+            messagebox.showerror("ERROR", "Gambar tidak ditemukan di direktori!")
+            return
+
+        # Terapkan gambar latar belakang
+        bg_label = tk.Label(self.root, image=self.bg_image)
+        bg_label.place(relwidth=1, relheight=1)
 
         # Tombol langsung di atas background tanpa frame
-        Button(self.root, text="PESAN", font=("Arial", 18, "bold"), bg="green", fg="white", width=20, height=2, command=self.main_menu).place(relx=0.5, rely=0.7, anchor='center')
-        Button(self.root, text="SEWAKAN", font=("Arial", 18, "bold"), bg="blue", fg="white", width=20, height=2, command=self.halaman_login).place(relx=0.5, rely=0.8, anchor='center')
+        Button(self.root, text="PESAN", font=("Arial", 18, "bold"), bg="#51d451", fg="white", width=20, height=2, command=self.main_menu).place(relx=0.5, rely=0.7, anchor='center')
+        Button(self.root, text="SEWAKAN", font=("Arial", 18, "bold"), bg="#187bcd", fg="white", width=20, height=2, command=self.halaman_login).place(relx=0.5, rely=0.8, anchor='center')
 
     def halaman_login(self):
         
@@ -51,7 +53,7 @@ class sistem_kos:
             bg_label.place(relwidth=1, relheight=1)
 
         # Frame untuk login
-        login_frame = tk.Frame(self.root, bg="white", bd=0.5)
+        login_frame = tk.Frame(self.root, bg="white",relief='groove', bd=0.5)
         login_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.4, relheight=0.7)
         
         tk.Label(login_frame, text='SELAMAT DATANG',font=('Arial', 20, 'bold'),bg='white').place(x=220, y=100)
@@ -118,7 +120,7 @@ class sistem_kos:
         reg_frame = tk.Frame(self.root, bg="white", bd=30)
         reg_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.4, relheight=0.7)
 
-        tk.Label(reg_frame, text="Register Admin", bg="white", font=("Arial", 18, "bold")).pack(pady=20)
+        tk.Label(reg_frame, text="Register Admin", bg="white", font=("Arial", 30, "bold")).place(x=170, y=90)
 
         tk.Label(reg_frame, text="Username:", bg="white", font=("Arial", 14)).place(x=70,y=200)
         username_entry = tk.Entry(reg_frame,border=0,width=43, font=("Arial", 14))
@@ -128,7 +130,7 @@ class sistem_kos:
         tk.Label(reg_frame, text="Password:", bg="white", font=("Arial", 14)).place(x=70,y=280)
         password_entry = tk.Entry(reg_frame, border=0,show='*',width=43, font=("Arial", 14))
         password_entry.place(x=75, y=310)
-        Frame(width=490, height=2, bg='black').place(x=615,y=510)
+        Frame(width=490, height=2, bg='black').place(x=610,y=510)
         
         def toggle_password():
             if show_var.get():  
@@ -162,32 +164,47 @@ class sistem_kos:
         tk.Button(reg_frame, text="Register", relief='flat', command=save_new_admin, width=40, height=2, bg='#51d451', fg='White', font=("Arial", 14, "bold")).place(x=75, y=400)
         tk.Button(reg_frame, text="Kembali",relief='flat', command=self.halaman_login, width=20, height=1, bg='#f94449', fg='White', font=("Arial", 14, "bold")).place(x=195, y= 550)
 
-    def main_menu(self):
+    def main_menu (self):
         
         for widget in self.root.winfo_children():
             widget.destroy()
 
         try:
-        # Memuat gambar latar belakang
-            bg_image = Image.open("Bg_up2.png")
-            bg_image = ImageTk.PhotoImage(bg_image)
+            # Memuat gambar latar belakang
+            bg_image = Image.open("Bg_up1.png").resize((1920, 1080))
+            self.bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
-            messagebox.showerror("ERROR", "Gambar Tidak ditemukan di direktori!")
+            messagebox.showerror("ERROR", "Gambar tidak ditemukan di direktori!")
             return
 
-    # Terapkan gambar latar belakang
-        bg_label = tk.Label(self.root, image=bg_image)
-        bg_label.image = bg_image
+        # Terapkan gambar latar belakang
+        bg_label = tk.Label(self.root, image=self.bg_image)
         bg_label.place(relwidth=1, relheight=1)
 
-    # Membuat frame tombol di atas latar belakang
-        menu_frame = tk.Frame(self.root, bg="white", bd=5)
-        menu_frame.place(relx=0.5, rely=0.5, anchor='center')
+        # Tombol di atas latar belakang tanpa frame
+        lihat_data_kos_button = tk.Button(
+            self.root, text="Lihat Data Kos",relief='flat', font=("Arial", 18, "bold"),
+            bg="white", fg="black", width=20, height=2, command=self.list_kos
+        )
+        lihat_data_kos_button.place(relx=0.5, rely=0.4, anchor="center")
 
-        tk.Button(menu_frame, text="Lihat Data Kos", command=self.list_kos, width=20, height=2).pack(pady=10)
-        tk.Button(menu_frame, text="Pesan Kos", command=self.pesan_kos, width=20, height=2).pack(pady=10)
-        tk.Button(menu_frame, text="Lihat Pemesanan", command=self.show_list_pemesanan, width=20, height=2).pack(pady=10)
-        tk.Button(menu_frame, text="Kembali", command=self.menu_utama,relief='flat', width=20, height=2).pack(pady=10)
+        pesan_kos_button = tk.Button(
+            self.root, text="Pesan Kos",relief='flat', font=("Arial", 18, "bold"),
+            bg="white", fg="black", width=20, height=2, command=self.pesan_kos
+        )
+        pesan_kos_button.place(relx=0.5, rely=0.5, anchor="center")
+
+        lihat_pemesanan_button = tk.Button(
+            self.root, text="Lihat Pemesanan",relief='flat', font=("Arial", 18, "bold"),
+            bg="white", fg="black", width=20, height=2, command=self.show_list_pemesanan
+        )
+        lihat_pemesanan_button.place(relx=0.5, rely=0.6, anchor="center")
+
+        kembali_button = tk.Button(
+            self.root, text="Kembali",relief='flat', font=("Arial", 18, "bold"),
+            bg="red", fg="white", width=20, height=2, command=self.menu_utama
+        )
+        kembali_button.place(relx=0.5, rely=0.7, anchor="center")
 
     def input_kos(self):
         

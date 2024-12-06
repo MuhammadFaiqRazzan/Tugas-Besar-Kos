@@ -7,6 +7,7 @@ from validasi import validasi_input, tambah_kos, buat_pesanan, validasi_login,si
 import os
 
 class sistem_kos:
+    
     def __init__(self, root):
         self.root = root
         self.root.title("Sistem KOS")

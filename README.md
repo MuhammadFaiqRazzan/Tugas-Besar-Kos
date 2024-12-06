@@ -25,5 +25,8 @@ Terdapat pilihan yang dapat dipilih oleh user yaitu
 - Menampilkan kos yang sudah dipesan : User dapat melihat data kos yang duah di pesan
 
 # Flow Chart
-![flowchartpemesanankos drawio](https://github.com/user-attachments/assets/32c506fc-9dd4-4f1c-a637-649d14f77f16)
+![flowchart1 drawio](https://github.com/user-attachments/assets/32c506fc-9dd4-4f1c-a637-649d14f77f16)
+
+![flowchart2 drawio](?[raw=true](https://github.com/MuhammadFaiqRazzan/Tugas-Besar-Kos/commit/1a5e1a85cda20b1f984324984cc3f6bb104eb151))
+
 

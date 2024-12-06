@@ -1,4 +1,5 @@
 import json
+import bcrypt
 import os
 
 def load_data(file_path):
@@ -58,3 +59,22 @@ def update_user_data(data, username, updated_user_data):
         data['users'] = {}
     data['users'][username] = updated_user_data
     return data
+
+def simpan_pemesan(username, password):
+    
+    if not username or not password:
+        return False, "Username dan password harus diisi!"
+
+    try:
+        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        new_pemesan = {
+            'username': username,
+            'password': hashed_password.decode(),
+            'pemesanan': []  # Kosongkan pemesanan saat pertama kali register
+        }
+        with open('pemesan.json', 'a') as pemesan_file:
+            json.dump(new_pemesan, pemesan_file)
+            pemesan_file.write('\n')
+        return True, "Pemesan berhasil didaftarkan!"
+    except Exception as e:
+        return False, f"Terjadi kesalahan: {e}"

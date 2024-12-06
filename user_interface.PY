@@ -2,8 +2,8 @@ import tkinter as tk
 import bcrypt
 from tkinter import ttk, messagebox, Canvas, Button, filedialog,Frame
 from PIL import Image, ImageTk
-from data import load_data, save_data, get_kos_by_id, get_kos_by_owner, get_user_data, update_user_data
-from validasi import validasi_input, tambah_kos, buat_pesanan, validasi_login,simpan_admin, validasi_pembayaran, validasi_gambar
+from data import load_data, save_data, get_kos_by_id, get_kos_by_owner, get_user_data, update_user_data,simpan_pemesan
+from validasi import validasi_input, tambah_kos, buat_pesanan, validasi_login,simpan_admin, validasi_pembayaran, validasi_gambar,validasi_login_pemesan
 import os
 
 class sistem_kos:
@@ -34,10 +34,10 @@ class sistem_kos:
         bg_label.place(relwidth=1, relheight=1)
 
         # Tombol di atas latar belakang
-        Button(self.root, text="PESAN", font=("Arial", 18, "bold"), bg="#51d451", fg="white", width=20, height=2, command=self.main_menu).place(relx=0.5, rely=0.7, anchor='center')
+        Button(self.root, text="PESAN", font=("Arial", 18, "bold"), bg="#51d451", fg="white", width=20, height=2, command=self.halaman_login_pemesan).place(relx=0.5, rely=0.7, anchor='center')
         Button(self.root, text="SEWAKAN", font=("Arial", 18, "bold"), bg="#187bcd", fg="white", width=20, height=2, command=self.halaman_login).place(relx=0.5, rely=0.8, anchor='center')
         Button(self.root, text="Exit", font=("Arial", 18, "bold"), bg="red", fg="white", width=20, height=2, command=self.root.quit).place(relx=0.5, rely=0.9, anchor='center')
-        
+            
     def halaman_login(self):
         
         for widget in self.root.winfo_children():
@@ -145,6 +145,85 @@ class sistem_kos:
         tk.Button(self.root, text="Kembali", bg="red", fg="white", font=("Arial", 14, "bold"), 
                 command=self.halaman_login).place(relx=0.6, rely=0.6, anchor="center", width=150)
 
+    def halaman_login_pemesan(self):
+    
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+        # Gambar latar belakang
+        try:
+            bg_image = Image.open("Bg_up1.png").resize((1920, 1080))
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="white")
+            bg_label.place(relwidth=1, relheight=1)
+
+        # Input username dan password
+        tk.Label(self.root, text="Login Pemesan", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
+        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.35, anchor="w")
+        username_entry = tk.Entry(self.root, font=("Arial", 14))
+        username_entry.place(relx=0.5, rely=0.35, anchor="w", width=300)
+
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.45, anchor="w")
+        password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
+        password_entry.place(relx=0.5, rely=0.45, anchor="w", width=300)
+
+        # Fungsi validasi login
+        def check_login_pemesan():
+            username = username_entry.get()
+            password = password_entry.get()
+            success, pemesan_data = validasi_login_pemesan(username, password)
+            if success:
+                self.current_user = pemesan_data  # Simpan data pemesan yang login
+                messagebox.showinfo("Sukses", "Login berhasil!")
+                self.main_menu()
+            else:
+                messagebox.showerror("Error", pemesan_data)
+
+        # Tombol Login dan Register
+        tk.Button(self.root, text="Login", bg="#51d451", fg="white", font=("Arial", 14, "bold"),
+                command=check_login_pemesan).place(relx=0.4, rely=0.6, anchor="center", width=150)
+        tk.Button(self.root, text="Register", bg="#187bcd", fg="white", font=("Arial", 14, "bold"),
+                command=self.halaman_register_pemesan).place(relx=0.6, rely=0.6, anchor="center", width=150)
+
+        # Tombol Kembali
+        tk.Button(self.root, text="Kembali", bg="red", fg="white", font=("Arial", 14, "bold"),
+                command=self.menu_utama).place(relx=0.5, rely=0.7, anchor="center", width=150)
+
+    def halaman_register_pemesan(self):
+        
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+        # Input username dan password
+        tk.Label(self.root, text="Register Pemesan", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
+        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.35, anchor="w")
+        username_entry = tk.Entry(self.root, font=("Arial", 14))
+        username_entry.place(relx=0.5, rely=0.35, anchor="w", width=300)
+
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.45, anchor="w")
+        password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
+        password_entry.place(relx=0.5, rely=0.45, anchor="w", width=300)
+
+        # Fungsi untuk menyimpan data pemesan baru
+        def save_register_pemesan():
+            username = username_entry.get()
+            password = password_entry.get()
+            success, message = simpan_pemesan(username, password)
+            if success:
+                messagebox.showinfo("Sukses", "Register berhasil! Silakan login.")
+                self.halaman_login_pemesan()
+            else:
+                messagebox.showerror("Error", message)
+
+        # Tombol Register dan Kembali
+        tk.Button(self.root, text="Register", bg="#51d451", fg="white", font=("Arial", 14, "bold"),
+                command=save_register_pemesan).place(relx=0.4, rely=0.6, anchor="center", width=150)
+        tk.Button(self.root, text="Kembali", bg="red", fg="white", font=("Arial", 14, "bold"),
+                command=self.halaman_login_pemesan).place(relx=0.6, rely=0.6, anchor="center", width=150)
+    
     def halaman_profil(self, background_image_path=None):
 
         for widget in self.root.winfo_children():
@@ -546,7 +625,12 @@ class sistem_kos:
         tk.Button(self.root, text="Kembali", command=self.main_menu, bg="red", fg="white", font=("Arial", 14)).place(relx=0.5, rely=0.9, anchor='center')
 
     def pesan_kos(self):
-        
+    
+        if not self.current_user:
+            messagebox.showwarning("Peringatan", "Anda harus login terlebih dahulu!")
+            self.halaman_login()
+            return
+
         for widget in self.root.winfo_children():
             widget.destroy()
 
@@ -568,7 +652,7 @@ class sistem_kos:
         available_kos = [k for k in self.data['kos'] if k['status'] == 'Tersedia']
         if not available_kos:
             messagebox.showinfo("Info", "Tidak ada kos yang tersedia untuk dipesan.")
-            self.menu_utama()
+            self.main_menu()
             return
 
         kos_options = {f"{k['id']} - {k['nama_kos']}": k for k in available_kos}
@@ -579,11 +663,16 @@ class sistem_kos:
         kos_combobox = ttk.Combobox(self.root, textvariable=kos_var, values=list(kos_options.keys()), width=40, font=("Arial", 12))
         kos_combobox.place(relx=0.5, rely=0.2, anchor="w")
 
+        # Input Durasi Sewa
+        tk.Label(self.root, text="Durasi Sewa (bulan):", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.3, anchor="w")
+        durasi_entry = tk.Entry(self.root, width=10, font=("Arial", 12))
+        durasi_entry.place(relx=0.5, rely=0.3, anchor="w")
+
         # Nomor Rekening
-        tk.Label(self.root, text="Nomor Rekening Tujuan:", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.27, anchor="w")
+        tk.Label(self.root, text="Nomor Rekening Tujuan:", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.37, anchor="w")
         rekening_var = tk.StringVar(self.root)
         rekening_label = tk.Label(self.root, textvariable=rekening_var, bg="lightgrey", font=("Arial", 12), width=30, anchor="w")
-        rekening_label.place(relx=0.5, rely=0.27, anchor="w")
+        rekening_label.place(relx=0.5, rely=0.37, anchor="w")
 
         def update_rekening(*args):
             selected_kos = kos_var.get()
@@ -594,16 +683,11 @@ class sistem_kos:
 
         kos_var.trace("w", update_rekening)
 
-        # Input Durasi Sewa
-        tk.Label(self.root, text="Durasi Sewa (bulan):", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.34, anchor="w")
-        durasi_entry = tk.Entry(self.root, width=10, font=("Arial", 12))
-        durasi_entry.place(relx=0.5, rely=0.34, anchor="w")
-
         # Total Harga
-        tk.Label(self.root, text="Total Harga:", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.41, anchor="w")
+        tk.Label(self.root, text="Total Harga:", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.44, anchor="w")
         total_harga_var = tk.StringVar(self.root)
         total_harga_label = tk.Label(self.root, textvariable=total_harga_var, bg="lightgrey", font=("Arial", 12), width=30, anchor="w")
-        total_harga_label.place(relx=0.5, rely=0.41, anchor="w")
+        total_harga_label.place(relx=0.5, rely=0.44, anchor="w")
 
         def update_total_harga(*args):
             selected_kos = kos_var.get()
@@ -622,21 +706,21 @@ class sistem_kos:
         durasi_entry.bind("<KeyRelease>", update_total_harga)
 
         # Input Nominal Pembayaran
-        tk.Label(self.root, text="Nominal Pembayaran:", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.48, anchor="w")
+        tk.Label(self.root, text="Nominal Pembayaran:", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.51, anchor="w")
         nominal_entry = tk.Entry(self.root, width=30, font=("Arial", 12))
-        nominal_entry.place(relx=0.5, rely=0.48, anchor="w")
+        nominal_entry.place(relx=0.5, rely=0.51, anchor="w")
 
         # Upload Bukti Pembayaran
-        tk.Label(self.root, text="Upload Bukti Pembayaran:", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.55, anchor="w")
-        upload_label = tk.Label(self.root, text="Belum ada file", bg="lightgrey", font=("Arial", 12), width=30, anchor="w")
-        upload_label.place(relx=0.5, rely=0.55, anchor="w")
+        tk.Label(self.root, text="Upload Bukti Pembayaran:", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.58, anchor="w")
+        upload_label = tk.Label(self.root, text="Belum ada file", bg="lightgrey", font=("Arial", 12), width=40, anchor="w")
+        upload_label.place(relx=0.5, rely=0.58, anchor="w")
 
         def upload_file():
             file_path = filedialog.askopenfilename(filetypes=[("Image Files", "*.png;*.jpg;*.jpeg")])
             if file_path:
                 upload_label.config(text=file_path)
 
-        tk.Button(self.root, text="Pilih File", command=upload_file, font=("Arial", 12), bg="#187bcd", fg="white").place(relx=0.75, rely=0.55, anchor="w")
+        tk.Button(self.root, text="Pilih File", command=upload_file, font=("Arial", 12), bg="#187bcd", fg="white").place(relx=0.75, rely=0.58, anchor="w")
 
         # Tombol Proses Pesan
         def proses_pesan():
@@ -654,15 +738,16 @@ class sistem_kos:
                 messagebox.showwarning("Peringatan", "Durasi, nominal, atau total harga tidak valid!")
                 return
 
+            # Validasi jika bukti pembayaran belum diunggah
+            bukti_pembayaran = upload_label.cget("text")
+            if bukti_pembayaran == "Belum ada file":
+                messagebox.showwarning("Peringatan", "Unggah bukti pembayaran terlebih dahulu!")
+                return
+
             if nominal < total_harga:
                 messagebox.showwarning("Peringatan", f"Nominal pembayaran harus sama dengan total harga yaitu {total_harga:,}!")
                 return
 
-            if "Belum ada file" in upload_label.cget("text"):
-                messagebox.showwarning("Peringatan", "Unggah bukti pembayaran terlebih dahulu!")
-                return
-
-            kos_data['status'] = 'Tidak Tersedia'
             pemesanan_data = {
                 'id': len(self.data['pemesanan']) + 1,
                 'kos_id': kos_data['id'],
@@ -670,72 +755,71 @@ class sistem_kos:
                 'total_harga': total_harga,
                 'nominal': nominal,
                 'rekening': kos_data['rekening'],
-                'bukti_pembayaran': upload_label.cget("text")
+                'bukti_pembayaran': bukti_pembayaran,
+                'username': self.current_user
             }
+
+            # Update status kos dan simpan data pemesanan
+            kos_data['status'] = 'Tidak Tersedia'
             self.data['pemesanan'].append(pemesanan_data)
             save_data(self.data_file, self.data)
-            messagebox.showinfo("Sukses", f"Kos '{kos_data['nama_kos']}' berhasil dipesan!")
-            self.menu_utama()
 
-        # Tombol Pesan dan Kembali
+            messagebox.showinfo("Sukses", f"Kos '{kos_data['nama_kos']}' berhasil dipesan!")
+            self.main_menu()
+
         tk.Button(self.root, text="Pesan", command=proses_pesan, font=("Arial", 14), bg="green", fg="white", width=15).place(relx=0.4, rely=0.7, anchor="center")
-        tk.Button(self.root, text="Kembali", command=self.menu_utama, font=("Arial", 14), bg="red", fg="white", width=15).place(relx=0.6, rely=0.7, anchor="center")
-                 
+        tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 14), bg="red", fg="white", width=15).place(relx=0.6, rely=0.7, anchor="center")
+
     def show_list_pemesanan(self):
-    # Bersihkan widget sebelumnya
+    
+        if not self.current_user:
+            messagebox.showwarning("Peringatan", "Anda harus login terlebih dahulu!")
+            self.halaman_login()
+            return
+
         for widget in self.root.winfo_children():
             widget.destroy()
 
-    # Tambahkan latar belakang
+        # Tambahkan latar belakang
         try:
-            image = Image.open("BackGround.png")
-            bg_image = ImageTk.PhotoImage(image)
-            bg_label = tk.Label(self.root, image=bg_image)
-            bg_label.image = bg_image
+            bg_image = Image.open("BackGround.png").resize((1920, 1080))
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
         except FileNotFoundError:
             bg_label = tk.Label(self.root, bg="lightgrey")
             bg_label.place(relwidth=1, relheight=1)
-            messagebox.showwarning("Peringatan", "Gambar tidak ditemukan! Menggunakan latar belakang default.")
 
-    # Frame untuk daftar pemesanan
-        list_frame = tk.Frame(self.root, bg="white", bd=5)
-        list_frame.place(relx=0.5, rely=0.5, anchor='center', relwidth=0.9, relheight=0.8)
+        tk.Label(self.root, text="Daftar Pemesanan Anda", font=("Arial", 18, "bold"), bg="white").place(relx=0.5, rely=0.1, anchor="center")
 
-        tk.Label(list_frame, text="Daftar Pemesanan", font=('Arial', 14, 'bold'), bg="white").pack(pady=10)
+        # Filter pemesanan untuk pengguna yang login
+        user_pemesanan = [p for p in self.data['pemesanan'] if 'username' in p and p['username'] == self.current_user]
 
-    # Definisikan kolom untuk Treeview
-        columns = ('ID', 'Nama Kos', 'Durasi (bulan)', 'Total Harga', 'Nominal', 'Rekening', 'Status')
-        tree = ttk.Treeview(list_frame, columns=columns, show='headings')
-        tree.pack(fill=tk.BOTH, expand=True, pady=10)
+        # Debugging: Periksa data pemesanan pengguna
+        print("Data pemesanan pengguna:", user_pemesanan)
 
-    # Set nama kolom
-        for col in columns:
-            tree.heading(col, text=col)
-            tree.column(col, anchor='center', width=120)
+        tree = ttk.Treeview(self.root, columns=("ID", "Nama Kos", "Durasi", "Total Harga", "Status"), show="headings")
+        tree.place(relx=0.1, rely=0.2, relwidth=0.8, relheight=0.5)
 
-    # Validasi dan pengisian data
-        if 'pemesanan' in self.data and isinstance(self.data['pemesanan'], list):
-            for pemesanan in self.data['pemesanan']:
-            # Validasi setiap data pemesanan
-                if not isinstance(pemesanan, dict):
-                    continue  # Lewati data yang tidak valid
+        tree.heading("ID", text="ID")
+        tree.heading("Nama Kos", text="Nama Kos")
+        tree.heading("Durasi", text="Durasi (bulan)")
+        tree.heading("Total Harga", text="Total Harga")
+        tree.heading("Status", text="Status")
 
-                kos = next((k for k in self.data['kos'] if k['id'] == pemesanan.get('kos_id')), None)
-                kos_name = kos['nama_kos'] if kos else "Kos tidak ditemukan"
-                status = kos['status'] if kos else "Tidak Diketahui"
+        tree.column("ID", anchor="center", width=50)
+        tree.column("Nama Kos", anchor="w", width=200)
+        tree.column("Durasi", anchor="center", width=100)
+        tree.column("Total Harga", anchor="center", width=100)
+        tree.column("Status", anchor="center", width=100)
 
-                tree.insert('', tk.END, values=(
-                    pemesanan.get('id', "Tidak Ada ID"),
-                    kos_name,
-                    pemesanan.get('durasi', "Tidak Ada Durasi"),
-                    pemesanan.get('total_harga', "Tidak Ada Harga"),
-                    pemesanan.get('nominal', "Tidak Ada Nominal"),
-                    pemesanan.get('rekening', "Tidak Ada Rekening"),
-                    status
-                ))
-        else:
-            messagebox.showinfo("Info", "Tidak ada data pemesanan yang tersedia.")
+        for pemesanan in user_pemesanan:
+            kos = next((k for k in self.data['kos'] if k['id'] == pemesanan['kos_id']), None)
+            kos_name = kos['nama_kos'] if kos else "Kos Tidak Ditemukan"
+            durasi = pemesanan.get('durasi', "Tidak Diketahui")
+            total_harga = pemesanan.get('total_harga', "Tidak Diketahui")
+            status = pemesanan.get('status', 'dipesan')  # Pastikan status memiliki fallback value
 
-    # Tombol kembali
-        tk.Button(self.root, text="Kembali", command=self.main_menu, font=("Arial", 12, "bold")).place(relx=0.5, rely=0.9, anchor='center')
+            tree.insert('', tk.END, values=(pemesanan['id'], kos_name, durasi, total_harga, status))
+
+        tk.Button(self.root, text="Kembali", command=self.main_menu, bg="red", fg="white", font=("Arial", 14)).place(relx=0.5, rely=0.9, anchor="center")

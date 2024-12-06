@@ -26,6 +26,7 @@ Terdapat pilihan yang dapat dipilih oleh user yaitu
 
 # Flow Chart
 ![flowchart1 drawio](https://github.com/user-attachments/assets/32c506fc-9dd4-4f1c-a637-649d14f77f16)
+![flowchart2 drawio](https://github.com/MuhammadFaiqRazzan/Tugas-Besar-Kos/blob/main/Flowchart%20tubes%20kos.drawio.png)
 
 
 

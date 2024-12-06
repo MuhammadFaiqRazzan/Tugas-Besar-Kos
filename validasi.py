@@ -102,4 +102,3 @@ def validasi_input(data):
             return False, message
     
     return True, "Data valid"
-

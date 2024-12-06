@@ -16,7 +16,6 @@ def load_data(file_path):
     else:
         return {'kos': [], 'pemesanan': []}
 
-
 def save_data(file_path, data):
     with open(file_path, 'w') as f:
         json.dump(data, f, indent=4)
@@ -44,3 +43,18 @@ def update_kos_status(data, kos_id, status):
         return data, "Status kos berhasil diperbarui."
     return data, "Kos tidak ditemukan."
 
+def get_kos_by_owner(data, owner):
+    return [kos for kos in data['kos'] if kos.get('owner') == owner]
+
+def get_user_data(data, username):
+    """Mengambil data pengguna berdasarkan username."""
+    if 'users' not in data:
+        data['users'] = {}
+    return data['users'].get(username, {'kos': [], 'data_diri': {}})
+
+def update_user_data(data, username, updated_user_data):
+    """Memperbarui data pengguna."""
+    if 'users' not in data:
+        data['users'] = {}
+    data['users'][username] = updated_user_data
+    return data

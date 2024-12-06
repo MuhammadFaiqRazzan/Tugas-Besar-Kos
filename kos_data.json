@@ -59,7 +59,7 @@
             "luas_tempat": "23",
             "catatan": "bebas",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tersedia",
+            "status": "Tidak Tersedia",
             "owner": "2"
         },
         {
@@ -124,6 +124,15 @@
             "nominal": 400000,
             "rekening": "1234567891",
             "bukti_pembayaran": "C:/Users/chari/Downloads/Hitam dan Putih Y2k Minimalis Kelas Logo.png"
+        },
+        {
+            "id": 2,
+            "kos_id": 5,
+            "durasi": 2,
+            "total_harga": 400000,
+            "nominal": 4000000,
+            "rekening": "1234567891",
+            "bukti_pembayaran": "C:/Users/chari/Downloads/ME.png"
         }
     ],
     "users": {

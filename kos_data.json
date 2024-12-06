@@ -100,6 +100,19 @@
             "gambar": "C:/Users/chari/Downloads/K.png",
             "status": "Tersedia",
             "owner": "3"
+        },
+        {
+            "id": 9,
+            "nama_kos": "1",
+            "alamat": "q",
+            "harga": "123",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "ac",
+            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
+            "status": "Tersedia",
+            "owner": "3"
         }
     ],
     "pemesanan": [

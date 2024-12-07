@@ -34,7 +34,7 @@ class sistem_kos:
         bg_label.place(relwidth=1, relheight=1)
 
         # Tombol di atas latar belakang
-        Button(self.root, text="PESAN", font=("Arial", 18, "bold"), bg="white", fg="black", width=40, height=3, relief='flat', command=self.halaman_login_pemesan).place(relx=0.5, rely=0.7, anchor='center')
+        Button(self.root, text="PESAN", font=("Arial", 18, "bold"), bg="white", fg="black", width=40, height=3, relief='flat', command=self.halaman_login_pemesan).place(relx=0.5, rely=0.67, anchor='center')
         Button(self.root, text="SEWAKAN", font=("Arial", 18, "bold"), bg="white", fg="black", width=40, height=1,relief='flat', command=self.halaman_login).place(relx=0.5, rely=0.8, anchor='center')
         Button(self.root, text="Exit", font=("Arial", 18, "bold"), bg="red", fg="white", width=20, height=1,relief='flat', command=self.root.quit).place(relx=0.5, rely=0.9, anchor='center')
             
@@ -55,14 +55,14 @@ class sistem_kos:
 
         # Label dan input untuk Username
         tk.Label(self.root, text="SELAMAT DATANG", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
-        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14, "bold")).place(relx=0.33, rely=0.35, anchor="w")
+        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.35, anchor="w")
         username_entry = tk.Entry(self.root, font=("Arial", 14))
-        username_entry.place(relx=0.5, rely=0.35, anchor="w", width=300)
+        username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
 
         # Label dan input untuk Password
-        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14, "bold")).place(relx=0.33, rely=0.45, anchor="w")
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.45, anchor="w")
         password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
-        password_entry.place(relx=0.5, rely=0.45, anchor="w", width=300)
+        password_entry.place(relx=0.48, rely=0.45, anchor="w", width=300)
 
         # Checkbutton untuk show/hide password
         show_var = tk.BooleanVar()
@@ -111,14 +111,14 @@ class sistem_kos:
 
         # Label dan input untuk Username
         tk.Label(self.root, text="Register Admin", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
-        tk.Label(self.root, text="Username:", bg="white", font=("Arial", 14,"bold")).place(relx=0.33, rely=0.35, anchor="w")
+        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.35, anchor="w")
         username_entry = tk.Entry(self.root, font=("Arial", 14))
-        username_entry.place(relx=0.5, rely=0.35, anchor="w", width=300)
+        username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
 
         # Label dan input untuk Password
-        tk.Label(self.root, text="Password:", bg="white", font=("Arial", 14, "bold")).place(relx=0.33, rely=0.45, anchor="w")
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.45, anchor="w")
         password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
-        password_entry.place(relx=0.5, rely=0.45, anchor="w", width=300)
+        password_entry.place(relx=0.48, rely=0.45, anchor="w", width=300)
 
         # Checkbutton untuk show/hide password
         show_var = tk.BooleanVar()
@@ -130,6 +130,7 @@ class sistem_kos:
 
         # Fungsi untuk menyimpan data admin baru
         def save_new_admin():
+            
             username = username_entry.get()
             password = password_entry.get()
             success, message = simpan_admin(username, password)
@@ -140,9 +141,9 @@ class sistem_kos:
                 messagebox.showerror("Error", message)
 
         # Tombol Register dan Kembali
-        tk.Button(self.root, text="Register",relief='flat',height=2 ,bg="#51d451", fg="white", font=("Arial", 14, "bold"), 
+        tk.Button(self.root, text="Register", relief='flat', height=2, bg="#51d451", fg="white", font=("Arial", 14, "bold"),
                 command=save_new_admin).place(relx=0.5, rely=0.6, anchor="center", width=500)
-        tk.Button(self.root, text="Kembali", relief='flat',bg="red", fg="white", font=("Arial", 14, "bold"), 
+        tk.Button(self.root, text="Kembali", relief='flat', bg="red", fg="white", font=("Arial", 14, "bold"),
                 command=self.halaman_login).place(relx=0.5, rely=0.68, anchor="center", width=200)
 
     def halaman_login_pemesan(self):
@@ -162,13 +163,13 @@ class sistem_kos:
 
         # Input username dan password
         tk.Label(self.root, text="Login Pemesan", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
-        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.35, anchor="w")
+        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14,'bold')).place(relx=0.35, rely=0.35, anchor="w")
         username_entry = tk.Entry(self.root, font=("Arial", 14))
-        username_entry.place(relx=0.5, rely=0.35, anchor="w", width=300)
+        username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
 
-        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.45, anchor="w")
-        password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
-        password_entry.place(relx=0.5, rely=0.45, anchor="w", width=300)
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.35, rely=0.45, anchor="w")
+        password_entry = tk.Entry(self.root, show='*', font=("Arial", 14, 'bold'))
+        password_entry.place(relx=0.48, rely=0.45, anchor="w", width=300)
 
         # Fungsi validasi login
         def check_login_pemesan():
@@ -199,13 +200,13 @@ class sistem_kos:
 
         # Input username dan password
         tk.Label(self.root, text="Register Pemesan", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
-        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.35, anchor="w")
+        tk.Label(self.root, text="Username", bg="white", font=("Arial", 14)).place(relx=0.35, rely=0.35, anchor="w")
         username_entry = tk.Entry(self.root, font=("Arial", 14))
-        username_entry.place(relx=0.5, rely=0.35, anchor="w", width=300)
+        username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
 
-        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.3, rely=0.45, anchor="w")
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.35, rely=0.45, anchor="w")
         password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
-        password_entry.place(relx=0.5, rely=0.45, anchor="w", width=300)
+        password_entry.place(relx=0.48, rely=0.45, anchor="w", width=300)
 
         # Fungsi untuk menyimpan data pemesan baru
         def save_register_pemesan():
@@ -213,19 +214,19 @@ class sistem_kos:
             password = password_entry.get()
             success, message = simpan_pemesan(username, password)
             if success:
-                messagebox.showinfo("Sukses", "Register berhasil! Silakan login.")
+                messagebox.showinfo("Sukses", message)
                 self.halaman_login_pemesan()
             else:
                 messagebox.showerror("Error", message)
 
         # Tombol Register dan Kembali
-        tk.Button(self.root, text="Register", bg="#51d451", fg="white", font=("Arial", 14, "bold"),
-                command=save_register_pemesan).place(relx=0.4, rely=0.6, anchor="center", width=150)
+        tk.Button(self.root, text="Register", height=2,bg="#51d451", fg="white", font=("Arial", 14, "bold"),
+                command=save_register_pemesan).place(relx=0.5, rely=0.6, anchor="center", width=500)
         tk.Button(self.root, text="Kembali", bg="red", fg="white", font=("Arial", 14, "bold"),
-                command=self.halaman_login_pemesan).place(relx=0.6, rely=0.6, anchor="center", width=150)
+                command=self.halaman_login_pemesan).place(relx=0.5, rely=0.68, anchor="center", width=150)
     
     def halaman_profil(self, background_image_path=None):
-
+    
         for widget in self.root.winfo_children():
             widget.destroy()
 
@@ -234,7 +235,7 @@ class sistem_kos:
             if background_image_path:
                 bg_image = Image.open(background_image_path).resize((1920, 1080))
             else:
-                bg_image = Image.open("Profil_BG.png").resize((1920, 1080))  # Default
+                bg_image = Image.open("bg_simple4.png").resize((1920, 1080))  # Default
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -244,11 +245,7 @@ class sistem_kos:
 
         # Ambil data pengguna yang sedang login
         user_data = get_user_data(self.data, self.current_user)
-
-        # Ambil kos milik pengguna (owner)
         kos_list = [kos for kos in self.data['kos'] if kos.get('owner') == self.current_user]
-        if not kos_list:
-            kos_list = []
 
         # Data Diri
         tk.Label(self.root, text="Data Diri", bg="white", font=("Arial", 14, "bold")).place(relx=0.05, rely=0.05, anchor="nw")
@@ -264,10 +261,14 @@ class sistem_kos:
             bg="blue", fg="white", font=("Arial", 12)
         ).place(relx=0.05, rely=0.25, anchor="nw")
 
-        # Daftar Kos
-        tk.Label(self.root, text="Daftar Kos", bg="white", font=("Arial", 16, "bold")).place(relx=0.05, rely=0.35, anchor="nw")
-        tree = ttk.Treeview(self.root, columns=('ID', 'Nama Kos'), show='headings')
-        tree.place(relx=0.05, rely=0.4, relwidth=0.3, relheight=0.5)
+        # Frame untuk Daftar Kos
+        frame_daftar_kos = tk.Frame(self.root, bg="white", bd=2, relief="groove")
+        frame_daftar_kos.place(relx=0.05, rely=0.35, relwidth=0.32, relheight=0.5)
+
+        # Label dan Treeview untuk Daftar Kos
+        tk.Label(frame_daftar_kos, text="Daftar Kos", bg="white", font=("Arial", 16, "bold")).pack(pady=5)
+        tree = ttk.Treeview(frame_daftar_kos, columns=('ID', 'Nama Kos'), show='headings')
+        tree.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
         tree.heading('ID', text='ID')
         tree.heading('Nama Kos', text='Nama Kos')
@@ -277,20 +278,20 @@ class sistem_kos:
         for kos in kos_list:
             tree.insert('', tk.END, values=(kos.get('id', 'N/A'), kos.get('nama_kos', 'N/A')))
 
-        # Frame untuk Detail Kos (lebih kecil dan tipis)
+        # Frame untuk Detail Kos
         detail_frame = tk.Frame(self.root, bg="white", bd=1, relief="solid")
-        detail_frame.place(relx=0.4, rely=0.35, relwidth=0.25, relheight=0.3)
+        detail_frame.place(relx=0.4, rely=0.35, relwidth=0.18, relheight=0.3)
 
-        tk.Label(detail_frame, text="Detail Kos", bg="white", font=("Arial", 14, "bold")).pack(pady=5)
+        tk.Label(detail_frame, text="Detail Kos", bg="white", font=("Arial", 16, "bold")).pack(pady=5)
         detail_label = tk.Label(
-            detail_frame, bg="white", justify="left", anchor="nw", font=("Arial", 12),
+            detail_frame, bg="white", justify="left", anchor="nw", font=("Arial", 12, 'bold'),
             relief="flat"
         )
         detail_label.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
-        # Gambar Kos dengan Ukuran Lebih Besar
+        # Gambar Kos
         gambar_label = tk.Label(self.root, bg="white")
-        gambar_label.place(relx=0.7, rely=0.35, anchor="nw", width=400, height=400)
+        gambar_label.place(relx=0.61, rely=0.35, anchor="nw", width=400, height=400)
 
         # Fungsi untuk memperbarui detail dan gambar kos
         def update_detail(event):
@@ -315,7 +316,7 @@ class sistem_kos:
                     if kos.get('gambar') and os.path.isfile(kos['gambar']):
                         try:
                             img = Image.open(kos['gambar'])
-                            img.thumbnail((400, 400))  # Ukuran gambar lebih besar
+                            img.thumbnail((400, 400))
                             img_tk = ImageTk.PhotoImage(img)
                             gambar_label.config(image=img_tk)
                             gambar_label.image = img_tk
@@ -326,15 +327,15 @@ class sistem_kos:
 
         tree.bind('<<TreeviewSelect>>', update_detail)
 
-        # Tombol Kembali dan Tambah Kos di Bawah Gambar
+        # Tombol Kembali dan Tambah Kos
         tk.Button(
             self.root, text="Kembali", command=self.menu_utama, font=("Arial", 14, "bold"),
             bg="red", fg="white"
-        ).place(relx=0.7, rely=0.85, anchor="nw", width=150, height=40)
+        ).place(relx=0.61, rely=0.85, anchor="nw", width=150, height=40)
         tk.Button(
             self.root, text="Tambah Kos", command=self.input_kos, font=("Arial", 14, "bold"),
             bg="green", fg="white"
-        ).place(relx=0.85, rely=0.85, anchor="nw", width=150, height=40)
+        ).place(relx=0.76, rely=0.85, anchor="nw", width=150, height=40)
 
     def halaman_tambah_data_diri(self):
         # Hapus semua widget

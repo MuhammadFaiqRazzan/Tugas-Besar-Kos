@@ -26,7 +26,17 @@ Terdapat pilihan yang dapat dipilih oleh user yaitu
 
 # Flow Chart
 ![flowchart1 drawio](https://github.com/user-attachments/assets/32c506fc-9dd4-4f1c-a637-649d14f77f16)
-![flowchart2 drawio](https://github.com/MuhammadFaiqRazzan/Tugas-Besar-Kos/blob/main/Flowchart%20tubes%20kos.drawio.png)
+
+# Flow Chart Baru
+
+![flowchart2 drawio](https://github.com/MuhammadFaiqRazzan/Tugas-Besar-Kos/blob/main/Flowchart%20tubes%20kos.jpg)
+
+Pada flowchart baru terdapat fitu baru yang di tambahakan dimana kita menambahkan fitur untuk melakukan register dan login di bagiana owner dan pemesan dari kos. Dimana data yang di masukan oleh owner dan data yang di pesan oleh pemesan dapat berbeda tergantung dengan account yang login dan melakukan kegiatan menginput data.
+
+# Site Map
+
+![Site Map](https://github.com/user-attachments/assets/599b72f3-1236-457b-a31b-07149a88c063)
+
 
 
 

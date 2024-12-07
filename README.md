@@ -29,6 +29,11 @@ Terdapat pilihan yang dapat dipilih oleh user yaitu
 
 ![flowchart2 drawio](https://github.com/MuhammadFaiqRazzan/Tugas-Besar-Kos/blob/main/Flowchart%20tubes%20kos.jpg)
 
+# Site Map
+
+![Site Map](https://github.com/user-attachments/assets/599b72f3-1236-457b-a31b-07149a88c063)
+
+
 
 
 

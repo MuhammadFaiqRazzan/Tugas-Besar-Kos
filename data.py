@@ -62,19 +62,26 @@ def update_user_data(data, username, updated_user_data):
 
 def simpan_pemesan(username, password):
     
-    if not username or not password:
-        return False, "Username dan password harus diisi!"
+        if not username or not password:
+            return False, "Username dan password harus diisi!"
 
-    try:
-        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-        new_pemesan = {
-            'username': username,
-            'password': hashed_password.decode(),
-            'pemesanan': []  # Kosongkan pemesanan saat pertama kali register
-        }
-        with open('pemesan.json', 'a') as pemesan_file:
-            json.dump(new_pemesan, pemesan_file)
-            pemesan_file.write('\n')
-        return True, "Pemesan berhasil didaftarkan!"
-    except Exception as e:
-        return False, f"Terjadi kesalahan: {e}"
+        try:
+            # Periksa apakah username sudah ada
+            if os.path.exists('pemesan.json'):
+                with open('pemesan.json', 'r') as pemesan_file:
+                    pemesans = [json.loads(line) for line in pemesan_file]
+                    if any(pemesan['username'] == username for pemesan in pemesans):
+                        return False, "Username sudah terdaftar!"
+
+            hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+            new_pemesan = {
+                'username': username,
+                'password': hashed_password.decode(),
+                'pemesanan': []  # Kosongkan pemesanan saat pertama kali register
+            }
+            with open('pemesan.json', 'a') as pemesan_file:
+                json.dump(new_pemesan, pemesan_file)
+                pemesan_file.write('\n')
+            return True, "Pemesan berhasil didaftarkan!"
+        except Exception as e:
+            return False, f"Terjadi kesalahan: {e}"

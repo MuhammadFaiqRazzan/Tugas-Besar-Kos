@@ -113,6 +113,19 @@
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
             "status": "Tidak Tersedia",
             "owner": "3"
+        },
+        {
+            "id": 10,
+            "nama_kos": "kos",
+            "alamat": "uns",
+            "harga": "2000000",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "bar",
+            "gambar": "C:/Users/chari/Downloads/download (2).jpeg",
+            "status": "Tersedia",
+            "owner": "2"
         }
     ],
     "pemesanan": [

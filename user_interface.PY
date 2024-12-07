@@ -529,7 +529,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("cb.png").resize((1920, 1080))
+            bg_image = Image.open("BLDK.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -565,7 +565,7 @@ class sistem_kos:
         tk.Button(self.root, text="Terapkan Filter", command=filter_kos, bg="#51d451", fg="white", font=("Arial", 14, "bold")).place(relx=0.45, rely=0.17, anchor='w')
 
         # Frame untuk ID Kos
-        id_tree = ttk.Treeview(self.root, columns=('ID', 'Nama Kos'), show='headings', height=20)
+        id_tree = ttk.Treeview(self.root,columns=('ID', 'Nama Kos'), show='headings', height=20)
         id_tree.place(relx=0.05, rely=0.3, relwidth=0.2, relheight=0.5)
         id_tree.heading('ID', text='ID')
         id_tree.heading('Nama Kos', text='Nama Kos')
@@ -637,7 +637,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("BPK_BG.png").resize((1920, 1080))
+            bg_image = Image.open("BPK2.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -783,7 +783,7 @@ class sistem_kos:
 
         # Tambahkan latar belakang
         try:
-            bg_image = Image.open("BLP.png").resize((1920, 1080))
+            bg_image = Image.open("BDPA.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)

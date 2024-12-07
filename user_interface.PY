@@ -24,7 +24,7 @@ class sistem_kos:
 
         # Tambahkan gambar latar belakang
         try:
-            bg_image = Image.open("Bg_up1.png").resize((1920, 1080))
+            bg_image = Image.open("bg_simple4.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar tidak ditemukan di direktori!")
@@ -529,7 +529,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("bg_simple4.png").resize((1920, 1080))
+            bg_image = Image.open("cb.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -637,7 +637,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("Pesan_Kos_BG.png").resize((1920, 1080))
+            bg_image = Image.open("BPK_BG.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -783,7 +783,7 @@ class sistem_kos:
 
         # Tambahkan latar belakang
         try:
-            bg_image = Image.open("bg_simple4.png").resize((1920, 1080))
+            bg_image = Image.open("BLP.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)

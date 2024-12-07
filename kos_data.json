@@ -10,7 +10,7 @@
             "luas_tempat": "12",
             "catatan": "bary",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tersedia"
+            "status": "Tidak Tersedia"
         },
         {
             "id": 2,
@@ -22,7 +22,7 @@
             "luas_tempat": "12",
             "catatan": "new",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tersedia"
+            "status": "Tidak Tersedia"
         },
         {
             "id": 3,
@@ -46,7 +46,7 @@
             "luas_tempat": "12",
             "catatan": "ac",
             "gambar": "C:/Users/chari/Downloads/K.png",
-            "status": "Tersedia",
+            "status": "Tidak Tersedia",
             "owner": "3"
         },
         {
@@ -59,7 +59,7 @@
             "luas_tempat": "23",
             "catatan": "bebas",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tersedia",
+            "status": "Tidak Tersedia",
             "owner": "2"
         },
         {
@@ -72,7 +72,7 @@
             "luas_tempat": "12",
             "catatan": "bebas",
             "gambar": "C:/Users/chari/Downloads/K.png",
-            "status": "Tersedia",
+            "status": "Tidak Tersedia",
             "owner": "3"
         },
         {
@@ -85,7 +85,7 @@
             "luas_tempat": "12",
             "catatan": "k",
             "gambar": "C:/Users/chari/Downloads/K.png",
-            "status": "Tersedia",
+            "status": "Tidak Tersedia",
             "owner": "2"
         },
         {
@@ -98,7 +98,7 @@
             "luas_tempat": "12",
             "catatan": "ac",
             "gambar": "C:/Users/chari/Downloads/K.png",
-            "status": "Tersedia",
+            "status": "Tidak Tersedia",
             "owner": "3"
         },
         {
@@ -111,8 +111,21 @@
             "luas_tempat": "12",
             "catatan": "ac",
             "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tersedia",
+            "status": "Tidak Tersedia",
             "owner": "3"
+        },
+        {
+            "id": 10,
+            "nama_kos": "kos",
+            "alamat": "uns",
+            "harga": "2000000",
+            "fasilitas": "ac",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "bar",
+            "gambar": "C:/Users/chari/Downloads/download (2).jpeg",
+            "status": "Tersedia",
+            "owner": "2"
         }
     ],
     "pemesanan": [
@@ -124,6 +137,121 @@
             "nominal": 400000,
             "rekening": "1234567891",
             "bukti_pembayaran": "C:/Users/chari/Downloads/Hitam dan Putih Y2k Minimalis Kelas Logo.png"
+        },
+        {
+            "id": 2,
+            "kos_id": 5,
+            "durasi": 2,
+            "total_harga": 400000,
+            "nominal": 4000000,
+            "rekening": "1234567891",
+            "bukti_pembayaran": "C:/Users/chari/Downloads/ME.png"
+        },
+        {
+            "id": 3,
+            "kos_id": 4,
+            "durasi": 2,
+            "total_harga": 240000,
+            "nominal": 240000,
+            "rekening": "1234567891",
+            "bukti_pembayaran": "C:/Users/chari/Downloads/b665e4cc17e6488ed08c7b317901b4b9.jpg"
+        },
+        {
+            "id": 4,
+            "kos_id": 7,
+            "durasi": 2,
+            "total_harga": 9000000,
+            "nominal": 90000000,
+            "rekening": "1234567891",
+            "bukti_pembayaran": "C:/Users/chari/Downloads/new.jpg"
+        },
+        {
+            "id": 5,
+            "kos_id": 6,
+            "username": {
+                "username": "2",
+                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
+            },
+            "durasi": 2,
+            "total_harga": 900000,
+            "status": "Tersedia",
+            "bukti_pembayaran": "Belum Diupload"
+        },
+        {
+            "id": 6,
+            "kos_id": 6,
+            "username": {
+                "username": "5",
+                "password": "$2b$12$vmYsT9LyRBVnDyK6KbqPxuIimyUwJl18MgmUl/v7F0/I72UQtRSaC",
+                "pemesanan": []
+            },
+            "durasi": 1,
+            "total_harga": 450000,
+            "status": "Tersedia",
+            "bukti_pembayaran": "Belum Diupload"
+        },
+        {
+            "id": 7,
+            "kos_id": 2,
+            "username": {
+                "username": "2",
+                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
+            },
+            "durasi": 2,
+            "total_harga": 1000000,
+            "status": "Dipesan"
+        },
+        {
+            "id": 8,
+            "kos_id": 8,
+            "durasi": 2,
+            "total_harga": 444,
+            "nominal": 444,
+            "rekening": "1234567891",
+            "bukti_pembayaran": "C:/Users/chari/Downloads/Hitam dan Putih Y2k Minimalis Kelas Logo.png",
+            "username": {
+                "username": "3",
+                "password": "$2b$12$n1/HXYlOOcNMLdS5B40L7.o/E.drv9usIunfkeKopkhDDsmE4DQqC"
+            }
+        },
+        {
+            "id": 9,
+            "kos_id": 9,
+            "durasi": 1,
+            "total_harga": 123,
+            "nominal": 123,
+            "rekening": "1234567891",
+            "bukti_pembayaran": "C:/Users/chari/Downloads/b665e4cc17e6488ed08c7b317901b4b9.jpg",
+            "username": {
+                "username": "2",
+                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
+            }
+        },
+        {
+            "id": 10,
+            "kos_id": 6,
+            "durasi": 2,
+            "total_harga": 900000,
+            "nominal": 900000,
+            "rekening": "1234567891",
+            "bukti_pembayaran": "C:/Users/chari/Downloads/new.jpg",
+            "username": {
+                "username": "2",
+                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
+            }
+        },
+        {
+            "id": 11,
+            "kos_id": 1,
+            "durasi": 2,
+            "total_harga": 500000,
+            "nominal": 500000,
+            "rekening": "1234567891",
+            "bukti_pembayaran": "C:/Users/chari/Downloads/b665e4cc17e6488ed08c7b317901b4b9.jpg",
+            "username": {
+                "username": "2",
+                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
+            }
         }
     ],
     "users": {

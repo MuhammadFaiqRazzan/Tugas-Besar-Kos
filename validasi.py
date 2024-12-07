@@ -102,3 +102,14 @@ def validasi_input(data):
             return False, message
     
     return True, "Data valid"
+
+def validasi_login_pemesan(username, password):
+    try:
+        with open('pemesan.json', 'r') as pemesan_file:
+            pemesans = [json.loads(line) for line in pemesan_file]
+            for pemesan in pemesans:
+                if pemesan['username'] == username and bcrypt.checkpw(password.encode(), pemesan['password'].encode()):
+                    return True, pemesan  # Return data pemesan jika login berhasil
+        return False, "Username atau password salah!"
+    except FileNotFoundError:
+        return False, "Belum ada akun pemesan yang terdaftar!"

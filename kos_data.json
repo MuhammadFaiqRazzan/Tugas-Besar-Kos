@@ -278,6 +278,14 @@
                 "alamat": "unnes",
                 "kontak": "09"
             }
+        },
+        "rafa": {
+            "kos": [],
+            "data_diri": {
+                "nama": "Rafa",
+                "alamat": "Sukabumi",
+                "kontak": "081324536790"
+            }
         }
     }
 }

@@ -48,11 +48,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-<<<<<<< HEAD
             bg_image = Image.open("BLogX.png").resize((1920, 1080))
-=======
-            bg_image = Image.open("login 3.png").resize((1920, 1080))
->>>>>>> 64f1f6a9d1aa80cffa67ad12af4dc3a7252ca026
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)

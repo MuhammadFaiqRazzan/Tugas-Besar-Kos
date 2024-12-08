@@ -248,7 +248,7 @@ class sistem_kos:
             if background_image_path:
                 bg_image = Image.open(background_image_path).resize((1920, 1080))
             else:
-                bg_image = Image.open("bg_simple4.png").resize((1920, 1080))  # Default
+                bg_image = Image.open("BSew.png").resize((1920, 1080))  # Default
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -354,6 +354,15 @@ class sistem_kos:
         # Hapus semua widget
         for widget in self.root.winfo_children():
             widget.destroy()
+            
+        try:
+            bg_image = Image.open("BUDD.png").resize((1920, 1080))
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="lightgrey")
+            bg_label.place(relwidth=1, relheight=1)
 
         # Ambil data pengguna yang sedang login
         user_data = get_user_data(self.data, self.current_user)
@@ -447,7 +456,16 @@ class sistem_kos:
         # Hapus semua widget
         for widget in self.root.winfo_children():
             widget.destroy()
-
+            
+        try:
+            bg_image = Image.open("BTK.png").resize((1920, 1080))
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="lightgrey")
+            bg_label.place(relwidth=1, relheight=1)    
+        
         # Judul Halaman
         tk.Label(self.root, text="Input Data Kos", bg="white", font=("Arial", 18, "bold")).place(relx=0.5, rely=0.1, anchor="center")
 
@@ -541,7 +559,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("BLDK2.png").resize((1920, 1080))
+            bg_image = Image.open("BLDKF.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)

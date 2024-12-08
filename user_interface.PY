@@ -104,7 +104,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("register.png").resize((1920, 1080))
+            bg_image = Image.open("BLogX.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -113,7 +113,7 @@ class sistem_kos:
             bg_label.place(relwidth=1, relheight=1)
 
         # Label dan input untuk Username
-        tk.Label(self.root, font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
+        tk.Label(self.root, text="Register Admin", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
         tk.Label(self.root, text="Username", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.35, anchor="w")
         username_entry = tk.Entry(self.root, font=("Arial", 14))
         username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
@@ -212,7 +212,7 @@ class sistem_kos:
             bg_label.place(relwidth=1, relheight=1)
 
         # Input username dan password
-        tk.Label(self.root, font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
+        tk.Label(self.root, text="Register Pemesan", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
         tk.Label(self.root, text="Username", bg="white", font=("Arial", 14)).place(relx=0.35, rely=0.35, anchor="w")
         username_entry = tk.Entry(self.root, font=("Arial", 14))
         username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)

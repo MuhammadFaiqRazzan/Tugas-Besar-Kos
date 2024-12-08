@@ -126,6 +126,19 @@
             "gambar": "C:/Users/chari/Downloads/download (2).jpeg",
             "status": "Tersedia",
             "owner": "2"
+        },
+        {
+            "id": 11,
+            "nama_kos": "asep",
+            "alamat": "ww",
+            "harga": "300000",
+            "fasilitas": "AC",
+            "rekening": "12131311111",
+            "luas_tempat": "12",
+            "catatan": "waid",
+            "gambar": "D:/Kuliah Teknik industri/Pemrograman komputer/Tugas-Besar-Kos/bg_simple4.png",
+            "status": "Tersedia",
+            "owner": "2"
         }
     ],
     "pemesanan": [

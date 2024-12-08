@@ -16,6 +16,7 @@ class sistem_kos:
         self.data = load_data(self.data_file)
         style = ttk.Style()
         style.configure("Custom.Treeview", highlightthickness=0, borderwidth=0, background="white", foreground="black", fieldbackground="white")
+
         self.current_user = None 
         self.menu_utama()
         
@@ -47,7 +48,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("BLogX.png").resize((1920, 1080))
+            bg_image = Image.open("login3.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -56,7 +57,7 @@ class sistem_kos:
             bg_label.place(relwidth=1, relheight=1)
 
         # Label dan input untuk Username
-        tk.Label(self.root, text="SELAMAT DATANG", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
+        tk.Label(self.root, font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
         tk.Label(self.root, text="Username", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.35, anchor="w")
         username_entry = tk.Entry(self.root, font=("Arial", 14))
         username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
@@ -407,8 +408,14 @@ class sistem_kos:
             widget.destroy()
         # Memuat gambar latar belakang
         try:
+<<<<<<< HEAD
 
             bg_image = Image.open("BMM.png").resize((1920, 1080))
+=======
+            # Memuat gambar latar belakang
+            bg_image = Image.open("BA1.png").resize((1920, 1080))
+
+>>>>>>> 0725a35f9ad724a061b606895468f9ee07b90136
             self.bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar tidak ditemukan di direktori!")
@@ -540,7 +547,11 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
+<<<<<<< HEAD
             bg_image = Image.open("BLDK2.png").resize((1920, 1080))
+=======
+            bg_image = Image.open("BLDK.png").resize((1920, 1080))
+>>>>>>> 0725a35f9ad724a061b606895468f9ee07b90136
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -574,9 +585,13 @@ class sistem_kos:
 
         tk.Button(self.root, text="Terapkan Filter", command=filter_kos, bg="#51d451", fg="white", font=("Arial", 14, "bold")).place(relx=0.45, rely=0.17, anchor='w')
 
-        # Frame untuk ID Kos
-        id_tree = ttk.Treeview(self.root, columns=('ID', 'Nama Kos'), show='headings', height=20, style="Custom.Treeview")
-        id_tree.place(relx=0.05, rely=0.3, relwidth=0.2, relheight=0.5)
+        # Frame untuk ID Kos tanpa border
+        id_frame = tk.Frame(self.root, bg="white", bd=0, relief="flat")
+        id_frame.place(relx=0.05, rely=0.3, relwidth=0.2, relheight=0.5)
+
+        # Treeview untuk daftar kos tanpa border
+        id_tree = ttk.Treeview(id_frame, columns=('ID', 'Nama Kos'), show='headings', style="Custom.Treeview")
+        id_tree.pack(fill=tk.BOTH, expand=True)
         id_tree.heading('ID', text='ID')
         id_tree.heading('Nama Kos', text='Nama Kos')
         id_tree.column('ID', anchor='center', width=50)
@@ -793,7 +808,11 @@ class sistem_kos:
 
         # Tambahkan latar belakang
         try:
+<<<<<<< HEAD
             bg_image = Image.open("BLP2.png").resize((1920, 1080))
+=======
+            bg_image = Image.open("BDPA.png").resize((1920, 1080))
+>>>>>>> 0725a35f9ad724a061b606895468f9ee07b90136
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -806,10 +825,13 @@ class sistem_kos:
         # Filter pemesanan untuk pengguna yang login
         user_pemesanan = [p for p in self.data['pemesanan'] if 'username' in p and p['username'] == self.current_user]
 
-        # Treeview untuk daftar pemesanan
-        tree = ttk.Treeview(self.root, columns=("ID", "Nama Kos", "Durasi", "Total Harga"), show="headings")
-        tree.place(relx=0.1, rely=0.2, relwidth=0.5, relheight=0.5)
+        # Frame untuk Treeview tanpa border
+        tree_frame = tk.Frame(self.root, bg="white", bd=0, relief="flat")
+        tree_frame.place(relx=0.1, rely=0.2, relwidth=0.5, relheight=0.5)
 
+        # Treeview untuk daftar pemesanan tanpa border
+        tree = ttk.Treeview(tree_frame, columns=("ID", "Nama Kos", "Durasi", "Total Harga"), show="headings", style="Custom.Treeview")
+        tree.pack(fill=tk.BOTH, expand=True)
         tree.heading("ID", text="ID")
         tree.heading("Nama Kos", text="Nama Kos")
         tree.heading("Durasi", text="Durasi (bulan)")
@@ -833,7 +855,7 @@ class sistem_kos:
         gambar_label.place(relx=0.7, rely=0.2, width=400, height=300)
 
         # Area Detail Kos
-        detail_frame = tk.Frame(self.root, bg="white", bd=2, relief="flat")
+        detail_frame = tk.Frame(self.root, bg="white", bd=0, relief="flat")
         detail_frame.place(relx=0.7, rely=0.55, relwidth=0.25, relheight=0.3)
         tk.Label(detail_frame, text="Detail Kos", bg="white", font=("Arial", 14, "bold")).pack(pady=5)
         detail_label = tk.Label(detail_frame, bg="white", anchor="nw", justify="left", font=("Arial", 12), wraplength=300)

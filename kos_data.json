@@ -2,302 +2,104 @@
     "kos": [
         {
             "id": 1,
-            "nama_kos": "kos baru",
-            "alamat": "uns",
-            "harga": "250000",
-            "fasilitas": "ac, tv",
+            "nama_kos": "Kos Jagat Raya",
+            "alamat": "Jl. Soedirman",
+            "harga": "1400000",
+            "fasilitas": "TV, AC, Meja Belajar, Lemari, Wastafel",
             "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "bary",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tidak Tersedia"
+            "luas_tempat": "18",
+            "catatan": "Tidak include wifi",
+            "gambar": "C:/Users/Rafa Mawlahanif/Downloads/kos1.jpg",
+            "status": "Tersedia",
+            "owner": "2"
         },
         {
             "id": 2,
-            "nama_kos": "kos",
-            "alamat": "un",
+            "nama_kos": "Kos Perwira",
+            "alamat": "Jl. Suryalama",
+            "harga": "900000",
+            "fasilitas": "Lemari, Meja Belajar, WC Dalam",
+            "rekening": "1234567891",
+            "luas_tempat": "12",
+            "catatan": "Wajib bayar 1 tahun langsung",
+            "gambar": "C:/Users/Rafa Mawlahanif/Downloads/kos2.jpg",
+            "status": "Tersedia",
+            "owner": "2"
+        },
+        {
+            "id": 3,
+            "nama_kos": "Kos Jaya",
+            "alamat": "Jl. Kartika",
+            "harga": "600000",
+            "fasilitas": "WC Dalam",
+            "rekening": "1234567891",
+            "luas_tempat": "10",
+            "catatan": "Kos merakyat",
+            "gambar": "C:/Users/Rafa Mawlahanif/Downloads/kos3.jpg",
+            "status": "Tersedia",
+            "owner": "2"
+        },
+        {
+            "id": 4,
+            "nama_kos": "Kos 77",
+            "alamat": "Jl. Mojosongo",
+            "harga": "750000",
+            "fasilitas": "Lemari, WC dalam",
+            "rekening": "1234567891",
+            "luas_tempat": "14",
+            "catatan": "Wifi bayar masing-masing",
+            "gambar": "C:/Users/Rafa Mawlahanif/Downloads/kos4.jpg",
+            "status": "Tersedia",
+            "owner": "2"
+        },
+        {
+            "id": 5,
+            "nama_kos": "Kos Bengawan",
+            "alamat": "Jl. Sukomulyo",
+            "harga": "550000",
+            "fasilitas": "Lemari, WC Dalam",
+            "rekening": "1234567891",
+            "luas_tempat": "13",
+            "catatan": "Dekat dengan UNS",
+            "gambar": "C:/Users/Rafa Mawlahanif/Downloads/kos5.jpg",
+            "status": "Tersedia",
+            "owner": "2"
+        },
+        {
+            "id": 6,
+            "nama_kos": "Kos Sultan",
+            "alamat": "Jl. Bhayangkara",
+            "harga": "1600000",
+            "fasilitas": "TV, AC, Wifi, Lemari",
+            "rekening": "1234567891",
+            "luas_tempat": "18",
+            "catatan": "Fasilitas Lengkap",
+            "gambar": "C:/Users/Rafa Mawlahanif/Downloads/kos6.jpg",
+            "status": "Tersedia",
+            "owner": "2"
+        },
+        {
+            "id": 7,
+            "nama_kos": "Kos Putra Petir",
+            "alamat": "Jl. Iskandar",
             "harga": "500000",
-            "fasilitas": "ac",
+            "fasilitas": "Kasur",
             "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "new",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tidak Tersedia"
-        },
-        {
-            "id": 3,
-            "nama_kos": "kos",
-            "alamat": "uns",
-            "harga": "200000",
-            "fasilitas": "AC",
-            "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "baru",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tidak Tersedia"
-        },
-        {
-            "id": 4,
-            "nama_kos": "kos",
-            "alamat": "uns",
-            "harga": "120000",
-            "fasilitas": "ac",
-            "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "ac",
-            "gambar": "C:/Users/chari/Downloads/K.png",
-            "status": "Tidak Tersedia",
-            "owner": "3"
-        },
-        {
-            "id": 5,
-            "nama_kos": "kos",
-            "alamat": "uns",
-            "harga": "200000",
-            "fasilitas": "ac",
-            "rekening": "1234567891",
-            "luas_tempat": "23",
-            "catatan": "bebas",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tidak Tersedia",
-            "owner": "2"
-        },
-        {
-            "id": 6,
-            "nama_kos": "kos",
-            "alamat": "uns",
-            "harga": "450000",
-            "fasilitas": "ac",
-            "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "bebas",
-            "gambar": "C:/Users/chari/Downloads/K.png",
-            "status": "Tidak Tersedia",
-            "owner": "3"
-        },
-        {
-            "id": 7,
-            "nama_kos": "kos 1",
-            "alamat": "uns",
-            "harga": "4500000",
-            "fasilitas": "ac",
-            "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "k",
-            "gambar": "C:/Users/chari/Downloads/K.png",
-            "status": "Tidak Tersedia",
-            "owner": "2"
-        },
-        {
-            "id": 8,
-            "nama_kos": "as",
-            "alamat": "ae",
-            "harga": "222",
-            "fasilitas": "ac",
-            "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "ac",
-            "gambar": "C:/Users/chari/Downloads/K.png",
-            "status": "Tidak Tersedia",
-            "owner": "3"
-        },
-        {
-            "id": 9,
-            "nama_kos": "1",
-            "alamat": "q",
-            "harga": "123",
-            "fasilitas": "ac",
-            "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "ac",
-            "gambar": "C:/Users/chari/Downloads/WhatsApp Image 2024-12-02 at 20.48.14_ac433aa6.jpg",
-            "status": "Tidak Tersedia",
-            "owner": "3"
-        },
-        {
-            "id": 10,
-            "nama_kos": "kos",
-            "alamat": "uns",
-            "harga": "2000000",
-            "fasilitas": "ac",
-            "rekening": "1234567891",
-            "luas_tempat": "12",
-            "catatan": "bar",
-            "gambar": "C:/Users/chari/Downloads/download (2).jpeg",
-            "status": "Tersedia",
-            "owner": "2"
-        },
-        {
-            "id": 11,
-            "nama_kos": "asep",
-            "alamat": "ww",
-            "harga": "300000",
-            "fasilitas": "AC",
-            "rekening": "12131311111",
-            "luas_tempat": "12",
-            "catatan": "waid",
-            "gambar": "D:/Kuliah Teknik industri/Pemrograman komputer/Tugas-Besar-Kos/bg_simple4.png",
+            "luas_tempat": "8",
+            "catatan": "Kos termurah",
+            "gambar": "C:/Users/Rafa Mawlahanif/Downloads/kos7.jpg",
             "status": "Tersedia",
             "owner": "2"
         }
     ],
-    "pemesanan": [
-        {
-            "id": 1,
-            "kos_id": 3,
-            "durasi": 2,
-            "total_harga": 400000,
-            "nominal": 400000,
-            "rekening": "1234567891",
-            "bukti_pembayaran": "C:/Users/chari/Downloads/Hitam dan Putih Y2k Minimalis Kelas Logo.png"
-        },
-        {
-            "id": 2,
-            "kos_id": 5,
-            "durasi": 2,
-            "total_harga": 400000,
-            "nominal": 4000000,
-            "rekening": "1234567891",
-            "bukti_pembayaran": "C:/Users/chari/Downloads/ME.png"
-        },
-        {
-            "id": 3,
-            "kos_id": 4,
-            "durasi": 2,
-            "total_harga": 240000,
-            "nominal": 240000,
-            "rekening": "1234567891",
-            "bukti_pembayaran": "C:/Users/chari/Downloads/b665e4cc17e6488ed08c7b317901b4b9.jpg"
-        },
-        {
-            "id": 4,
-            "kos_id": 7,
-            "durasi": 2,
-            "total_harga": 9000000,
-            "nominal": 90000000,
-            "rekening": "1234567891",
-            "bukti_pembayaran": "C:/Users/chari/Downloads/new.jpg"
-        },
-        {
-            "id": 5,
-            "kos_id": 6,
-            "username": {
-                "username": "2",
-                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
-            },
-            "durasi": 2,
-            "total_harga": 900000,
-            "status": "Tersedia",
-            "bukti_pembayaran": "Belum Diupload"
-        },
-        {
-            "id": 6,
-            "kos_id": 6,
-            "username": {
-                "username": "5",
-                "password": "$2b$12$vmYsT9LyRBVnDyK6KbqPxuIimyUwJl18MgmUl/v7F0/I72UQtRSaC",
-                "pemesanan": []
-            },
-            "durasi": 1,
-            "total_harga": 450000,
-            "status": "Tersedia",
-            "bukti_pembayaran": "Belum Diupload"
-        },
-        {
-            "id": 7,
-            "kos_id": 2,
-            "username": {
-                "username": "2",
-                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
-            },
-            "durasi": 2,
-            "total_harga": 1000000,
-            "status": "Dipesan"
-        },
-        {
-            "id": 8,
-            "kos_id": 8,
-            "durasi": 2,
-            "total_harga": 444,
-            "nominal": 444,
-            "rekening": "1234567891",
-            "bukti_pembayaran": "C:/Users/chari/Downloads/Hitam dan Putih Y2k Minimalis Kelas Logo.png",
-            "username": {
-                "username": "3",
-                "password": "$2b$12$n1/HXYlOOcNMLdS5B40L7.o/E.drv9usIunfkeKopkhDDsmE4DQqC"
-            }
-        },
-        {
-            "id": 9,
-            "kos_id": 9,
-            "durasi": 1,
-            "total_harga": 123,
-            "nominal": 123,
-            "rekening": "1234567891",
-            "bukti_pembayaran": "C:/Users/chari/Downloads/b665e4cc17e6488ed08c7b317901b4b9.jpg",
-            "username": {
-                "username": "2",
-                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
-            }
-        },
-        {
-            "id": 10,
-            "kos_id": 6,
-            "durasi": 2,
-            "total_harga": 900000,
-            "nominal": 900000,
-            "rekening": "1234567891",
-            "bukti_pembayaran": "C:/Users/chari/Downloads/new.jpg",
-            "username": {
-                "username": "2",
-                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
-            }
-        },
-        {
-            "id": 11,
-            "kos_id": 1,
-            "durasi": 2,
-            "total_harga": 500000,
-            "nominal": 500000,
-            "rekening": "1234567891",
-            "bukti_pembayaran": "C:/Users/chari/Downloads/b665e4cc17e6488ed08c7b317901b4b9.jpg",
-            "username": {
-                "username": "2",
-                "password": "$2b$12$M6i4fktngeWE0m4yK1mvue/OCGrjFraliVMTN6sDi7ydw23hgr20S"
-            }
-        }
-    ],
+    "pemesanan": [],
     "users": {
-        "3": {
-            "kos": [],
-            "data_diri": {
-                "nama": "pak tony",
-                "alamat": "uns",
-                "kontak": "0808080808"
-            }
-        },
         "2": {
             "kos": [],
             "data_diri": {
-                "nama": "pak toni",
-                "alamat": "uns",
-                "kontak": "0898786755"
-            }
-        },
-        "4": {
-            "kos": [],
-            "data_diri": {
-                "nama": "wira",
-                "alamat": "unnes",
-                "kontak": "09"
-            }
-        },
-        "rafa": {
-            "kos": [],
-            "data_diri": {
                 "nama": "Rafa",
-                "alamat": "Sukabumi",
-                "kontak": "081324536790"
+                "alamat": "Kos 99",
+                "kontak": "0877665544"
             }
         }
     }

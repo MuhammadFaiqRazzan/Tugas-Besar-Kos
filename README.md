@@ -12,6 +12,13 @@ Muhammad Charits Athaya Ramadhan(I0324086)
 
 Sebuah sistem pemesanan dan penjualan kamar kost. dalam sistem tersebut pemesan ataupun penyedia kamar dapat memberikan tipe-tipe kamar kost beserta harga dan fasilitasnya yang akan dipesan ataupun ditawarkan. Trerdapat 4 pilihan yang diberikan yaitu untuk menginput kos dengan data seperti fasilitas kos, harga perbulan, dan alamat, dan terdapat pilihan user sebagai orang yang menywa kos juga data dari kos yang sudah dimasukan dapat ditampilkan.
 
+# Library
+Library yang kami gunakan agar program ini berjalan adalah:
+1. tkinter
+2. pillow
+3. json
+4. bcrypt
+
 # Fitur Kodingan
 
 Terdapat pilihan yang dapat dipilih oleh user yaitu

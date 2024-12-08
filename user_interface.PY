@@ -24,7 +24,7 @@ class sistem_kos:
 
         # Tambahkan gambar latar belakang
         try:
-            bg_image = Image.open("bg_simple4.png").resize((1920, 1080))
+            bg_image = Image.open("BA1.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar tidak ditemukan di direktori!")

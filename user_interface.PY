@@ -199,6 +199,16 @@ class sistem_kos:
         
         for widget in self.root.winfo_children():
             widget.destroy()
+            
+        # Gambar latar belakang
+        try:
+            bg_image = Image.open("BLogX.png").resize((1920, 1080))
+            self.bg_image = ImageTk.PhotoImage(bg_image)
+            bg_label = tk.Label(self.root, image=self.bg_image)
+            bg_label.place(relwidth=1, relheight=1)
+        except FileNotFoundError:
+            bg_label = tk.Label(self.root, bg="lightgrey")
+            bg_label.place(relwidth=1, relheight=1)
 
         # Input username dan password
         tk.Label(self.root, text="Register Pemesan", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
@@ -398,7 +408,7 @@ class sistem_kos:
 
         try:
             # Memuat gambar latar belakang
-            bg_image = Image.open("Bg_up1.png").resize((1920, 1080))
+            bg_image = Image.open("BMM.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar tidak ditemukan di direktori!")

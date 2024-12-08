@@ -63,9 +63,9 @@ class sistem_kos:
         username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
 
         # Label dan input untuk Password
-        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.47, anchor="w")
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.45, anchor="w")
         password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
-        password_entry.place(relx=0.48, rely=0.47, anchor="w", width=300)
+        password_entry.place(relx=0.48, rely=0.45, anchor="w", width=300)
 
         # Checkbutton untuk show/hide password
         show_var = tk.BooleanVar()
@@ -119,9 +119,9 @@ class sistem_kos:
         username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
 
         # Label dan input untuk Password
-        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.47, anchor="w")
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.45, anchor="w")
         password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
-        password_entry.place(relx=0.48, rely=0.47, anchor="w", width=300)
+        password_entry.place(relx=0.48, rely=0.45, anchor="w", width=300)
 
         # Checkbutton untuk show/hide password
         show_var = tk.BooleanVar()
@@ -170,9 +170,9 @@ class sistem_kos:
         username_entry = tk.Entry(self.root, font=("Arial", 14))
         username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
 
-        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.35, rely=0.47, anchor="w")
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.35, rely=0.45, anchor="w")
         password_entry = tk.Entry(self.root, show='*', font=("Arial", 14, 'bold'))
-        password_entry.place(relx=0.48, rely=0.47, anchor="w", width=300)
+        password_entry.place(relx=0.48, rely=0.45, anchor="w", width=300)
 
         # Fungsi validasi login
         def check_login_pemesan():
@@ -217,9 +217,9 @@ class sistem_kos:
         username_entry = tk.Entry(self.root, font=("Arial", 14))
         username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
 
-        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.35, rely=0.47, anchor="w")
+        tk.Label(self.root, text="Password", bg="white", font=("Arial", 14)).place(relx=0.35, rely=0.45, anchor="w")
         password_entry = tk.Entry(self.root, show='*', font=("Arial", 14))
-        password_entry.place(relx=0.48, rely=0.47, anchor="w", width=300)
+        password_entry.place(relx=0.48, rely=0.45, anchor="w", width=300)
 
         # Fungsi untuk menyimpan data pemesan baru
         def save_register_pemesan():

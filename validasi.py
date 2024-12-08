@@ -113,3 +113,23 @@ def validasi_login_pemesan(username, password):
         return False, "Username atau password salah!"
     except FileNotFoundError:
         return False, "Belum ada akun pemesan yang terdaftar!"
+    
+def simpan_admin(username, password):
+    if not username or not password:
+        return False, "Username dan password harus diisi!"
+
+    try:
+        # Periksa apakah username sudah ada
+        if os.path.exists('admins.json'):
+            with open('admins.json', 'r') as admin_file:
+                admins = [json.loads(line) for line in admin_file]
+                if any(admin['username'] == username for admin in admins):
+                    return False, "Username sudah terdaftar!"
+
+        hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        with open('admins.json', 'a') as admin_file:
+            json.dump({'username': username, 'password': hashed_password.decode()}, admin_file)
+            admin_file.write('\n')
+        return True, "Admin berhasil didaftarkan!"
+    except Exception as e:
+        return False, f"Terjadi kesalahan: {e}"

@@ -405,18 +405,13 @@ class sistem_kos:
         
         for widget in self.root.winfo_children():
             widget.destroy()
-
+        # Memuat gambar latar belakang
         try:
-            # Memuat gambar latar belakang
-<<<<<<< HEAD
+
             bg_image = Image.open("BMM.png").resize((1920, 1080))
-=======
-            bg_image = Image.open("BA1.png").resize((1920, 1080))
->>>>>>> 28d592476ac613348f769517978ad0da88fc2284
             self.bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar tidak ditemukan di direktori!")
-            return
 
         # Terapkan gambar latar belakang
         bg_label = tk.Label(self.root, image=self.bg_image)
@@ -545,7 +540,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("2.png").resize((1920, 1080))
+            bg_image = Image.open("BLDK2.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -798,7 +793,7 @@ class sistem_kos:
 
         # Tambahkan latar belakang
         try:
-            bg_image = Image.open("2..png").resize((1920, 1080))
+            bg_image = Image.open("BLP2.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)

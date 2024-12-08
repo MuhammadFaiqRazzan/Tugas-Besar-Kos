@@ -48,7 +48,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("login3.png").resize((1920, 1080))
+            bg_image = Image.open("BLogX.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -57,7 +57,7 @@ class sistem_kos:
             bg_label.place(relwidth=1, relheight=1)
 
         # Label dan input untuk Username
-        tk.Label(self.root, font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
+        tk.Label(self.root, text="Login Admin", font=("Arial", 20, "bold"), bg="white").place(relx=0.5, rely=0.2, anchor='center')
         tk.Label(self.root, text="Username", bg="white", font=("Arial", 14, "bold")).place(relx=0.35, rely=0.35, anchor="w")
         username_entry = tk.Entry(self.root, font=("Arial", 14))
         username_entry.place(relx=0.48, rely=0.35, anchor="w", width=300)
@@ -406,16 +406,10 @@ class sistem_kos:
         
         for widget in self.root.winfo_children():
             widget.destroy()
+            
         # Memuat gambar latar belakang
         try:
-<<<<<<< HEAD
-
             bg_image = Image.open("BMM.png").resize((1920, 1080))
-=======
-            # Memuat gambar latar belakang
-            bg_image = Image.open("BA1.png").resize((1920, 1080))
-
->>>>>>> 0725a35f9ad724a061b606895468f9ee07b90136
             self.bg_image = ImageTk.PhotoImage(bg_image)
         except FileNotFoundError:
             messagebox.showerror("ERROR", "Gambar tidak ditemukan di direktori!")
@@ -547,11 +541,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-<<<<<<< HEAD
             bg_image = Image.open("BLDK2.png").resize((1920, 1080))
-=======
-            bg_image = Image.open("BLDK.png").resize((1920, 1080))
->>>>>>> 0725a35f9ad724a061b606895468f9ee07b90136
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -808,11 +798,7 @@ class sistem_kos:
 
         # Tambahkan latar belakang
         try:
-<<<<<<< HEAD
             bg_image = Image.open("BLP2.png").resize((1920, 1080))
-=======
-            bg_image = Image.open("BDPA.png").resize((1920, 1080))
->>>>>>> 0725a35f9ad724a061b606895468f9ee07b90136
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)

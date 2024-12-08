@@ -18,6 +18,7 @@ Library yang kami gunakan agar program ini berjalan adalah:
 2. pillow
 3. json
 4. bcrypt
+5. OS
 
 # Fitur Kodingan
 

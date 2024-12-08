@@ -529,7 +529,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("BLDK.png").resize((1920, 1080))
+            bg_image = Image.open("BLDK2.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -637,7 +637,7 @@ class sistem_kos:
 
         # Gambar latar belakang
         try:
-            bg_image = Image.open("BPK2.png").resize((1920, 1080))
+            bg_image = Image.open("BPK3.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)
@@ -783,7 +783,7 @@ class sistem_kos:
 
         # Tambahkan latar belakang
         try:
-            bg_image = Image.open("BDPA.png").resize((1920, 1080))
+            bg_image = Image.open("BLP2.png").resize((1920, 1080))
             self.bg_image = ImageTk.PhotoImage(bg_image)
             bg_label = tk.Label(self.root, image=self.bg_image)
             bg_label.place(relwidth=1, relheight=1)

@@ -35,8 +35,28 @@ Pada flowchart baru terdapat fitu baru yang di tambahakan dimana kita menambahka
 
 # Site Map
 
-![Site Map](https://github.com/user-attachments/assets/599b72f3-1236-457b-a31b-07149a88c063)
+![Screenshot 2024-12-08 205001](https://github.com/user-attachments/assets/59b2e58c-cb62-457c-b16b-1c8fa736b6f0)
 
+Penjelasan Site Map
+1. Masuk aplikasi
+2. Terdapat dua pilihan(Pesan dan Sewakan)
+   Jika anda mimilih opsi pesan:
+   1. Anda dapat registrasi akun KOSIN khusus pemesan terlebih dahulu dengan membuat username dan password sesuai keingginan anda
+   2. Jika anda sudah registrasi atau sudah memiliki akun KOSIN anda dapat login dengan memasukan username dan passwoed anda
+   3. Anda dapat milih opsi: Lihat data kos, Pesan kos, dan Lihat data pemesanan
+   4. Jika anda memilih opsi lihat data kos anda dapat memfilter harga kos minimum dan maximum yang anda inginkan
+   5. Setelah memfilter harga kos akan muncul nama kos dan detail data kos
+   6. Ketika anda memilih pesan kos anda dapat memilih kos yang anda akan sewa dan memasukan durasi sewa kos
+   7. Setelah anda memilih kos dan durasinya akan muncul harganya, anda dapat nominal yang akan anda akan bayar dan measukan bukti pembayarnnya
+   8. Setelahh melakukan langkah 6 dan 7 anda dapat langsung memesan kos
+   9. Jika anda memilih opsi lihat data pemesanan, anda dapat melihat data pemesanan anda apakah sudah masuk atau belum
+
+   Jika anda mimilih opsi sewakan:
+   1. Anda dapat registrasi akun KOSIN khusus penyedia sewa kos terlebih dahulu dengan membuat username dan password sesuai keingginan anda
+   2. Jika anda sudah registrasi atau sudah memiliki akun KOSIN anda dapat login dengan memasukan username dan passwoed anda
+   3. Terdapat opsi : tambah/ubah data diri, dan tambah kos
+   4. Jika anda memilih opsi tambah/ubah data diri, anda dapat memasukan data diri anda: Nama, alamat, dan kontak yang dapat dihubungi dan menyimpannya
+   5. Jika anda memilih opsi tambah kos anda dapat memasukan data kos yang akan anda sewakan dan masukan gambar lalu simpan.
 
 
 

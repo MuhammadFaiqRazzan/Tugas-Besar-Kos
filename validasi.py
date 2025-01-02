@@ -1,6 +1,8 @@
 import bcrypt
 import json
 import os
+from datetime import datetime, timedelta
+import calendar
 
 def validasi_login(username, password):
     try:
@@ -45,18 +47,49 @@ def validasi_input(data):
     return True, "Data valid"
 
 def tambah_kos(data, kos_data):
-    data['kos'].append(kos_data)
+    # Periksa apakah nama kos sudah ada
+    existing_kos = next((k for k in data['kos'] if k['nama_kos'] == kos_data['nama_kos']), None)
+    if existing_kos:
+        # Tambahkan kamar ke kos yang ada
+        existing_kos['kamar'].extend(kos_data['kamar'])
+    else:
+        # Tambahkan kos baru jika belum ada
+        data['kos'].append(kos_data)
     return data
 
 def buat_pesanan(data, data_pesanan):
-    kos = next((k for k in data['kos'] if k['id'] == data_pesanan['kos_id']), None)
-    if kos and kos['status'] == 'Tersedia':
-        kos['status'] = 'Tidak Tersedia'
-        data['pemesanan'].append(data_pesanan)
-        return data, "Pesanan Berhasil"
-    else:
-        return data, "Kos tidak Tersedia!"
     
+    kos = next((k for k in data['kos'] if k['id'] == data_pesanan['kos_id']), None)
+    if kos:
+        kamar = next((k for k in kos['kamar'] if k['nomor'] == data_pesanan['kamar_nomor']), None)
+        if kamar and kamar['status'] == 'Tersedia':
+            durasi_bulan = data_pesanan.get('durasi', 1)
+            now = datetime.now()
+
+            # Hitung bulan awal dan akhir
+            bulan_awal = now.month
+            tahun_awal = now.year
+            bulan_akhir = (bulan_awal + durasi_bulan - 1) % 12 or 12
+            tahun_akhir = tahun_awal + (bulan_awal + durasi_bulan - 1) // 12
+
+            # Format status dengan nama bulan
+            nama_bulan_awal = calendar.month_name[bulan_awal]
+            nama_bulan_akhir = calendar.month_name[bulan_akhir]
+            masa_berlaku = datetime(tahun_akhir, bulan_akhir, 1)
+            data_pesanan['masa_berlaku'] = masa_berlaku.strftime("%Y-%m-%d")
+            data_pesanan['status'] = 'Aktif'
+
+            kamar['status'] = f"Disewa {nama_bulan_awal} - {nama_bulan_akhir} {tahun_akhir}"
+
+            # Tambahkan pesanan ke data
+            if 'pemesanan' not in data:
+                data['pemesanan'] = []
+            data['pemesanan'].append(data_pesanan)
+            return data, "Pesanan berhasil dibuat."
+        else:
+            return data, "Kamar tidak tersedia."
+    return data, "Kos tidak ditemukan."
+
 def validasi_pembayaran(nominal, rekening_input, kos_data):
     try:
         nominal = int(nominal)
@@ -133,3 +166,32 @@ def simpan_admin(username, password):
         return True, "Admin berhasil didaftarkan!"
     except Exception as e:
         return False, f"Terjadi kesalahan: {e}"
+
+def validasi_durasi(durasi):
+    
+    try:
+        durasi = int(durasi)
+        if durasi <= 0:
+            return False, "Durasi pemesanan harus berupa angka positif!"
+        return True, ""
+    except ValueError:
+        return False, "Durasi pemesanan harus berupa angka!"
+    
+def validasi_nominal(jumlah_uang, total_harga):
+   
+    try:
+        jumlah_uang = int(jumlah_uang)
+        if jumlah_uang < total_harga:
+            return False, f"Jumlah uang yang dibayarkan kurang! Minimal: Rp {total_harga:,}"
+        return True, ""
+    except ValueError:
+        return False, "Jumlah uang harus berupa angka!"
+
+def validasi_bukti_transfer(file_path):
+  
+    if not os.path.isfile(file_path):
+        return False, "Bukti transfer tidak ditemukan!"
+    if not file_path.lower().endswith(('.jpg', '.jpeg', '.png')):
+        return False, "Bukti transfer harus berupa file gambar (JPG, JPEG, PNG)!"
+    return True, ""
+

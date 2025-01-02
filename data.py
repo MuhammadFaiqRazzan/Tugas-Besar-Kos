@@ -1,5 +1,6 @@
 import json
 import bcrypt
+from datetime import datetime
 import os
 
 def load_data(file_path):
@@ -27,10 +28,11 @@ def get_kos_by_id(data, kos_id):
 def get_kos_by_kategori(data, kategori):
     return [k for k in data['kos'] if k.get('kategori') == kategori]
 
-def tambah_pesanan(data, pesanan_data):
+def tambah_pesanan(data, pesanan_baru):
+    
     if 'pemesanan' not in data:
         data['pemesanan'] = []
-    data['pemesanan'].append(pesanan_data)
+    data['pemesanan'].append(pesanan_baru)
     return data
 
 def tambah_kos(data, kos_data):
@@ -85,3 +87,16 @@ def simpan_pemesan(username, password):
             return True, "Pemesan berhasil didaftarkan!"
         except Exception as e:
             return False, f"Terjadi kesalahan: {e}"
+
+def update_kamar_status(data):
+    
+    now = datetime.now()
+    for kos in data.get('kos', []):
+        for kamar in kos.get('kamar', []):
+            for pesanan in data.get('pemesanan', []):
+                if pesanan['kos_id'] == kos['id'] and pesanan['kamar_nomor'] == kamar['nomor']:
+                    masa_berlaku = datetime.strptime(pesanan['masa_berlaku'], "%Y-%m-%d")
+                    if now > masa_berlaku:
+                        kamar['status'] = "Tersedia"
+                        pesanan['status'] = "Selesai"
+    return data
